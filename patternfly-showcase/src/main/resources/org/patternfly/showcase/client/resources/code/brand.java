@@ -1,0 +1,1 @@
+Brand brand = new Brand("https://www.patternfly.org/assets/images/pf_logo.svg");

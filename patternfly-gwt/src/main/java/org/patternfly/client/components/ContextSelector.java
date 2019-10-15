@@ -1,0 +1,202 @@
+package org.patternfly.client.components;
+
+import java.util.function.BiConsumer;
+import java.util.function.Function;
+
+import elemental2.dom.HTMLButtonElement;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLInputElement;
+import org.jboss.gwt.elemento.core.EventType;
+import org.jboss.gwt.elemento.core.InputType;
+import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
+import org.patternfly.client.core.Disable;
+import org.patternfly.client.core.HasValue;
+import org.patternfly.client.core.SelectHandler;
+import org.patternfly.client.resources.CSS;
+import org.patternfly.client.resources.Constants;
+
+import static org.jboss.gwt.elemento.core.Elements.button;
+import static org.jboss.gwt.elemento.core.Elements.input;
+import static org.jboss.gwt.elemento.core.Elements.*;
+import static org.jboss.gwt.elemento.core.EventType.click;
+import static org.jboss.gwt.elemento.core.EventType.keyup;
+import static org.patternfly.client.resources.CSS.component;
+import static org.patternfly.client.resources.CSS.fas;
+import static org.patternfly.client.resources.Constants.input;
+import static org.patternfly.client.resources.Constants.label;
+import static org.patternfly.client.resources.Constants.toggle;
+import static org.patternfly.client.resources.Constants.*;
+import static org.patternfly.client.resources.Dataset.contextSelectorItem;
+
+/**
+ * PatternFly context selector component.
+ *
+ * @see <a href="https://www.patternfly.org/v4/documentation/core/components/contextselector">https://www.patternfly.org/v4/documentation/core/components/contextselector</a>
+ */
+public class ContextSelector<T> implements Disable<ContextSelector<T>>, HasValue<T>, IsElement<HTMLElement> {
+
+    private final HTMLElement root;
+    private final HTMLElement text;
+    private final HTMLButtonElement button;
+    private final HTMLElement menu;
+    private final HTMLInputElement filter;
+    private final HTMLElement ul;
+
+    private final CollapseExpandBlock<ContextSelector<T>> ceb;
+    private final ItemVisualizationBlock<HTMLButtonElement, T> ivb;
+    private T value;
+    private SelectHandler<T> onSelect;
+
+    public ContextSelector(String text) {
+        this.ceb = new CollapseExpandBlock<>(this);
+        this.ivb = new ItemVisualizationBlock<>();
+
+        String labelId = uniqueId(contextSelector, label);
+        String buttonId = uniqueId(contextSelector, Constants.button);
+        String searchInputId = uniqueId(contextSelector, "search", input);
+        String searchButtonId = uniqueId(contextSelector, "search", Constants.button);
+        root = div().css(component(contextSelector))
+                .add(span().id(labelId).attr(hidden, "").textContent(text))
+                .add(button = button().css(component(contextSelector, toggle))
+                        .id(buttonId)
+                        .aria(expanded, false_)
+                        .aria(labelledBy, labelId + " " + buttonId)
+                        .on(click, e -> ceb.expand(element(), buttonElement(), menuElement()))
+                        .add(this.text = span().css(component(contextSelector, toggle, Constants.text))
+                                .textContent("Please select")
+                                .get())
+                        .add(i().css(fas(caretDown), component(contextSelector, toggle, icon))
+                                .aria(hidden, true_))
+                        .get())
+                .add(menu = div().css(component(contextSelector, Constants.menu))
+                        .attr(hidden, "")
+                        .add(div().css(component(contextSelector, Constants.menu, input))
+                                .add(div().css(component(inputGroup))
+                                        .add(filter = input(InputType.search).css(component(formControl))
+                                                .id(searchInputId)
+                                                .attr("name", searchInputId)
+                                                .apply(i -> i.placeholder = "Search")
+                                                .aria(labelledBy, searchButtonId)
+                                                .on(keyup, e -> filter(((HTMLInputElement) e.currentTarget).value))
+                                                .on(EventType.search,
+                                                        e -> filter(((HTMLInputElement) e.currentTarget).value))
+                                                .get())
+                                        .add(button().css(component(Constants.button), CSS.modifier(control))
+                                                .id(searchButtonId)
+                                                .aria(label, "Search menu items")
+                                                .add(i().css(fas("search")).aria(hidden, true_)))))
+                        .add(ul = ul().css(component(contextSelector, Constants.menu, list))
+                                .attr(role, Constants.menu)
+                                .get())
+                        .get())
+                .get();
+    }
+
+    private HTMLElement buttonElement() {
+        return button;
+    }
+
+    private HTMLElement menuElement() {
+        return menu;
+    }
+
+    @Override
+    public HTMLElement element() {
+        return root;
+    }
+
+
+    // ------------------------------------------------------ public API
+
+    public ContextSelector<T> add(Iterable<T> items) {
+        for (T item : items) {
+            add(item);
+        }
+        return this;
+    }
+
+    public ContextSelector<T> add(T item) {
+        HtmlContentBuilder<HTMLButtonElement> button = button()
+                .css(component(contextSelector, Constants.menu, list, Constants.item))
+                .data(contextSelectorItem, ivb.itemId(item))
+                .on(click, e -> {
+                    ceb.collapse(element(), buttonElement(), menuElement());
+                    select(item);
+                });
+        ivb.display.accept(button, item);
+        ul.appendChild(li().attr(role, none)
+                .add(button)
+                .get());
+        return this;
+    }
+
+    public ContextSelector<T> asString(Function<T, String> asString) {
+        ivb.asString = asString;
+        return this;
+    }
+
+    public ContextSelector<T> display(BiConsumer<HtmlContentBuilder<HTMLButtonElement>, T> display) {
+        ivb.display = display;
+        return this;
+    }
+
+    public ContextSelector<T> select(T item) {
+        value = item;
+        text.textContent = ivb.asString.apply(item);
+        if (onSelect != null) {
+            onSelect.onSelect(value);
+        }
+        return this;
+    }
+
+    @Override
+    public ContextSelector<T> disable() {
+        button.disabled = true;
+        return this;
+    }
+
+    @Override
+    public ContextSelector<T> enable() {
+        button.disabled = false;
+        return this;
+    }
+
+    @Override
+    public T value() {
+        return value;
+    }
+
+
+    // ------------------------------------------------------ events
+
+    public ContextSelector<T> onToggle(BiConsumer<ContextSelector<T>, Boolean> onToggle) {
+        ceb.onToggle = onToggle;
+        return this;
+    }
+
+    public ContextSelector<T> onSelect(SelectHandler<T> onSelect) {
+        this.onSelect = onSelect;
+        return this;
+    }
+
+
+    // ------------------------------------------------------ internals
+
+    private void filter(String value) {
+        stream(menu.querySelectorAll("button." + component(contextSelector, Constants.menu, list, item)))
+                .forEach(e -> {
+                    HTMLElement parent = (HTMLElement) e.parentNode;
+                    setVisible(parent, e.textContent.toLowerCase().contains(value.toLowerCase()));
+                });
+    }
+
+    private void clearFilter() {
+        filter.value = "";
+        stream(menu.querySelectorAll("button." + component(contextSelector, Constants.menu, list, item)))
+                .forEach(e -> {
+                    HTMLElement parent = (HTMLElement) e.parentNode;
+                    setVisible(parent, true);
+                });
+    }
+}
