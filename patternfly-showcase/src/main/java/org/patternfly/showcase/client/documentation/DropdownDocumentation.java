@@ -7,7 +7,6 @@ import org.jboss.gwt.elemento.template.Templated;
 import org.patternfly.client.components.Dropdown;
 import org.patternfly.showcase.client.resources.Code;
 
-import static elemental2.dom.DomGlobal.console;
 import static org.jboss.gwt.elemento.core.Elements.div;
 
 @Templated("dropdown.html#content")
@@ -19,9 +18,16 @@ abstract class DropdownDocumentation implements IsElement<HTMLElement> {
 
     @DataElement Demo simple = new Demo("Simple dropdown", Code.get().dropdownSimple().getText(),
             () -> div()
-                    .add(Dropdown.text("Dropdown")
-                            .add("Link", () -> console.log("Link selected")))
+                    .add(Dropdown.<String>text("Dropdown")
+                            .add("Link")
+                            .add("Action")
+                            .add("Disabled Link", true)
+                            .add("Disabled Action", true)
+                            .addSeparator()
+                            .add("Separated Link")
+                    )
                     .get());
+
 
     @DataElement Demo selection = new Demo("Dropdown with initial selection", Code.get().dropdownSelection().getText(),
             () -> div().textContent("NYI")

@@ -2,6 +2,7 @@ package org.patternfly.client.components;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 import elemental2.dom.Element;
 import elemental2.dom.HTMLButtonElement;
@@ -9,12 +10,10 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
 import elemental2.dom.HTMLLIElement;
 import elemental2.dom.HTMLLabelElement;
-import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
-import org.jboss.gwt.elemento.core.builder.TextContent;
-import org.patternfly.client.core.Callback;
 import org.patternfly.client.core.Disable;
+import org.patternfly.client.core.SelectHandler;
 import org.patternfly.client.resources.Constants;
 
 import static jsinterop.base.Js.cast;
@@ -23,13 +22,13 @@ import static org.jboss.gwt.elemento.core.Elements.input;
 import static org.jboss.gwt.elemento.core.Elements.label;
 import static org.jboss.gwt.elemento.core.Elements.section;
 import static org.jboss.gwt.elemento.core.Elements.*;
-import static org.jboss.gwt.elemento.core.EventType.bind;
 import static org.jboss.gwt.elemento.core.EventType.change;
 import static org.jboss.gwt.elemento.core.EventType.click;
 import static org.jboss.gwt.elemento.core.InputType.checkbox;
 import static org.patternfly.client.resources.CSS.component;
 import static org.patternfly.client.resources.CSS.fas;
 import static org.patternfly.client.resources.CSS.modifier;
+import static org.patternfly.client.resources.Constants.header;
 import static org.patternfly.client.resources.Constants.*;
 import static org.patternfly.client.resources.Dataset.dropdownGroup;
 import static org.patternfly.client.resources.Dataset.dropdownItem;
@@ -39,52 +38,52 @@ import static org.patternfly.client.resources.Dataset.dropdownItem;
  *
  * @see <a href="https://www.patternfly.org/v4/documentation/core/components/dropdown">https://www.patternfly.org/v4/documentation/core/components/dropdown</a>
  */
-public class Dropdown implements Disable<Dropdown>, IsElement<HTMLElement> {
+public class Dropdown<T> implements Disable<Dropdown<T>>, IsElement<HTMLElement> {
 
     // ------------------------------------------------------ factory methods
 
-    public static Dropdown text(String label) {
-        return new Dropdown(label, null, false, false, false);
+    public static <T> Dropdown<T> text(String label) {
+        return new Dropdown<>(label, null, false, false, false);
     }
 
-    public static Dropdown text(String label, boolean grouped) {
-        return new Dropdown(label, null, false, grouped, false);
+    public static <T> Dropdown<T> text(String label, boolean grouped) {
+        return new Dropdown<>(label, null, false, grouped, false);
     }
 
-    public static Dropdown kebab() {
-        return new Dropdown(null, fas("ellipsis-v"), false, false, false);
+    public static <T> Dropdown<T> kebab() {
+        return new Dropdown<>(null, fas("ellipsis-v"), false, false, false);
     }
 
-    public static Dropdown kebab(boolean grouped) {
-        return new Dropdown(null, fas("ellipsis-v"), false, grouped, false);
+    public static <T> Dropdown<T> kebab(boolean grouped) {
+        return new Dropdown<>(null, fas("ellipsis-v"), false, grouped, false);
     }
 
-    public static Dropdown icon(String icon) {
-        return new Dropdown(null, icon, false, false, false);
+    public static <T> Dropdown<T> icon(String icon) {
+        return new Dropdown<>(null, icon, false, false, false);
     }
 
-    public static Dropdown icon(String icon, boolean grouped) {
-        return new Dropdown(null, icon, false, grouped, false);
+    public static <T> Dropdown<T> icon(String icon, boolean grouped) {
+        return new Dropdown<>(null, icon, false, grouped, false);
     }
 
-    public static Dropdown split() {
-        return new Dropdown(null, null, false, false, true);
+    public static <T> Dropdown<T> split() {
+        return new Dropdown<>(null, null, false, false, true);
     }
 
-    public static Dropdown split(boolean grouped) {
-        return new Dropdown(null, null, false, grouped, true);
+    public static <T> Dropdown<T> split(boolean grouped) {
+        return new Dropdown<>(null, null, false, grouped, true);
     }
 
-    public static Dropdown split(String label) {
-        return new Dropdown(label, null, false, false, true);
+    public static <T> Dropdown<T> split(String label) {
+        return new Dropdown<>(label, null, false, false, true);
     }
 
-    public static Dropdown split(String label, boolean grouped) {
-        return new Dropdown(label, null, false, grouped, true);
+    public static <T> Dropdown<T> split(String label, boolean grouped) {
+        return new Dropdown<>(label, null, false, grouped, true);
     }
 
-    public static Dropdown custom() {
-        return new Dropdown(null, null, true, false, true);
+    public static <T> Dropdown<T> custom() {
+        return new Dropdown<>(null, null, true, false, true);
     }
 
 
@@ -99,16 +98,17 @@ public class Dropdown implements Disable<Dropdown>, IsElement<HTMLElement> {
     private final boolean custom;
     private final boolean grouped;
     private final boolean split;
-    private final CollapseExpandBlock<Dropdown> ceb;
+    private final CollapseExpandBlock<Dropdown<T>> ceb;
+    private final ItemVisualizationBlock<HTMLButtonElement, T> ivb;
     private Consumer<Boolean> onChange;
-    private BiConsumer<HtmlContentBuilder<HTMLButtonElement>, String> display;
+    private SelectHandler<T> onSelect;
 
     private Dropdown(String text, String icon, boolean custom, boolean grouped, boolean split) {
         this.custom = custom;
         this.grouped = grouped;
         this.split = split;
         this.ceb = new CollapseExpandBlock<>(this);
-        this.display = TextContent::textContent; // button.textContent(item);
+        this.ivb = new ItemVisualizationBlock<>();
 
         String buttonId = uniqueId(dropdown, Constants.button);
         HtmlContentBuilder<HTMLButtonElement> buttonBuilder = button()
@@ -151,7 +151,8 @@ public class Dropdown implements Disable<Dropdown>, IsElement<HTMLElement> {
             if (text != null) {
                 button = buttonBuilder.css(component(dropdown, Constants.toggle))
                         .add(span().css(component(dropdown, Constants.toggle, Constants.text)).textContent(text))
-                        .add(i().css(fas(caretDown), component(dropdown, Constants.toggle, icon)).aria(hidden, true_))
+                        .add(i().css(fas(caretDown), component(dropdown, Constants.toggle, Constants.icon))
+                                .aria(hidden, true_))
                         .get();
             } else { // icon != null
                 button = buttonBuilder.css(modifier(plain)).aria(Constants.label, "Actions")
@@ -194,57 +195,62 @@ public class Dropdown implements Disable<Dropdown>, IsElement<HTMLElement> {
 
     // ------------------------------------------------------ public API
 
-    public Dropdown add(String item, Callback callback) {
-        menu.appendChild(newItem(item, callback));
+    public Dropdown<T> add(Iterable<T> items) {
+        for (T item : items) {
+            add(item);
+        }
         return this;
     }
 
-    public Dropdown add(String groupId, String item, Callback callback) {
-        return add(groupId, null, item, callback);
+    public Dropdown<T> add(T item) {
+        return add(item, false);
     }
 
-    public Dropdown add(String groupId, String header, String item, Callback callback) {
+    public Dropdown<T> add(T item, boolean disabled) {
+        menu.appendChild(newItem(item, disabled));
+        return this;
+    }
+
+    public Dropdown<T> add(String group, T item) {
+        return add(group, item, false);
+    }
+
+    public Dropdown<T> add(String group, T item, boolean disabled) {
+        String groupId = buildId(group);
         Element ul = menu.querySelector("section[data-dropdown-group=" + groupId + "] > ul");
         if (ul == null) {
-            HtmlContentBuilder<HTMLElement> builder = section().css(component(dropdown, Constants.group))
-                    .data(dropdownGroup, groupId);
-            if (header != null) {
-                builder.add(h(1, header).css(component(dropdown, group, title)).aria(hidden, true_));
-            }
-            builder.add(ul = ul().attr(role, none).get());
-            menu.appendChild(builder.get());
+            menu.appendChild(section().css(component(dropdown, Constants.group))
+                    .data(dropdownGroup, groupId)
+                    .add(h(1, header).css(component(dropdown, group, title)).aria(hidden, true_))
+                    .add(ul = ul().attr(role, none).get()).get());
         }
-        ul.appendChild(newItem(item, callback));
+        ul.appendChild(newItem(item, disabled));
         return this;
     }
 
-    public Dropdown add(HTMLElement element) {
-        return add(element, null);
-    }
-
-    public Dropdown add(HTMLElement element, Callback callback) {
-        if (custom) {
-            menu.appendChild(element);
-            if (callback != null) {
-                bind(element, click, e -> callback.call());
-            }
-        }
-        return this;
-    }
-
-    public Dropdown addSeparator() {
+    public Dropdown<T> addSeparator() {
         if (!custom && !grouped) {
             menu.appendChild(li().css(component(divider)).attr(role, separator).get());
         }
         return this;
     }
 
-    public Dropdown up() {
+    public Dropdown<T> asString(Function<T, String> asString) {
+        ivb.asString = asString;
+        return this;
+    }
+
+    public Dropdown<T> display(BiConsumer<HtmlContentBuilder<HTMLButtonElement>, T> display) {
+        ivb.display = display;
+        return this;
+    }
+
+    public Dropdown<T> up() {
         root.classList.add(modifier(top));
         return this;
     }
 
-    public Dropdown right() {
+    public Dropdown<T> right() {
         menu.classList.add(modifier(alignRight));
         return this;
     }
@@ -256,13 +262,8 @@ public class Dropdown implements Disable<Dropdown>, IsElement<HTMLElement> {
         return this;
     }
 
-    public Dropdown display(BiConsumer<HtmlContentBuilder<HTMLButtonElement>, String> display) {
-        this.display = display;
-        return this;
-    }
-
     @Override
-    public Dropdown disable() {
+    public Dropdown<T> disable() {
         button.disabled = true;
         if (split) {
             toggle.classList.add(modifier(disabled));
@@ -274,7 +275,7 @@ public class Dropdown implements Disable<Dropdown>, IsElement<HTMLElement> {
     }
 
     @Override
-    public Dropdown enable() {
+    public Dropdown<T> enable() {
         button.disabled = false;
         if (split) {
             toggle.classList.remove(modifier(disabled));
@@ -285,14 +286,14 @@ public class Dropdown implements Disable<Dropdown>, IsElement<HTMLElement> {
         return this;
     }
 
-    public void disable(String item) {
+    public void disable(T item) {
         HTMLButtonElement button = itemButton(item);
         if (button != null) {
             button.disabled = true;
         }
     }
 
-    public void enable(String item) {
+    public void enable(T item) {
         HTMLButtonElement button = itemButton(item);
         if (button != null) {
             button.disabled = false;
@@ -302,38 +303,43 @@ public class Dropdown implements Disable<Dropdown>, IsElement<HTMLElement> {
 
     // ------------------------------------------------------ events
 
-    public Dropdown onToggle(BiConsumer<Dropdown, Boolean> onToggle) {
+    public Dropdown<T> onToggle(BiConsumer<Dropdown<T>, Boolean> onToggle) {
         ceb.onToggle = onToggle;
         return this;
     }
 
-    public Dropdown onChange(Consumer<Boolean> onChange) {
+    public Dropdown<T> onChange(Consumer<Boolean> onChange) {
         this.onChange = onChange;
+        return this;
+    }
+
+    public Dropdown<T> onSelect(SelectHandler<T> onSelect) {
+        this.onSelect = onSelect;
         return this;
     }
 
 
     // ------------------------------------------------------ internals
 
-    private HTMLLIElement newItem(String item, Callback callback) {
+    private HTMLLIElement newItem(T item, boolean disabled) {
         HtmlContentBuilder<HTMLButtonElement> button = button().css(component(dropdown, Constants.menu, Constants.item))
                 .attr(tabindex, _1)
-                .data(dropdownItem, itemId(item))
+                .data(dropdownItem, ivb.itemId(item))
                 .on(click, e -> {
                     ceb.collapse(element(), buttonElement(), menuElement());
-                    callback.call();
+                    if (onSelect != null) {
+                        onSelect.onSelect(item);
+                    }
                 });
-        display.accept(button, item);
+        ivb.display.accept(button, item);
+        HTMLButtonElement buttonElement = button.get();
+        buttonElement.disabled = disabled;
         return li().attr(role, menuitem)
-                .add(button)
+                .add(buttonElement)
                 .get();
     }
 
-    private HTMLButtonElement itemButton(String item) {
-        return cast(menu.querySelector("button[data-dropdown-item=" + itemId(item) + "]"));
-    }
-
-    private String itemId(String item) {
-        return Elements.buildId(item);
+    private HTMLButtonElement itemButton(T item) {
+        return cast(menu.querySelector("button[data-dropdown-item=" + ivb.itemId(item) + "]"));
     }
 }
