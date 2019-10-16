@@ -70,7 +70,6 @@ public class Navigation implements IsElement<HTMLElement> {
     private final boolean tertiary;
     private final boolean grouped;
     private final boolean expandable;
-    private final CollapseExpandBlock<Navigation> ceb;
     private final ItemVisualizationBlock<HTMLAnchorElement, NavigationItem> ivb;
     private SelectHandler<NavigationItem> onSelect;
 
@@ -79,7 +78,6 @@ public class Navigation implements IsElement<HTMLElement> {
         this.tertiary = tertiary;
         this.grouped = grouped;
         this.expandable = expandable;
-        this.ceb = new CollapseExpandBlock<>(this);
         this.ivb = new ItemVisualizationBlock<>();
 
         HtmlContentBuilder<HTMLElement> builder = nav().css(component(nav)).aria(label, global ? "Global" : "Local");
@@ -228,11 +226,6 @@ public class Navigation implements IsElement<HTMLElement> {
 
     // ------------------------------------------------------ events
 
-    public Navigation onToggle(BiConsumer<Navigation, Boolean> onToggle) {
-        ceb.onToggle = onToggle;
-        return this;
-    }
-
     public Navigation onSelect(SelectHandler<NavigationItem> onSelect) {
         this.onSelect = onSelect;
         return this;
@@ -279,14 +272,12 @@ public class Navigation implements IsElement<HTMLElement> {
                 li.classList.remove(modifier(expanded));
                 a.setAttribute("aria-expanded", false_);
                 section.setAttribute(hidden, "");
-                ceb.onToggle.accept(this, false);
 
             } else {
                 // expand
                 li.classList.add(modifier(expanded));
                 a.setAttribute("aria-expanded", true_);
                 section.removeAttribute(hidden);
-                ceb.onToggle.accept(this, true);
             }
         }
     }

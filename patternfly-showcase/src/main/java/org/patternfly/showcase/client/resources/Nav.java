@@ -26,7 +26,9 @@ public interface Nav {
             .add("Component", new NavigationItem("chip-group", "Chip Group",
                     hash(COMPONENT.replace(":component", "chip-group"))))
             .add("Component", new NavigationItem("context-selector", "Context selector",
-                    hash(COMPONENT.replace(":component", "context-selector"))));
+                    hash(COMPONENT.replace(":component", "context-selector"))))
+            .add("Component", new NavigationItem("dropdown", "Dropdown",
+                    hash(COMPONENT.replace(":component", "dropdown"))));
 
     static Navigation horizontal() {
         return HORIZONTAL_NAV;

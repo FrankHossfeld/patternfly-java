@@ -30,7 +30,7 @@ public class ShowcaseShell extends AbstractShell<ShowcaseContext> {
             }
         });
 
-        PageHeader header = PageHeader.create(new Brand("./assets/images/pf_logo_color.svg"), hash(HOME))
+        PageHeader header = PageHeader.create(new Brand("./images/pf_logo_color.svg"), hash(HOME))
                 .navigation(Nav.horizontal());
         document.body.appendChild(Page.create(header, ROOT_CONTAINER).element());
     }

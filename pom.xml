@@ -58,17 +58,21 @@
     <properties>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
+        <npm.task>dev</npm.task>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <asciidoclet.version>1.5.6</asciidoclet.version>
         <elemental.version>1.0.0-RC1</elemental.version>
         <elemento.version>HEAD-SNAPSHOT</elemento.version>
+        <frontend.plugin.version>1.7.6</frontend.plugin.version>
         <gwt.version>2.8.2</gwt.version>
         <gwt.plugin.version>1.0-rc-9</gwt.plugin.version>
         <junit.jupiter.version>5.5.2</junit.jupiter.version>
         <mockito.version>3.1.0</mockito.version>
         <nalu.version>1.3.3</nalu.version>
+        <node.version>v12.5.0</node.version>
+        <npm.version>6.9.0</npm.version>
     </properties>
 
     <modules>

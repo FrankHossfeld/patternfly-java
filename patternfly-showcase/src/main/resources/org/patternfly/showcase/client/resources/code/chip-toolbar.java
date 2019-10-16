@@ -12,7 +12,7 @@ ChipGroupToolbar toolbar = new ChipGroupToolbar()
         .add("Max 4", groups[1])
         .add("Unlimited", groups[2]);
 
-Button add = Button.link("Add").prepend(fas("plus-circle"))
+Button add = Button.link("Add chip").prepend(fas("plus-circle"))
         .onClick(c -> {
             int i = new Random().nextInt(3);
             groups[i].add(Chip.text(uniqueId()));
