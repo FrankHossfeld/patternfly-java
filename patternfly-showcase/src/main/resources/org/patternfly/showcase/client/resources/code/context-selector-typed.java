@@ -1,6 +1,6 @@
-import static elemental2.dom.DomGlobal.alert;
-import static elemental2.dom.DomGlobal.console;
 import static java.util.Arrays.asList;
+import static org.patternfly.client.components.Alert.info;
+import static org.patternfly.client.components.AlertGroup.toast;
 import static org.patternfly.client.resources.CSS.util;
 
 static class Stage {
@@ -32,7 +32,6 @@ ContextSelector<Stage> contextSelector = new ContextSelector<>("Stage")
                 .title(stage.url)
                 .add(stage.name)
                 .add(new Badge(stage.nodes, true)))
-        .onToggle((cs, open) -> console.info("context selector " + (open ? "expanded" : "collapsed")))
         .onSelect(stage -> alert(
                 "Selected stage '" + stage.name + "' at " + stage.url + " with " + stage.nodes + " nodes"))
         .add(stages);

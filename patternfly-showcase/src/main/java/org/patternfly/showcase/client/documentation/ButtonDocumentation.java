@@ -8,8 +8,9 @@ import org.patternfly.client.components.Button;
 import org.patternfly.client.components.Button.Type;
 import org.patternfly.showcase.client.resources.Code;
 
-import static elemental2.dom.DomGlobal.alert;
 import static org.jboss.gwt.elemento.core.Elements.div;
+import static org.patternfly.client.components.Alert.info;
+import static org.patternfly.client.components.AlertGroup.toast;
 import static org.patternfly.client.resources.CSS.fas;
 
 @Templated("button.html#content")
@@ -150,6 +151,7 @@ abstract class ButtonDocumentation implements IsElement<HTMLElement> {
 
     @DataElement Demo event = new Demo("Button event", Code.get().buttonEvent().getText(),
             () -> div()
-                    .add(Button.button("Click me").primary().onClick(b -> alert("Hello!")))
+                    .add(Button.button("Click me").primary()
+                            .onClick(b -> toast().add(info("Hello"))))
                     .get());
 }

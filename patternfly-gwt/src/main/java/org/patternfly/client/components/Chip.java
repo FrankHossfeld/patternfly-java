@@ -90,7 +90,7 @@ public class Chip implements IsElement<HTMLElement> {
                     .title(text);
             builder.add(text);
             if (count > 0) {
-                badge = new Badge(count, true);
+                badge = Badge.read(count);
                 builder.add(badge);
             }
             root.appendChild(this.text = builder.get());

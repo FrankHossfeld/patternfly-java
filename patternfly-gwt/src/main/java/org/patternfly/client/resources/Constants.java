@@ -4,7 +4,10 @@ package org.patternfly.client.resources;
 public interface Constants {
 
     String _1 = "-1";
+    String action = "action";
     String active = "active";
+    String alert = "alert";
+    String alertGroup = "alert-group";
     String alignRight = "align-right";
     String angleRight = "angle-right";
     String arrow = "arrow";
@@ -27,8 +30,8 @@ public interface Constants {
     String danger = "danger";
     String dark = "dark";
     String dataList = "data-list";
+    String description = "description";
     String disabled = "disabled";
-    String displayInline = "display-inline";
     String divider = "divider";
     String dropdown = "dropdown";
     String emptyState = "empty-state";
@@ -49,6 +52,7 @@ public interface Constants {
     String hidden = "hidden";
     String horizontal = "horizontal";
     String icon = "icon";
+    String info = "info";
     String inline = "inline";
     String input = "input";
     String inputGroup = "input-group";
@@ -89,10 +93,12 @@ public interface Constants {
     String simple = "simple";
     String splitButton = "split-button";
     String subnav = "subnav";
+    String success = "success";
     String tabindex = "tabindex";
     String tertiary = "tertiary";
     String text = "text";
     String title = "title";
+    String toast = "toast";
     String toggle = "toggle";
     String toolbar = "toolbar";
     String tools = "tools";
@@ -100,5 +106,6 @@ public interface Constants {
     String true_ = "true";
     String type = "type";
     String unread = "unread";
+    String warning = "warning";
     String wrapper = "wrapper";
 }

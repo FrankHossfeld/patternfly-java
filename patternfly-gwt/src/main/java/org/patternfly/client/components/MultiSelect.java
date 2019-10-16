@@ -128,6 +128,13 @@ public class MultiSelect<T> implements Disable<MultiSelect<T>>, IsElement<HTMLEl
         return this;
     }
 
+    public MultiSelect<T> add(T[] items) {
+        for (T item : items) {
+            add(item);
+        }
+        return this;
+    }
+
     public MultiSelect<T> add(T item) {
         HtmlContentBuilder<HTMLElement> span = span().css(component(check, label));
         ivb.display.accept(span, item);

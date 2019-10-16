@@ -126,6 +126,13 @@ public class Navigation implements IsElement<HTMLElement> {
         return this;
     }
 
+    public Navigation add(NavigationItem[] items) {
+        for (NavigationItem item : items) {
+            add(item);
+        }
+        return this;
+    }
+
     public Navigation add(NavigationItem item) {
         addInternal(ul, null, item);
         return this;

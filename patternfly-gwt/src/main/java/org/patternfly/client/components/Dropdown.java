@@ -1,10 +1,8 @@
 package org.patternfly.client.components;
 
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 import java.util.function.Function;
 
-import elemental2.dom.Element;
 import elemental2.dom.HTMLButtonElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
@@ -28,7 +26,6 @@ import static org.jboss.gwt.elemento.core.InputType.checkbox;
 import static org.patternfly.client.resources.CSS.component;
 import static org.patternfly.client.resources.CSS.fas;
 import static org.patternfly.client.resources.CSS.modifier;
-import static org.patternfly.client.resources.Constants.header;
 import static org.patternfly.client.resources.Constants.*;
 import static org.patternfly.client.resources.Dataset.dropdownGroup;
 import static org.patternfly.client.resources.Dataset.dropdownItem;
@@ -38,73 +35,71 @@ import static org.patternfly.client.resources.Dataset.dropdownItem;
  *
  * @see <a href="https://www.patternfly.org/v4/documentation/core/components/dropdown">https://www.patternfly.org/v4/documentation/core/components/dropdown</a>
  */
+// TODO Open with enter, navigation with up/down, select with enter
 public class Dropdown<T> implements Disable<Dropdown<T>>, IsElement<HTMLElement> {
 
     // ------------------------------------------------------ factory methods
 
-    public static <T> Dropdown<T> text(String label) {
-        return new Dropdown<>(label, null, false, false, false);
+    public static <T> Dropdown<T> text(String text) {
+        return new Dropdown<>(text, null, false, false);
     }
 
-    public static <T> Dropdown<T> text(String label, boolean grouped) {
-        return new Dropdown<>(label, null, false, grouped, false);
+    public static <T> Dropdown<T> text(String text, boolean grouped) {
+        return new Dropdown<>(text, null, grouped, false);
     }
 
     public static <T> Dropdown<T> kebab() {
-        return new Dropdown<>(null, fas("ellipsis-v"), false, false, false);
+        return new Dropdown<>(null, fas("ellipsis-v"), false, false);
     }
 
     public static <T> Dropdown<T> kebab(boolean grouped) {
-        return new Dropdown<>(null, fas("ellipsis-v"), false, grouped, false);
+        return new Dropdown<>(null, fas("ellipsis-v"), grouped, false);
     }
 
     public static <T> Dropdown<T> icon(String icon) {
-        return new Dropdown<>(null, icon, false, false, false);
+        return new Dropdown<>(null, icon, false, false);
     }
 
     public static <T> Dropdown<T> icon(String icon, boolean grouped) {
-        return new Dropdown<>(null, icon, false, grouped, false);
+        return new Dropdown<>(null, icon, grouped, false);
     }
 
     public static <T> Dropdown<T> split() {
-        return new Dropdown<>(null, null, false, false, true);
+        return new Dropdown<>(null, null, false, true);
     }
 
     public static <T> Dropdown<T> split(boolean grouped) {
-        return new Dropdown<>(null, null, false, grouped, true);
+        return new Dropdown<>(null, null, grouped, true);
     }
 
-    public static <T> Dropdown<T> split(String label) {
-        return new Dropdown<>(label, null, false, false, true);
+    public static <T> Dropdown<T> split(String text) {
+        return new Dropdown<>(text, null, false, true);
     }
 
-    public static <T> Dropdown<T> split(String label, boolean grouped) {
-        return new Dropdown<>(label, null, false, grouped, true);
-    }
-
-    public static <T> Dropdown<T> custom() {
-        return new Dropdown<>(null, null, true, false, true);
+    public static <T> Dropdown<T> split(String text, boolean grouped) {
+        return new Dropdown<>(text, null, grouped, true);
     }
 
 
     // ------------------------------------------------------ dropdown instance
+
+    private static final String UNNAMED_GROUP = "org.patternfly.dropdown.unnamedGroup";
 
     private final HTMLElement toggle;
     private final HTMLInputElement input;
     private final HTMLButtonElement button;
     private final HTMLElement menu;
     private final HTMLElement root;
+    private HTMLElement lastMenu;
 
-    private final boolean custom;
     private final boolean grouped;
     private final boolean split;
     private final CollapseExpandBlock<Dropdown<T>> ceb;
     private final ItemVisualizationBlock<HTMLButtonElement, T> ivb;
-    private Consumer<Boolean> onChange;
+    private BiConsumer<Dropdown<T>, Boolean> onChange;
     private SelectHandler<T> onSelect;
 
-    private Dropdown(String text, String icon, boolean custom, boolean grouped, boolean split) {
-        this.custom = custom;
+    private Dropdown(String text, String icon, boolean grouped, boolean split) {
         this.grouped = grouped;
         this.split = split;
         this.ceb = new CollapseExpandBlock<>(this);
@@ -129,13 +124,15 @@ public class Dropdown<T> implements Disable<Dropdown<T>>, IsElement<HTMLElement>
                                             .aria(Constants.label, "Select All")
                                             .on(change, e -> {
                                                 if (onChange != null) {
-                                                    onChange.accept(((HTMLInputElement) e.target).checked);
+                                                    onChange.accept(this, ((HTMLInputElement) e.target).checked);
                                                 }
                                             })
                                             .get()))
                             .get())
                     .add(button = buttonBuilder.css(component(dropdown, Constants.toggle, Constants.button))
                             .aria(Constants.label, "Select")
+                            .add(i().css(fas(caretDown), component(dropdown, Constants.toggle, Constants.icon))
+                                    .aria(hidden, true_))
                             .get())
                     .get();
             le.htmlFor = inputId;
@@ -148,8 +145,9 @@ public class Dropdown<T> implements Disable<Dropdown<T>>, IsElement<HTMLElement>
 
         } else {
             input = null;
+            buttonBuilder.css(component(dropdown, Constants.toggle));
             if (text != null) {
-                button = buttonBuilder.css(component(dropdown, Constants.toggle))
+                button = buttonBuilder
                         .add(span().css(component(dropdown, Constants.toggle, Constants.text)).textContent(text))
                         .add(i().css(fas(caretDown), component(dropdown, Constants.toggle, Constants.icon))
                                 .aria(hidden, true_))
@@ -163,7 +161,7 @@ public class Dropdown<T> implements Disable<Dropdown<T>>, IsElement<HTMLElement>
         }
 
         HtmlContentBuilder menuBuilder;
-        if (custom || grouped) {
+        if (grouped) {
             menuBuilder = div();
         } else {
             menuBuilder = ul();
@@ -173,6 +171,7 @@ public class Dropdown<T> implements Disable<Dropdown<T>>, IsElement<HTMLElement>
                 .attr(hidden, "")
                 .attr(role, Constants.menu)
                 .get();
+        lastMenu = menu;
         root = div().css(component(dropdown))
                 .add(toggle)
                 .add(menu)
@@ -202,12 +201,23 @@ public class Dropdown<T> implements Disable<Dropdown<T>>, IsElement<HTMLElement>
         return this;
     }
 
+    public Dropdown<T> add(T[] items) {
+        for (T item : items) {
+            add(item);
+        }
+        return this;
+    }
+
     public Dropdown<T> add(T item) {
         return add(item, false);
     }
 
     public Dropdown<T> add(T item, boolean disabled) {
-        menu.appendChild(newItem(item, disabled));
+        if (grouped) {
+            add(UNNAMED_GROUP, item, disabled);
+        } else {
+            menu.appendChild(newItem(item, disabled));
+        }
         return this;
     }
 
@@ -217,20 +227,25 @@ public class Dropdown<T> implements Disable<Dropdown<T>>, IsElement<HTMLElement>
 
     public Dropdown<T> add(String group, T item, boolean disabled) {
         String groupId = buildId(group);
-        Element ul = menu.querySelector("section[data-dropdown-group=" + groupId + "] > ul");
-        if (ul == null) {
-            menu.appendChild(section().css(component(dropdown, Constants.group))
-                    .data(dropdownGroup, groupId)
-                    .add(h(1, header).css(component(dropdown, group, title)).aria(hidden, true_))
-                    .add(ul = ul().attr(role, none).get()).get());
+        lastMenu = (HTMLElement) menu.querySelector("section[data-dropdown-group=" + groupId + "] > ul");
+        if (lastMenu == null) {
+            HtmlContentBuilder<HTMLElement> builder = section().css(component(dropdown, Constants.group))
+                    .data(dropdownGroup, groupId);
+            if (!UNNAMED_GROUP.equals(group)) {
+                builder.add(h(1, group).css(component(dropdown, Constants.group, title)).aria(hidden, true_));
+            }
+            builder.add(lastMenu = ul().attr(role, none).get());
+            menu.appendChild(builder.get());
         }
-        ul.appendChild(newItem(item, disabled));
+        lastMenu.appendChild(newItem(item, disabled));
         return this;
     }
 
     public Dropdown<T> addSeparator() {
-        if (!custom && !grouped) {
-            menu.appendChild(li().css(component(divider)).attr(role, separator).get());
+        if (lastMenu != null) {
+            lastMenu.appendChild(li().attr(role, separator)
+                    .add(div().css(component(dropdown, separator)))
+                    .get());
         }
         return this;
     }
@@ -245,6 +260,13 @@ public class Dropdown<T> implements Disable<Dropdown<T>>, IsElement<HTMLElement>
         return this;
     }
 
+    public Dropdown<T> select(T item) {
+        if (onSelect != null) {
+            onSelect.onSelect(item);
+        }
+        return this;
+    }
+
     public Dropdown<T> up() {
         root.classList.add(modifier(top));
         return this;
@@ -255,7 +277,7 @@ public class Dropdown<T> implements Disable<Dropdown<T>>, IsElement<HTMLElement>
         return this;
     }
 
-    public Dropdown primary() {
+    public Dropdown<T> primary() {
         if (!split) {
             button.classList.add(modifier(primary));
         }
@@ -308,7 +330,7 @@ public class Dropdown<T> implements Disable<Dropdown<T>>, IsElement<HTMLElement>
         return this;
     }
 
-    public Dropdown<T> onChange(Consumer<Boolean> onChange) {
+    public Dropdown<T> onChange(BiConsumer<Dropdown<T>, Boolean> onChange) {
         this.onChange = onChange;
         return this;
     }

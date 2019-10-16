@@ -142,6 +142,13 @@ public class SingleSelect<T> implements Disable<SingleSelect<T>>, HasValue<T>, I
         return this;
     }
 
+    public SingleSelect<T> add(T[] items) {
+        for (T item : items) {
+            add(item);
+        }
+        return this;
+    }
+
     public SingleSelect<T> add(T item) {
         HtmlContentBuilder<HTMLButtonElement> button = button()
                 .css(component(select, Constants.menu, Constants.item))

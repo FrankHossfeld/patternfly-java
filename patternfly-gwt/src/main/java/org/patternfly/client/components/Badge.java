@@ -37,29 +37,43 @@ import static org.patternfly.client.resources.Constants.unread;
  */
 public class Badge implements IsElement<HTMLElement> {
 
+    // ------------------------------------------------------ factory methods
+
+    public static Badge read(int count) {
+        return new Badge(String.valueOf(count), true);
+    }
+
+    public static Badge read(String text) {
+        return new Badge(text, true);
+    }
+
+    public static Badge unread(int count) {
+        return new Badge(String.valueOf(count), false);
+    }
+
+    public static Badge unread(String text) {
+        return new Badge(text, false);
+    }
+
+
+    // ------------------------------------------------------ badge instance
+
     private final HTMLElement root;
 
-    /** Creates a new unread badge. */
-    public Badge(int count) {
-        this(String.valueOf(count), false);
-    }
-
     /** Creates a new badge. */
-    public Badge(int count, boolean read) {
-        this(String.valueOf(count), read);
-    }
-
-    /** Creates a new unread badge. */
-    public Badge(String text) {
-        this(text, false);
-    }
-
-    /** Creates a new badge. */
-    public Badge(String text, boolean read) {
+    private Badge(String text, boolean read) {
         root = span().css(component(badge), read ? modifier(Constants.read) : modifier(Constants.unread))
                 .textContent(text)
                 .get();
     }
+
+    @Override
+    public HTMLElement element() {
+        return root;
+    }
+
+
+    // ------------------------------------------------------ public API
 
     /** Marks the badge as read. */
     public Badge read() {
@@ -84,10 +98,5 @@ public class Badge implements IsElement<HTMLElement> {
     public Badge text(String text) {
         root.textContent = text;
         return this;
-    }
-
-    @Override
-    public HTMLElement element() {
-        return root;
     }
 }

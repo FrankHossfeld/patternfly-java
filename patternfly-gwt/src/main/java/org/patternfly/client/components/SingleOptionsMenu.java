@@ -138,6 +138,13 @@ public class SingleOptionsMenu<T> implements HasValue<T>, Disable<SingleOptionsM
         return this;
     }
 
+    public SingleOptionsMenu<T> add(T[] items) {
+        for (T item : items) {
+            add(item);
+        }
+        return this;
+    }
+
     public SingleOptionsMenu<T> add(T item) {
         String itemId = ivb.itemId(item);
         HtmlContentBuilder<HTMLButtonElement> button = button()

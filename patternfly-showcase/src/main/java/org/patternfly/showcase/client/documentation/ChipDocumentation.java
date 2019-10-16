@@ -7,8 +7,9 @@ import org.jboss.gwt.elemento.template.Templated;
 import org.patternfly.client.components.Chip;
 import org.patternfly.showcase.client.resources.Code;
 
-import static elemental2.dom.DomGlobal.alert;
 import static org.jboss.gwt.elemento.core.Elements.div;
+import static org.patternfly.client.components.Alert.info;
+import static org.patternfly.client.components.AlertGroup.toast;
 
 @Templated("chip.html#content")
 abstract class ChipDocumentation implements IsElement<HTMLElement> {
@@ -33,6 +34,6 @@ abstract class ChipDocumentation implements IsElement<HTMLElement> {
 
     @DataElement Demo onClose = new Demo("Chip onClose", Code.get().chipOnClose().getText(),
             () -> div()
-                    .add(Chip.text("Close Me").onClose(c -> alert("Goodbye")))
+                    .add(Chip.text("Close Me").onClose(c -> toast().add(info("Goodbye"))))
                     .get());
 }

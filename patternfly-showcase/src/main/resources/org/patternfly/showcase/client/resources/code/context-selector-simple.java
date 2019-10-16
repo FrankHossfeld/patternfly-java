@@ -1,7 +1,7 @@
-import static elemental2.dom.DomGlobal.alert;
-import static elemental2.dom.DomGlobal.console;
+import static org.patternfly.client.components.Alert.info;
+import static org.patternfly.client.components.AlertGroup.toast;
 
 ContextSelector<String> contextSelector = new ContextSelector<>("Stage")
-        .onToggle((cs, open) -> console.info("context selector " + (open ? "expanded" : "collapsed")))
-        .onSelect(stage -> alert("Selected stage: '" + stage + "'"))
+        .onToggle((cs, open) -> toast().add(info("Context selector " + (open ? "expanded" : "collapsed"))))
+        .onSelect(stage -> toast().add(info("Selected stage: '" + stage + "'")))
         .add(asList("Development", "Staging", "QA", "Production"));

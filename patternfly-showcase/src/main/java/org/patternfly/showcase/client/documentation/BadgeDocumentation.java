@@ -18,23 +18,23 @@ abstract class BadgeDocumentation implements IsElement<HTMLElement> {
 
     @DataElement Demo read = new Demo("Badge (read)", Code.get().badgeUnread().getText(),
             () -> div()
-                    .add(new Badge(7, true))
+                    .add(Badge.read(7))
                     .add(" ")
-                    .add(new Badge(24, true))
+                    .add(Badge.read(24))
                     .add(" ")
-                    .add(new Badge(423, true))
+                    .add(Badge.read(423))
                     .add(" ")
-                    .add(new Badge("999+", true))
+                    .add(Badge.read("999+"))
                     .get());
 
     @DataElement Demo unread = new Demo("Badge (unread)", Code.get().badgeRead().getText(),
             () -> div()
-                    .add(new Badge(7))
+                    .add(Badge.unread(7))
                     .add(" ")
-                    .add(new Badge(24))
+                    .add(Badge.unread(24))
                     .add(" ")
-                    .add(new Badge(423))
+                    .add(Badge.unread(423))
                     .add(" ")
-                    .add(new Badge("999+"))
+                    .add(Badge.unread("999+"))
                     .get());
 }

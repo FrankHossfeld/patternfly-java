@@ -8,10 +8,10 @@ import org.patternfly.client.components.Badge;
 import org.patternfly.client.components.ContextSelector;
 import org.patternfly.showcase.client.resources.Code;
 
-import static elemental2.dom.DomGlobal.alert;
-import static elemental2.dom.DomGlobal.console;
 import static java.util.Arrays.asList;
 import static org.jboss.gwt.elemento.core.Elements.div;
+import static org.patternfly.client.components.Alert.info;
+import static org.patternfly.client.components.AlertGroup.toast;
 import static org.patternfly.client.resources.CSS.util;
 
 @Templated("context-selector.html#content")
@@ -25,8 +25,8 @@ abstract class ContextSelectorDocumentation implements IsElement<HTMLElement> {
             () -> div()
                     .add(new ContextSelector<String>("Stage")
                             .onToggle((cs, open) ->
-                                    console.info("context selector " + (open ? "expanded" : "collapsed")))
-                            .onSelect(stage -> alert("Selected stage: '" + stage + "'"))
+                                    toast().add(info("Context selector " + (open ? "expanded" : "collapsed"))))
+                            .onSelect(stage -> toast().add(info("Selected stage: '" + stage + "'")))
                             .add(asList("Development", "Staging", "QA", "Production")))
                     .get());
 
@@ -36,9 +36,9 @@ abstract class ContextSelectorDocumentation implements IsElement<HTMLElement> {
                             .display((html, stage) -> html.css(util("justify-content-space-between"))
                                     .title(stage.url)
                                     .add(stage.name)
-                                    .add(new Badge(stage.nodes, true)))
-                            .onSelect(stage -> alert(
-                                    "Selected stage '" + stage.name + "' at " + stage.url + " with " + stage.nodes + " nodes"))
+                                    .add(Badge.read(stage.nodes)))
+                            .onSelect(stage -> toast().add(info(
+                                    "Selected stage '" + stage.name + "' at " + stage.url + " with " + stage.nodes + " nodes")))
                             .add(asList(new Stage("Development", "http://localhost:8080", 2),
                                     new Stage("Staging", "https://staging.acme.org", 5),
                                     new Stage("QA", "https://qa.acme.org", 3),

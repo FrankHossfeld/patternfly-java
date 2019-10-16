@@ -57,8 +57,8 @@ public interface Code extends ClientBundle {
     @Source("code/context-selector-typed.java")
     TextResource contextSelectorTyped();
 
-    @Source("code/dropdown-disabled.java")
-    TextResource dropdownDisabled();
+    @Source("code/dropdown-event.java")
+    TextResource dropdownEvent();
 
     @Source("code/dropdown-groups.java")
     TextResource dropdownGroups();
@@ -75,20 +75,14 @@ public interface Code extends ClientBundle {
     @Source("code/dropdown-right.java")
     TextResource dropdownRight();
 
-    @Source("code/dropdown-selection.java")
-    TextResource dropdownSelection();
-
     @Source("code/dropdown-simple.java")
     TextResource dropdownSimple();
 
     @Source("code/dropdown-split.java")
     TextResource dropdownSplit();
 
-    @Source("code/dropdown-split-disabled.java")
-    TextResource dropdownSplitDisabled();
-
-    @Source("code/dropdown-split-text.java")
-    TextResource dropdownSplitText();
+    @Source("code/dropdown-typed.java")
+    TextResource dropdownTyped();
 
     @Source("code/dropdown-up.java")
     TextResource dropdownUp();

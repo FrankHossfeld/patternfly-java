@@ -116,6 +116,13 @@ public class ContextSelector<T> implements Disable<ContextSelector<T>>, HasValue
         return this;
     }
 
+    public ContextSelector<T> add(T[] items) {
+        for (T item : items) {
+            add(item);
+        }
+        return this;
+    }
+
     public ContextSelector<T> add(T item) {
         HtmlContentBuilder<HTMLButtonElement> button = button()
                 .css(component(contextSelector, Constants.menu, list, Constants.item))
