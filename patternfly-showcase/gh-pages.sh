@@ -52,7 +52,7 @@ mvn install -P prod
 # Push showcase to gh-pages
 rm -rf /tmp/showcase
 cd /tmp/
-git clone -b gh-pages --single-branch git@github.com:hpehl/patternfly-gwt.git
+git clone -b gh-pages --single-branch git@github.com:hpehl/patternfly-java.git
 cd patternfly-java
 
 box "Push showcase to gh-pages"
