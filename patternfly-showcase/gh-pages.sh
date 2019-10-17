@@ -56,7 +56,7 @@ git clone -b gh-pages --single-branch git@github.com:hpehl/patternfly-java.git
 cd patternfly-java
 
 box "Push showcase to gh-pages"
-rm -rf fonts favicon.ico images index.html *.css *.gif *.js *.txt
+rm -rf *
 cp -R ${ROOT}/target/patternfly-showcase-*/showcase/* .
 date > .build
 git add --all
