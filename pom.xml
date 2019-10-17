@@ -21,14 +21,14 @@
     <parent>
         <groupId>org.jboss</groupId>
         <artifactId>jboss-parent</artifactId>
-        <version>35</version>
+        <version>36</version>
     </parent>
 
     <groupId>org.patternfly</groupId>
     <artifactId>patternfly-parent</artifactId>
     <version>0.0.1</version>
     <name>PatternFly Parent</name>
-    <description>GWT version of PatternFly 4</description>
+    <description>Java implementation of PatternFly 4</description>
     <packaging>pom</packaging>
 
     <url>https://github.com/wildfly-model-graph</url>
@@ -76,7 +76,7 @@
     </properties>
 
     <modules>
-        <module>patternfly-gwt</module>
+        <module>patternfly-java</module>
         <module>patternfly-showcase</module>
     </modules>
 

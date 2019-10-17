@@ -53,7 +53,7 @@ mvn install -P prod
 rm -rf /tmp/showcase
 cd /tmp/
 git clone -b gh-pages --single-branch git@github.com:hpehl/patternfly-gwt.git
-cd patternfly-gwt
+cd patternfly-java
 
 box "Push showcase to gh-pages"
 rm -rf fonts favicon.ico images index.html *.css *.gif *.js *.txt

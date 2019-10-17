@@ -24,10 +24,10 @@
         <version>0.0.1</version>
     </parent>
 
-    <artifactId>patternfly-gwt</artifactId>
+    <artifactId>patternfly-java</artifactId>
     <version>0.0.1</version>
-    <name>PatternFly GWT</name>
-    <description>GWT version of PatternFly 4</description>
+    <name>PatternFly Java</name>
+    <description>Java implementation of PatternFly 4</description>
     <packaging>gwt-lib</packaging>
 
     <dependencies>

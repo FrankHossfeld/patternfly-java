@@ -26,8 +26,8 @@
 
     <artifactId>patternfly-showcase</artifactId>
     <version>0.0.1</version>
-    <name>PatternFly GWT Schowcase</name>
-    <description>Showcase for the GWT version of PatternFly 4</description>
+    <name>PatternFly Java Schowcase</name>
+    <description>Showcase for the Java implementation of PatternFly 4</description>
     <packaging>gwt-app</packaging>
 
     <dependencies>
