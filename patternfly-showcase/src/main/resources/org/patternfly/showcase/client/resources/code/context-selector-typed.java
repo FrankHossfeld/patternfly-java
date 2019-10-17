@@ -1,6 +1,4 @@
 import static java.util.Arrays.asList;
-import static org.patternfly.client.components.Alert.info;
-import static org.patternfly.client.components.AlertGroup.toast;
 import static org.patternfly.client.resources.CSS.util;
 
 static class Stage {
