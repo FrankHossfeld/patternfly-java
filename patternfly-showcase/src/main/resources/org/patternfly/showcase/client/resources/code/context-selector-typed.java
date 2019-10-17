@@ -32,6 +32,4 @@ ContextSelector<Stage> contextSelector = new ContextSelector<>("Stage")
                 .title(stage.url)
                 .add(stage.name)
                 .add(Badge.read(stage.nodes)))
-        .onSelect(stage -> alert(
-                "Selected stage '" + stage.name + "' at " + stage.url + " with " + stage.nodes + " nodes"))
         .add(stages);

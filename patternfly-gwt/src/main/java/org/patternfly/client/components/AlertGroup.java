@@ -5,12 +5,11 @@ import java.util.Map;
 
 import elemental2.dom.Element;
 import elemental2.dom.HTMLElement;
-import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 import org.patternfly.client.resources.Constants;
+import org.patternfly.client.resources.Dataset;
 
 import static elemental2.dom.DomGlobal.clearTimeout;
-import static elemental2.dom.DomGlobal.document;
 import static elemental2.dom.DomGlobal.setTimeout;
 import static org.jboss.gwt.elemento.core.Elements.failSafeRemoveFromParent;
 import static org.jboss.gwt.elemento.core.Elements.ul;
@@ -71,13 +70,16 @@ public class AlertGroup implements IsElement<HTMLElement> {
 
     public AlertGroup add(Alert alert) {
         if (timeout > 100) {
-            String id = uniqueId(Constants.alert);
-            alert.element().id = id;
+            String id = uniqueId();
+            alert.element().dataset.set(Dataset.alert, id);
+            alert.onClose(() -> stopMessageTimeout(id));
+
             startMessageTimeout(id);
             bind(alert.element(), mouseover, e1 -> stopMessageTimeout(id));
             bind(alert.element(), mouseout, e2 -> startMessageTimeout(id));
-
-
+        }
+        if (this == toast && !alert.hasClose()) {
+            alert.closable();
         }
         root.insertBefore(alert.element(), root.firstChild);
         return this;
@@ -99,7 +101,7 @@ public class AlertGroup implements IsElement<HTMLElement> {
     }
 
     private void remove(String id) {
-        Element element = document.getElementById(id);
+        Element element = root.querySelector("[data-alert=" + id + "]");
         failSafeRemoveFromParent(element);
         messageIds.remove(id);
     }

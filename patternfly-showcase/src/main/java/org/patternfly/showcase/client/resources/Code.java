@@ -51,6 +51,9 @@ public interface Code extends ClientBundle {
     @Source("code/chip-toolbar.java")
     TextResource chipToolbar();
 
+    @Source("code/context-selector-event.java")
+    TextResource contextSelectorEvent();
+
     @Source("code/context-selector-simple.java")
     TextResource contextSelectorSimple();
 

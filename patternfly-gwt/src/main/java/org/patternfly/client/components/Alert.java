@@ -88,13 +88,13 @@ public class Alert implements IsElement<HTMLElement> {
     }
 
     public Alert description(HTMLElement description) {
-        HTMLElement element = (HTMLElement) root.querySelector("." + component(alert, Constants.description));
-        if (element == null) {
-            element = div().css(component(alert, Constants.description)).get();
-            insertAfter(element, titleElement);
+        HTMLElement container = (HTMLElement) root.querySelector("." + component(alert, Constants.description));
+        if (container == null) {
+            container = div().css(component(alert, Constants.description)).get();
+            insertAfter(container, titleElement);
         }
-        removeChildrenFrom(element);
-        element.appendChild(description);
+        removeChildrenFrom(container);
+        container.appendChild(description);
         return this;
     }
 
@@ -115,13 +115,13 @@ public class Alert implements IsElement<HTMLElement> {
     }
 
     public Alert action(HTMLElement action, Callback callback) {
-        HTMLElement element = (HTMLElement) root.querySelector("." + component(alert, Constants.action));
-        if (element == null) {
-            element = div().css(component(alert, Constants.action)).get();
-            root.appendChild(element);
+        HTMLElement container = (HTMLElement) root.querySelector("." + component(alert, Constants.action));
+        if (container == null) {
+            container = div().css(component(alert, Constants.action)).get();
+            root.appendChild(container);
         }
-        removeChildrenFrom(element);
-        element.appendChild(action);
+        removeChildrenFrom(container);
+        container.appendChild(action);
         bind(action, click, e -> callback.call());
         return this;
     }
@@ -132,6 +132,14 @@ public class Alert implements IsElement<HTMLElement> {
     public Alert onClose(Callback onClose) {
         this.onClose = onClose;
         return this;
+    }
+
+
+    // ------------------------------------------------------ internals
+
+    boolean hasClose() {
+        String selector = "." + component(alert, action) + " ." + fas("times");
+        return root.querySelector(selector) != null;
     }
 
     // ------------------------------------------------------ inner classes

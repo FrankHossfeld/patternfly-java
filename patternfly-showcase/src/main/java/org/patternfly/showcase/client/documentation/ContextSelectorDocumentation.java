@@ -24,9 +24,6 @@ abstract class ContextSelectorDocumentation implements IsElement<HTMLElement> {
     @DataElement Demo simple = new Demo("Simple context selector", Code.get().contextSelectorSimple().getText(),
             () -> div()
                     .add(new ContextSelector<String>("Stage")
-                            .onToggle((cs, open) ->
-                                    toast().add(info("Context selector " + (open ? "expanded" : "collapsed"))))
-                            .onSelect(stage -> toast().add(info("Selected stage: '" + stage + "'")))
                             .add(asList("Development", "Staging", "QA", "Production")))
                     .get());
 
@@ -37,12 +34,19 @@ abstract class ContextSelectorDocumentation implements IsElement<HTMLElement> {
                                     .title(stage.url)
                                     .add(stage.name)
                                     .add(Badge.read(stage.nodes)))
-                            .onSelect(stage -> toast().add(info(
-                                    "Selected stage '" + stage.name + "' at " + stage.url + " with " + stage.nodes + " nodes")))
                             .add(asList(new Stage("Development", "http://localhost:8080", 2),
                                     new Stage("Staging", "https://staging.acme.org", 5),
                                     new Stage("QA", "https://qa.acme.org", 3),
                                     new Stage("Production", "https://acme.org", 12))))
+                    .get());
+
+    @DataElement Demo event = new Demo("Context selector events", Code.get().contextSelectorEvent().getText(),
+            () -> div()
+                    .add(new ContextSelector<String>("Stage")
+                            .onToggle((cs, open) ->
+                                    toast().add(info("Context selector " + (open ? "expanded" : "collapsed"))))
+                            .onSelect(stage -> toast().add(info("Stage selected").description(stage)))
+                            .add(asList("Development", "Staging", "QA", "Production")))
                     .get());
 
 

@@ -2,6 +2,7 @@ package org.patternfly.client.resources;
 
 public interface Dataset {
 
+    String alert = "alert";
     String contextSelectorItem = "contextSelectorItem";
     String dropdownGroup = "dropdownGroup";
     String dropdownItem = "dropdownItem";
