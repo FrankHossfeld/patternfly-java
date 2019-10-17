@@ -31,7 +31,7 @@ ContextSelector<Stage> contextSelector = new ContextSelector<>("Stage")
         .display((html, stage) -> html.css(util("justify-content-space-between"))
                 .title(stage.url)
                 .add(stage.name)
-                .add(new Badge(stage.nodes, true)))
+                .add(Badge.read(stage.nodes)))
         .onSelect(stage -> alert(
                 "Selected stage '" + stage.name + "' at " + stage.url + " with " + stage.nodes + " nodes"))
         .add(stages);

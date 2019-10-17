@@ -57,7 +57,7 @@ cd patternfly-gwt
 
 box "Push showcase to gh-pages"
 rm -rf fonts favicon.ico images index.html *.css *.gif *.js *.txt
-cp -R ${ROOT}/target/patternfly-showcase-*/showcase .
+cp -R ${ROOT}/target/patternfly-showcase-*/showcase/* .
 date > .build
 git add --all
 git commit -am "Update showcase"
