@@ -2,7 +2,6 @@ package org.patternfly.showcase.client.documentation;
 
 import com.github.nalukit.nalu.client.component.AbstractComponent;
 import elemental2.dom.HTMLElement;
-import org.jboss.gwt.elemento.core.IsElement;
 
 import static org.jboss.gwt.elemento.core.Elements.div;
 
@@ -15,9 +14,9 @@ public class ComponentsElement extends AbstractComponent<Components.Controller, 
     }
 
     @Override
-    public void show(IsElement<HTMLElement> component) {
-        if (component != null) {
-            initElement(component.element());
+    public void show(ComponentDocumentation cd) {
+        if (cd != null) {
+            initElement(cd.element());
         }
     }
 

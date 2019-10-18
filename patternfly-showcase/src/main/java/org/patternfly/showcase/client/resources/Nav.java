@@ -10,11 +10,13 @@ public interface Nav {
     Navigation HORIZONTAL_NAV = Navigation.horizontal()
             .add(new NavigationItem("get-started", "Get Started", hash(GET_STARTED)))
             .add(new NavigationItem("documentation", "Documentation",
-                    hash(COMPONENT.replace(":component", "badge"))))
+                    hash(COMPONENT.replace(":component", "alert"))))
             .add(new NavigationItem("contribute", "Contribute", hash(CONTRIBUTE)))
             .add(new NavigationItem("get-in-touch", "Get in Touch", hash(GET_IN_TOUCH)));
 
     Navigation DOCUMENTATION_NAV = Navigation.expandable()
+            .add("Component", new NavigationItem("alert", "Alert",
+                    hash(COMPONENT.replace(":component", "alert"))))
             .add("Component", new NavigationItem("badge", "Badge",
                     hash(COMPONENT.replace(":component", "badge"))))
             .add("Component", new NavigationItem("brand", "Brand",

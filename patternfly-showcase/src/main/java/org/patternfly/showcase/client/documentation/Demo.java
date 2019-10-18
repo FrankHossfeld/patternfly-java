@@ -19,7 +19,6 @@ class Demo implements IsElement<HTMLElement> {
     private final HTMLElement code;
     private final HTMLElement root;
     private HTMLElement demo;
-    private double handle;
 
     Demo(String header, String code, Supplier<HTMLElement> demo) {
         demoSupplier = demo;

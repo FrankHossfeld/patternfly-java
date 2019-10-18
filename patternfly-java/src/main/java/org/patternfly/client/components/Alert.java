@@ -1,5 +1,8 @@
 package org.patternfly.client.components;
 
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import org.jboss.gwt.elemento.core.IsElement;
@@ -58,11 +61,11 @@ public class Alert implements IsElement<HTMLElement> {
         this.type = type;
         this.title = title;
 
-        HtmlContentBuilder<HTMLDivElement> builder = div().css(component(alert));
+        HtmlContentBuilder<HTMLDivElement> builder = div().css(component(alert)).aria(label, type.aria);
         if (type.modifier != null) {
             builder.css(type.modifier);
         }
-        builder.add(div().css(component(alert, icon)).add(i().css(type.icon)).aria(hidden, true_))
+        builder.add(div().css(component(alert, icon)).add(i().css(type.icon).aria(hidden, true_)))
                 .add(this.titleElement = h(4).css(component(alert, Constants.title))
                         .add(span().css("pf-screen-reader").textContent(type.aria))
                         .add(title)
@@ -88,13 +91,20 @@ public class Alert implements IsElement<HTMLElement> {
     }
 
     public Alert description(HTMLElement description) {
-        HTMLElement container = (HTMLElement) root.querySelector("." + component(alert, Constants.description));
-        if (container == null) {
-            container = div().css(component(alert, Constants.description)).get();
-            insertAfter(container, titleElement);
-        }
+        HTMLElement container = createOrGetContainer("." + component(alert, Constants.description),
+                () -> div().css(component(alert, Constants.description)).get(),
+                c -> insertAfter(c, titleElement));
         removeChildrenFrom(container);
         container.appendChild(description);
+        return this;
+    }
+
+    public Alert description(Consumer<HtmlContentBuilder<HTMLElement>> consumer) {
+        HTMLElement container = createOrGetContainer("." + component(alert, Constants.description),
+                () -> div().css(component(alert, Constants.description)).get(),
+                c -> insertAfter(c, titleElement));
+        removeChildrenFrom(container);
+        consumer.accept(new HtmlContentBuilder<>(container));
         return this;
     }
 
@@ -115,11 +125,9 @@ public class Alert implements IsElement<HTMLElement> {
     }
 
     public Alert action(HTMLElement action, Callback callback) {
-        HTMLElement container = (HTMLElement) root.querySelector("." + component(alert, Constants.action));
-        if (container == null) {
-            container = div().css(component(alert, Constants.action)).get();
-            root.appendChild(container);
-        }
+        HTMLElement container = createOrGetContainer("." + component(alert, Constants.action),
+                () -> div().css(component(alert, Constants.action)).get(),
+                root::appendChild);
         removeChildrenFrom(container);
         container.appendChild(action);
         bind(action, click, e -> callback.call());
@@ -142,15 +150,25 @@ public class Alert implements IsElement<HTMLElement> {
         return root.querySelector(selector) != null;
     }
 
+    private HTMLElement createOrGetContainer(String selector, Supplier<HTMLElement> create,
+            Consumer<HTMLElement> init) {
+        HTMLElement container = (HTMLElement) root.querySelector(selector);
+        if (container == null) {
+            container = create.get();
+            init.accept(container);
+        }
+        return container;
+    }
+
     // ------------------------------------------------------ inner classes
 
 
     enum Type {
-        DEFAULT(fas("bell"), null, "default alert:"),
-        INFO(fas("info-circle"), modifier(info), "info alert:"),
-        SUCCESS(fas("check-circle"), modifier(success), "success alert:"),
-        WARNING(fas("exclamation-triangle"), modifier(warning), "sarning alert:"),
-        DANGER(fas("exclamation-circle"), modifier(danger), "sanger alert:");
+        DEFAULT(fas("bell"), null, "default alert"),
+        INFO(fas("info-circle"), modifier(info), "info alert"),
+        SUCCESS(fas("check-circle"), modifier(success), "success alert"),
+        WARNING(fas("exclamation-triangle"), modifier(warning), "warning alert"),
+        DANGER(fas("exclamation-circle"), modifier(danger), "danger alert");
 
         private final String icon;
         private final String modifier;

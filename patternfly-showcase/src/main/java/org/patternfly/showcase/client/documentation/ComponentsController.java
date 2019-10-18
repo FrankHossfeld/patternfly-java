@@ -7,7 +7,6 @@ import com.github.nalukit.nalu.client.component.AbstractComponentController;
 import com.github.nalukit.nalu.client.component.annotation.AcceptParameter;
 import com.github.nalukit.nalu.client.component.annotation.Controller;
 import elemental2.dom.HTMLElement;
-import org.jboss.gwt.elemento.core.IsElement;
 import org.patternfly.client.components.Page;
 import org.patternfly.client.core.Theme;
 import org.patternfly.showcase.client.ShowcaseContext;
@@ -23,15 +22,16 @@ public class ComponentsController
         extends AbstractComponentController<ShowcaseContext, Components.Component, HTMLElement>
         implements Components.Controller {
 
-    private static final Map<String, IsElement<HTMLElement>> components = new HashMap<>();
+    private static final Map<String, ComponentDocumentation> components = new HashMap<>();
     static {
-        components.put("badge", BadgeDocumentation.create());
-        components.put("brand", BrandDocumentation.create());
-        components.put("button", ButtonDocumentation.create());
-        components.put("chip", ChipDocumentation.create());
-        components.put("chip-group", ChipGroupDocumentation.create());
-        components.put("context-selector", ContextSelectorDocumentation.create());
-        components.put("dropdown", DropdownDocumentation.create());
+        components.put("alert", new AlertDocumentation());
+        components.put("badge", new BadgeDocumentation());
+        components.put("brand", new BrandDocumentation());
+        components.put("button", new ButtonDocumentation());
+        components.put("chip", new ChipDocumentation());
+        components.put("chip-group", new ChipGroupDocumentation());
+        components.put("context-selector", new ContextSelectorDocumentation());
+        components.put("dropdown", new DropdownDocumentation());
     }
 
     @Override
@@ -42,6 +42,6 @@ public class ComponentsController
     @AcceptParameter("component")
     public void setComponent(String component) {
         Nav.documentation().setCurrent(component);
-        getComponent().show(components.getOrDefault(component, NotFound.create(component)));
+        getComponent().show(components.getOrDefault(component, new NotFound(component)));
     }
 }

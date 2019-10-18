@@ -12,6 +12,27 @@ public interface Code extends ClientBundle {
         return INSTANCE;
     }
 
+    @Source("code/alert-default.java")
+    TextResource alertDefault();
+
+    @Source("code/alert-info.java")
+    TextResource alertInfo();
+
+    @Source("code/alert-success.java")
+    TextResource alertSuccess();
+
+    @Source("code/alert-warning.java")
+    TextResource alertWarning();
+
+    @Source("code/alert-danger.java")
+    TextResource alertDanger();
+
+    @Source("code/alert-inline.java")
+    TextResource alertInline();
+
+    @Source("code/alert-inline-variations.java")
+    TextResource alertInlineVariations();
+
     @Source("code/badge-unread.java")
     TextResource badgeUnread();
 
