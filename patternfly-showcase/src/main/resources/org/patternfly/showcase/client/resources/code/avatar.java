@@ -1,0 +1,1 @@
+Avatar a1 = Avatar.avatar("./images/avatar.svg", "avatar");

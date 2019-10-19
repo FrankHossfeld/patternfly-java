@@ -17,6 +17,8 @@ public interface Nav {
     Navigation DOCUMENTATION_NAV = Navigation.expandable()
             .add("Component", new NavigationItem("alert", "Alert",
                     hash(COMPONENT.replace(":component", "alert"))))
+            .add("Component", new NavigationItem("avatar", "Avatar",
+                    hash(COMPONENT.replace(":component", "avatar"))))
             .add("Component", new NavigationItem("badge", "Badge",
                     hash(COMPONENT.replace(":component", "badge"))))
             .add("Component", new NavigationItem("brand", "Brand",

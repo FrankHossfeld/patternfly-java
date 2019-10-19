@@ -17,6 +17,14 @@ import org.patternfly.client.resources.Constants;
  */
 public class Label implements IsElement<HTMLElement> {
 
+  public static Label text(String text) {
+    return Label.text(text, false);
+  }
+
+  public static Label text(String text, boolean compact) {
+    return new Label(span().get(), text, compact);
+  }
+
   // ------------------------------------------------------ factory methods
 
   private final HTMLElement root;
@@ -33,14 +41,6 @@ public class Label implements IsElement<HTMLElement> {
     if (compact) {
       root.classList.add(modifier(Constants.compact));
     }
-  }
-
-  public static Label text(String text) {
-    return Label.text(text, false);
-  }
-
-  public static Label text(String text, boolean compact) {
-    return new Label(span().get(), text, compact);
   }
 
   @Override

@@ -11,6 +11,7 @@ public interface Constants {
     String alignRight = "align-right";
     String angleRight = "angle-right";
     String arrow = "arrow";
+    String avatar = "avatar";
     String badge = "badge";
     String banner = "banner";
     String block = "block";
