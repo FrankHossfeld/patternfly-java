@@ -23,6 +23,7 @@ public interface Constants {
     String check = "check";
     String chip = "chip";
     String chipGroup = "chip-group";
+    String compact = "compact";
     String content = "content";
     String contextSelector = "context-selector";
     String control = "control";

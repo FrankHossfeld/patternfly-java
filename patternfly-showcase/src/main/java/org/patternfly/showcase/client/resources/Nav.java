@@ -30,7 +30,9 @@ public interface Nav {
             .add("Component", new NavigationItem("context-selector", "Context selector",
                     hash(COMPONENT.replace(":component", "context-selector"))))
             .add("Component", new NavigationItem("dropdown", "Dropdown",
-                    hash(COMPONENT.replace(":component", "dropdown"))));
+                    hash(COMPONENT.replace(":component", "dropdown"))))
+            .add("Component", new NavigationItem("label", "Label",
+                    hash(COMPONENT.replace(":component", "label"))));
 
     static Navigation horizontal() {
         return HORIZONTAL_NAV;

@@ -110,4 +110,7 @@ public interface Code extends ClientBundle {
 
     @Source("code/dropdown-up.java")
     TextResource dropdownUp();
+
+    @Source("code/label.java")
+    TextResource label();
 }

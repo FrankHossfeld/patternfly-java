@@ -32,6 +32,7 @@ public class ComponentsController
         components.put("chip-group", new ChipGroupDocumentation());
         components.put("context-selector", new ContextSelectorDocumentation());
         components.put("dropdown", new DropdownDocumentation());
+        components.put("label", new LabelDocumentation());
     }
 
     @Override
