@@ -25,6 +25,7 @@ public class ComponentsController
     private static final Map<String, ComponentDocumentation> components = new HashMap<>();
     static {
         components.put("alert", new AlertDocumentation());
+        components.put("avatar", new AvatarDocumentation());
         components.put("badge", new BadgeDocumentation());
         components.put("brand", new BrandDocumentation());
         components.put("button", new ButtonDocumentation());
@@ -32,6 +33,8 @@ public class ComponentsController
         components.put("chip-group", new ChipGroupDocumentation());
         components.put("context-selector", new ContextSelectorDocumentation());
         components.put("dropdown", new DropdownDocumentation());
+        components.put("label", new LabelDocumentation());
+        components.put("title", new TitleDocumentation());
     }
 
     @Override

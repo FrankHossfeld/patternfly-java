@@ -74,7 +74,7 @@
         </dependency>
         <dependency>
             <groupId>org.patternfly</groupId>
-            <artifactId>patternfly-gwt</artifactId>
+            <artifactId>patternfly-java</artifactId>
         </dependency>
     </dependencies>
 
@@ -93,7 +93,7 @@
                         <configuration>
                             <sources>
                                 <source>${project.build.directory}/generated-sources/annotations</source>
-                                <source>../patternfly-gwt/src/main/java</source>
+                                <source>../patternfly-java/src/main/java</source>
                             </sources>
                         </configuration>
                     </execution>

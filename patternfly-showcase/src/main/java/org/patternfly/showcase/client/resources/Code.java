@@ -33,6 +33,9 @@ public interface Code extends ClientBundle {
     @Source("code/alert-inline-variations.java")
     TextResource alertInlineVariations();
 
+    @Source("code/avatar.java")
+    TextResource avatar();
+
     @Source("code/badge-unread.java")
     TextResource badgeUnread();
 
@@ -110,4 +113,13 @@ public interface Code extends ClientBundle {
 
     @Source("code/dropdown-up.java")
     TextResource dropdownUp();
+
+    @Source("code/label.java")
+    TextResource label();
+
+//    @Source("code/text.java")
+//    TextResource text();
+
+    @Source("code/title.java")
+    TextResource title();
 }

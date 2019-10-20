@@ -11,6 +11,7 @@ public interface Constants {
     String alignRight = "align-right";
     String angleRight = "angle-right";
     String arrow = "arrow";
+    String avatar = "avatar";
     String badge = "badge";
     String banner = "banner";
     String block = "block";
@@ -23,6 +24,7 @@ public interface Constants {
     String check = "check";
     String chip = "chip";
     String chipGroup = "chip-group";
+    String compact = "compact";
     String content = "content";
     String contextSelector = "context-selector";
     String control = "control";

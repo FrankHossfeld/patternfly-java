@@ -17,6 +17,8 @@ public interface Nav {
     Navigation DOCUMENTATION_NAV = Navigation.expandable()
             .add("Component", new NavigationItem("alert", "Alert",
                     hash(COMPONENT.replace(":component", "alert"))))
+            .add("Component", new NavigationItem("avatar", "Avatar",
+                    hash(COMPONENT.replace(":component", "avatar"))))
             .add("Component", new NavigationItem("badge", "Badge",
                     hash(COMPONENT.replace(":component", "badge"))))
             .add("Component", new NavigationItem("brand", "Brand",
@@ -30,7 +32,12 @@ public interface Nav {
             .add("Component", new NavigationItem("context-selector", "Context selector",
                     hash(COMPONENT.replace(":component", "context-selector"))))
             .add("Component", new NavigationItem("dropdown", "Dropdown",
-                    hash(COMPONENT.replace(":component", "dropdown"))));
+                    hash(COMPONENT.replace(":component", "dropdown"))))
+            .add("Component", new NavigationItem("label", "Label",
+                    hash(COMPONENT.replace(":component", "label"))))
+            .add("Component", new NavigationItem("title", "Title",
+                    hash(COMPONENT.replace(":component", "title"))))
+        ;
 
     static Navigation horizontal() {
         return HORIZONTAL_NAV;
