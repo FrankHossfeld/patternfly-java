@@ -34,6 +34,7 @@ public class ComponentsController
         components.put("context-selector", new ContextSelectorDocumentation());
         components.put("dropdown", new DropdownDocumentation());
         components.put("label", new LabelDocumentation());
+        components.put("title", new TitleDocumentation());
     }
 
     @Override
