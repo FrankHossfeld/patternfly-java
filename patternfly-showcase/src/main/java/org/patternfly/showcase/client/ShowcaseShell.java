@@ -22,8 +22,7 @@ public class ShowcaseShell extends AbstractShell<ShowcaseContext> {
 
     private PageHeader header;
 
-    @Override
-    public void attachShell() {
+    public void bind(ShellLoader shellLoader) {
         eventBus.addHandler(RouterStateEvent.TYPE, e -> {
             if (e.getState() == ROUTING_DONE) {
                 String[] segments = split(e.getRoute());
@@ -32,7 +31,11 @@ public class ShowcaseShell extends AbstractShell<ShowcaseContext> {
                 }
             }
         });
+        shellLoader.continueLoading();
+    }
 
+    @Override
+    public void attachShell() {
         this.header = PageHeader.create(new Brand("./images/pf_logo_color.svg"), hash(HOME))
                 .navigation(Nav.horizontal());
         document.body.appendChild(Page.create(header, ROOT_CONTAINER).element());
