@@ -36,8 +36,7 @@ public interface Nav {
             .add("Component", new NavigationItem("label", "Label",
                     hash(COMPONENT.replace(":component", "label"))))
             .add("Component", new NavigationItem("title", "Title",
-                    hash(COMPONENT.replace(":component", "title"))))
-        ;
+                    hash(COMPONENT.replace(":component", "title"))));
 
     static Navigation horizontal() {
         return HORIZONTAL_NAV;

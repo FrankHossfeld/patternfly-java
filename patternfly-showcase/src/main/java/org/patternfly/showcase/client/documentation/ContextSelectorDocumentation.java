@@ -40,7 +40,7 @@ class ContextSelectorDocumentation extends ComponentDocumentation {
                         new Demo("Context selector events", Code.get().contextSelectorEvent().getText(),
                                 () -> div()
                                         .add(new ContextSelector<String>("Stage")
-                                                .onToggle((cs, open) ->
+                                                .onToggle(open ->
                                                         toast().add(
                                                                 info("Context selector " + (open ? "expanded" : "collapsed"))))
                                                 .onSelect(

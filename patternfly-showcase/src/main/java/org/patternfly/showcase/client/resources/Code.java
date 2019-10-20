@@ -117,9 +117,6 @@ public interface Code extends ClientBundle {
     @Source("code/label.java")
     TextResource label();
 
-//    @Source("code/text.java")
-//    TextResource text();
-
     @Source("code/title.java")
     TextResource title();
 }

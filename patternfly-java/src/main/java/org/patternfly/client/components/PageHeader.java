@@ -16,6 +16,11 @@ import static org.patternfly.client.resources.Constants.label;
 import static org.patternfly.client.resources.Constants.nav;
 import static org.patternfly.client.resources.Constants.*;
 
+/**
+ * PatternFly page header component.
+ *
+ * @see <a href="https://www.patternfly.org/v4/documentation/core/components/page">https://www.patternfly.org/v4/documentation/core/components/page</a>
+ */
 public class PageHeader implements IsElement<HTMLElement> {
 
     // ------------------------------------------------------ factory methods

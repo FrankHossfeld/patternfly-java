@@ -1,1 +1,1 @@
-Avatar a1 = Avatar.create("./images/avatar.svg", "avatar");
+Avatar a1 = new Avatar("./images/img_avatar.svg", "avatar");

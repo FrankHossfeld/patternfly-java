@@ -59,11 +59,11 @@ public class MultiOptionsMenu implements Disable<MultiOptionsMenu>, IsElement<HT
     private final HTMLElement plain;
     private final HTMLElement menu;
 
-    private final CollapseExpandBlock<MultiOptionsMenu> ceb;
+    private final CollapseExpandHandler ceh;
     private final Map<String, Group<?>> groups;
 
     private MultiOptionsMenu(String text, String icon, boolean plain) {
-        this.ceb = new CollapseExpandBlock<>(this);
+        this.ceh = new CollapseExpandHandler();
         this.groups = new HashMap<>();
 
         String buttonId = uniqueId(optionsMenu, Constants.button);
@@ -71,7 +71,7 @@ public class MultiOptionsMenu implements Disable<MultiOptionsMenu>, IsElement<HT
                 .id(buttonId)
                 .aria(expanded, false_)
                 .aria(hasPopup, listbox)
-                .on(click, e -> ceb.expand(element(), buttonElement(), menuElement()));
+                .on(click, e -> ceh.expand(element(), buttonElement(), menuElement()));
 
         HTMLElement trigger;
         if (icon != null) {
@@ -150,7 +150,7 @@ public class MultiOptionsMenu implements Disable<MultiOptionsMenu>, IsElement<HT
                     .attr(Constants.tabindex, _1)
                     .data(multiOptionsMenuItem, group.itemId(item))
                     .on(click, e -> {
-                        ceb.collapse(element(), buttonElement(), menuElement());
+                        ceh.collapse(element(), buttonElement(), menuElement());
                         if (group.onSelect != null) {
                             group.onSelect.onSelect(item);
                         }

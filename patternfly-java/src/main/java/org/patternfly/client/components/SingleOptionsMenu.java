@@ -1,6 +1,7 @@
 package org.patternfly.client.components;
 
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import elemental2.dom.HTMLButtonElement;
@@ -54,21 +55,21 @@ public class SingleOptionsMenu<T> implements HasValue<T>, Disable<SingleOptionsM
     private final HTMLElement plain;
     private final HTMLElement menu;
 
-    private final CollapseExpandBlock<SingleOptionsMenu<T>> ceb;
-    private final ItemVisualizationBlock<HTMLButtonElement, T> ivb;
+    private final CollapseExpandHandler ceh;
+    private final ItemDisplay<HTMLButtonElement, T> itemDisplay;
     private T value;
     private SelectHandler<T> onSelect;
 
     private SingleOptionsMenu(String text, String icon, boolean plain) {
-        this.ceb = new CollapseExpandBlock<>(this);
-        this.ivb = new ItemVisualizationBlock<>();
+        this.ceh = new CollapseExpandHandler();
+        this.itemDisplay = new ItemDisplay<>();
 
         String buttonId = Elements.uniqueId(optionsMenu, Constants.button);
         HtmlContentBuilder<HTMLButtonElement> buttonBuilder = button()
                 .id(buttonId)
                 .aria(expanded, false_)
                 .aria(hasPopup, listbox)
-                .on(click, e -> ceb.expand(element(), buttonElement(), menuElement()));
+                .on(click, e -> ceh.expand(element(), buttonElement(), menuElement()));
 
         HTMLElement trigger;
         if (icon != null) {
@@ -146,16 +147,16 @@ public class SingleOptionsMenu<T> implements HasValue<T>, Disable<SingleOptionsM
     }
 
     public SingleOptionsMenu<T> add(T item) {
-        String itemId = ivb.itemId(item);
+        String itemId = itemDisplay.itemId(item);
         HtmlContentBuilder<HTMLButtonElement> button = button()
                 .css(component(optionsMenu, Constants.menu, Constants.item))
                 .attr(tabindex, _1)
                 .data(singleOptionsMenuItem, itemId)
                 .on(click, e -> {
-                    ceb.collapse(element(), buttonElement(), menuElement());
+                    ceh.collapse(element(), buttonElement(), menuElement());
                     select(item);
                 });
-        ivb.display.accept(button, item);
+        itemDisplay.display.accept(button, item);
         HTMLElement icon;
         button.add(icon = i().css(
                 fas(check), component(optionsMenu, Constants.menu, Constants.item, Constants.icon))
@@ -171,18 +172,18 @@ public class SingleOptionsMenu<T> implements HasValue<T>, Disable<SingleOptionsM
     }
 
     public SingleOptionsMenu<T> asString(Function<T, String> asString) {
-        ivb.asString = asString;
+        itemDisplay.asString = asString;
         return this;
     }
 
     public SingleOptionsMenu<T> display(BiConsumer<HtmlContentBuilder<HTMLButtonElement>, T> display) {
-        ivb.display = display;
+        itemDisplay.display = display;
         return this;
     }
 
     public SingleOptionsMenu<T> select(T item) {
         value = item;
-        String itemId = ivb.itemId(item);
+        String itemId = itemDisplay.itemId(item);
         stream(menu.querySelectorAll("." + component(optionsMenu, Constants.menu, Constants.item, icon)))
                 .filter(htmlElements())
                 .map(asHtmlElement())
@@ -230,8 +231,8 @@ public class SingleOptionsMenu<T> implements HasValue<T>, Disable<SingleOptionsM
 
     // ------------------------------------------------------ events
 
-    public SingleOptionsMenu<T> onToggle(BiConsumer<SingleOptionsMenu<T>, Boolean> onToggle) {
-        ceb.onToggle = onToggle;
+    public SingleOptionsMenu<T> onToggle(Consumer<Boolean> onToggle) {
+        ceh.onToggle = onToggle;
         return this;
     }
 

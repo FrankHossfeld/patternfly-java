@@ -2,17 +2,19 @@ package org.patternfly.client.components;
 
 import elemental2.dom.HTMLElement;
 import org.jboss.gwt.elemento.core.IsElement;
-import org.patternfly.client.core.Theme;
-import org.patternfly.client.resources.CSS;
+import org.patternfly.client.resources.Theme;
 import org.patternfly.client.resources.Constants;
 
 import static org.jboss.gwt.elemento.core.Elements.*;
+import static org.patternfly.client.resources.CSS.component;
+import static org.patternfly.client.resources.Constants.page;
+import static org.patternfly.client.resources.Constants.role;
+import static org.patternfly.client.resources.Constants.tabindex;
 
 /**
- * = PatternFly Sidebar Component
+ * = PatternFly page Component
  *
- * The sidebar component typically holds the vertical navigation. By default the sidebar uses the dark theme and is
- * expanded. The collapsed / expanded state is controlled by the {@link PageHeader}.
+ * The page component is used to create the basic structure of a page with either vertical or horizontal navigation.
  *
  * == Usage
  *
@@ -48,11 +50,11 @@ public class Page implements IsElement<HTMLElement> {
     private HTMLElement sidebar;
 
     private Page(PageHeader header, String mainContainerId) {
-        root = div().css(CSS.component(Constants.page))
+        root = div().css(component(page))
                 .add(header)
-                .add(main = main().id(mainContainerId).css(CSS.component(Constants.page, Constants.main))
-                        .attr(Constants.role, Constants.main)
-                        .attr(Constants.tabindex, "-1")
+                .add(main = main().id(mainContainerId).css(component(page, Constants.main))
+                        .attr(role, Constants.main)
+                        .attr(tabindex, "-1")
                         .get())
                 .get();
     }

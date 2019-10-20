@@ -1,6 +1,7 @@
 package org.patternfly.client.components;
 
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import elemental2.dom.HTMLButtonElement;
@@ -65,14 +66,14 @@ public class MultiSelect<T> implements Disable<MultiSelect<T>>, IsElement<HTMLEl
     private final HTMLElement menu;
 
     private final boolean typeahead;
-    private final CollapseExpandBlock<MultiSelect<T>> ceb;
-    private final ItemVisualizationBlock<HTMLElement, T> ivb;
+    private final CollapseExpandHandler ceh;
+    private final ItemDisplay<HTMLElement, T> itemDisplay;
     private SelectHandler<T> onSelect;
 
     public MultiSelect(String text, String icon, boolean typeahead) {
         this.typeahead = typeahead;
-        this.ceb = new CollapseExpandBlock<>(this);
-        this.ivb = new ItemVisualizationBlock<>();
+        this.ceh = new CollapseExpandHandler();
+        this.itemDisplay = new ItemDisplay<>();
 
         String labelId = uniqueId(select, label);
         String buttonId = uniqueId(select, Constants.button);
@@ -82,7 +83,7 @@ public class MultiSelect<T> implements Disable<MultiSelect<T>>, IsElement<HTMLEl
                         .id(buttonId)
                         .aria(expanded, false_)
                         .aria(labelledBy, labelId + " " + buttonId)
-                        .on(click, e -> ceb.expand(element(), buttonElement(), menuElement()))
+                        .on(click, e -> ceh.expand(element(), buttonElement(), menuElement()))
                         .add(div().css(component(select, toggle, wrapper))
                                 .add(this.text = span().css(component(select, toggle, Constants.text))
                                         .textContent(text)
@@ -137,13 +138,13 @@ public class MultiSelect<T> implements Disable<MultiSelect<T>>, IsElement<HTMLEl
 
     public MultiSelect<T> add(T item) {
         HtmlContentBuilder<HTMLElement> span = span().css(component(check, label));
-        ivb.display.accept(span, item);
+        itemDisplay.display.accept(span, item);
 
         menu.appendChild(label().css(component(check), component(select, Constants.menu, Constants.item))
                 .add(input(checkbox).css(component(check, input))
-                        .data(multiSelectItem, ivb.itemId(item))
+                        .data(multiSelectItem, itemDisplay.itemId(item))
                         .on(click, e -> {
-                            ceb.collapse(element(), buttonElement(), menuElement());
+                            ceh.collapse(element(), buttonElement(), menuElement());
                             select(item);
                         }))
                 .add(span().css(component(check, label)).textContent(Constants.text))
@@ -152,12 +153,12 @@ public class MultiSelect<T> implements Disable<MultiSelect<T>>, IsElement<HTMLEl
     }
 
     public MultiSelect<T> asString(Function<T, String> asString) {
-        ivb.asString = asString;
+        itemDisplay.asString = asString;
         return this;
     }
 
     public MultiSelect<T> display(BiConsumer<HtmlContentBuilder<HTMLElement>, T> display) {
-        ivb.display = display;
+        itemDisplay.display = display;
         return this;
     }
 
@@ -175,7 +176,7 @@ public class MultiSelect<T> implements Disable<MultiSelect<T>>, IsElement<HTMLEl
     }
 
     public MultiSelect<T> select(T item) {
-        text.textContent = ivb.asString.apply(item);
+        text.textContent = itemDisplay.asString.apply(item);
         if (onSelect != null) {
             onSelect.onSelect(item);
         }
@@ -197,8 +198,8 @@ public class MultiSelect<T> implements Disable<MultiSelect<T>>, IsElement<HTMLEl
 
     // ------------------------------------------------------ events
 
-    public MultiSelect<T> onToggle(BiConsumer<MultiSelect<T>, Boolean> onToggle) {
-        ceb.onToggle = onToggle;
+    public MultiSelect<T> onToggle(Consumer<Boolean> onToggle) {
+        ceh.onToggle = onToggle;
         return this;
     }
 

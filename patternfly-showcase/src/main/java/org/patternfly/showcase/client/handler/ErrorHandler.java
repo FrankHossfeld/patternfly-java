@@ -7,21 +7,18 @@ import org.patternfly.showcase.client.ShowcaseContext;
 import org.patternfly.showcase.client.resources.Routes;
 
 @Handler
-public class ErrorHandler
-    extends AbstractHandler<ShowcaseContext> {
+public class ErrorHandler extends AbstractHandler<ShowcaseContext> {
 
-  public ErrorHandler() {
-  }
+    public ErrorHandler() {
+    }
 
-  @Override
-  public void bind() {
-    this.eventBus.addHandler(NaluErrorEvent.TYPE,
-        this::handleNaluErrorEvent);
-  }
+    @Override
+    public void bind() {
+        this.eventBus.addHandler(NaluErrorEvent.TYPE, this::handleNaluErrorEvent);
+    }
 
-  private void handleNaluErrorEvent(NaluErrorEvent e) {
-//    this.context.setErrorInfo(e.getErrorInfo());
-    this.router.route(Routes.HOME);
-  }
+    private void handleNaluErrorEvent(NaluErrorEvent e) {
+        this.router.route(Routes.HOME);
+    }
 
 }

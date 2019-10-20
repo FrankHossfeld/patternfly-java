@@ -33,7 +33,7 @@ class ChipGroupDocumentation extends ComponentDocumentation {
                                                     .add(group))
                                             .add(div().css("sc-demo__code-block")
                                                     .add(Button.link("Add cip").prepend(fas("plus-circle"))
-                                                            .onClick(c -> group.add(Chip.text(uniqueId())))))
+                                                            .onClick(() -> group.add(Chip.text(uniqueId())))))
                                             .get();
                                 }),
                         new Demo("Chip toolbar", Code.get().chipToolbar().getText(),
@@ -54,7 +54,7 @@ class ChipGroupDocumentation extends ComponentDocumentation {
                                                     .add(toolbar))
                                             .add(div().css("sc-demo__code-block")
                                                     .add(Button.link("Add chip").prepend(fas("plus-circle"))
-                                                            .onClick(c -> {
+                                                            .onClick(() -> {
                                                                 int i = new Random().nextInt(3);
                                                                 groups[i].add(Chip.text(uniqueId()));
                                                             })))

@@ -2,10 +2,10 @@ package org.patternfly.client.components;
 
 import elemental2.dom.HTMLElement;
 import org.jboss.gwt.elemento.core.IsElement;
-import org.patternfly.client.core.Theme;
+import org.patternfly.client.resources.Theme;
 
 import static org.jboss.gwt.elemento.core.Elements.div;
-import static org.patternfly.client.core.Theme.DARK;
+import static org.patternfly.client.resources.Theme.DARK;
 import static org.patternfly.client.resources.CSS.component;
 import static org.patternfly.client.resources.CSS.modifier;
 import static org.patternfly.client.resources.Constants.*;

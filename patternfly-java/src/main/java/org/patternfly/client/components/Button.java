@@ -6,7 +6,7 @@ import elemental2.dom.HTMLElement;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
-import org.patternfly.client.core.ClickHandler;
+import org.patternfly.client.core.Callback;
 import org.patternfly.client.core.Disable;
 import org.patternfly.client.resources.Constants;
 
@@ -96,14 +96,14 @@ public class Button implements Disable<Button>, IsElement<HTMLElement> {
     private final HTMLElement root;
     private final HTMLButtonElement button;
     private final HTMLAnchorElement a;
-    private ClickHandler clickHandler;
+    private Callback callback;
 
     @SuppressWarnings("unchecked")
     private Button(HtmlContentBuilder builder) {
         root = builder.css(component(Constants.button))
                 .on(click, e -> {
-                    if (clickHandler != null) {
-                        clickHandler.onClick(this);
+                    if (callback != null) {
+                        callback.call();
                     }
                 })
                 .get();
@@ -226,8 +226,8 @@ public class Button implements Disable<Button>, IsElement<HTMLElement> {
 
     // ------------------------------------------------------ event handler
 
-    public Button onClick(ClickHandler<Button> clickHandler) {
-        this.clickHandler = clickHandler;
+    public Button onClick(Callback callback) {
+        this.callback = callback;
         return this;
     }
 

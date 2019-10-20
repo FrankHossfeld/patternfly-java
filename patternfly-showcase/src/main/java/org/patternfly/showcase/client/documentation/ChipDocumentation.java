@@ -32,7 +32,7 @@ class ChipDocumentation extends ComponentDocumentation {
                                         .get()),
                         new Demo("Chip onClose", Code.get().chipOnClose().getText(),
                                 () -> div()
-                                        .add(Chip.text("Close Me").onClose(c -> toast().add(info("Goodbye"))))
+                                        .add(Chip.text("Close Me").onClose(() -> toast().add(info("Goodbye"))))
                                         .get())
                 ));
     }

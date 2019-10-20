@@ -1,6 +1,6 @@
 package org.patternfly.client.components;
 
-import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 import elemental2.dom.HTMLElement;
 import elemental2.dom.Node;
@@ -16,15 +16,11 @@ import static org.patternfly.client.resources.Constants.false_;
 import static org.patternfly.client.resources.Constants.hidden;
 import static org.patternfly.client.resources.Constants.true_;
 
-class CollapseExpandBlock<T> {
+/** Reusable class for components which have a collapsible / expandable UI element */
+class CollapseExpandHandler {
 
-    private final T source;
     private HandlerRegistration closeHandler;
-    BiConsumer<T, Boolean> onToggle;
-
-    CollapseExpandBlock(T source) {
-        this.source = source;
-    }
+    Consumer<Boolean> onToggle;
 
     void expand(HTMLElement root, HTMLElement button, HTMLElement menu) {
         if (!root.classList.contains(modifier(expanded))) {
@@ -39,7 +35,7 @@ class CollapseExpandBlock<T> {
             menu.removeAttribute(hidden);
             setVisible(menu, true);
             if (onToggle != null) {
-                onToggle.accept(source, true);
+                onToggle.accept(true);
             }
         } else {
             collapse(root, button, menu);
@@ -54,7 +50,7 @@ class CollapseExpandBlock<T> {
             setVisible(menu, false);
             closeHandler.removeHandler();
             if (onToggle != null) {
-                onToggle.accept(source, false);
+                onToggle.accept(false);
             }
         }
     }

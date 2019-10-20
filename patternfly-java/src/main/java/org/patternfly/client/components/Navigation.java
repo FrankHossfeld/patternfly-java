@@ -70,7 +70,7 @@ public class Navigation implements IsElement<HTMLElement> {
     private final boolean tertiary;
     private final boolean grouped;
     private final boolean expandable;
-    private final ItemVisualizationBlock<HTMLAnchorElement, NavigationItem> ivb;
+    private final ItemDisplay<HTMLAnchorElement, NavigationItem> itemDisplay;
     private SelectHandler<NavigationItem> onSelect;
 
     private Navigation(boolean global, boolean horizontal, boolean tertiary, boolean grouped, boolean expandable) {
@@ -78,7 +78,7 @@ public class Navigation implements IsElement<HTMLElement> {
         this.tertiary = tertiary;
         this.grouped = grouped;
         this.expandable = expandable;
-        this.ivb = new ItemVisualizationBlock<>();
+        this.itemDisplay = new ItemDisplay<>();
 
         HtmlContentBuilder<HTMLElement> builder = nav().css(component(nav)).aria(label, global ? "Global" : "Local");
         if (horizontal || tertiary) {
@@ -221,12 +221,12 @@ public class Navigation implements IsElement<HTMLElement> {
     }
 
     public Navigation asString(Function<NavigationItem, String> asString) {
-        ivb.asString = asString;
+        itemDisplay.asString = asString;
         return this;
     }
 
     public Navigation display(BiConsumer<HtmlContentBuilder<HTMLAnchorElement>, NavigationItem> display) {
-        ivb.display = display;
+        itemDisplay.display = display;
         return this;
     }
 
@@ -258,7 +258,7 @@ public class Navigation implements IsElement<HTMLElement> {
             if (item.getHref() != null) {
                 a.attr("href", item.getHref());
             }
-            ivb.display.accept(a, item);
+            itemDisplay.display.accept(a, item);
             if (group != null) {
                 a.data(navGroup, groupId(group));
             }

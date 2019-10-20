@@ -9,6 +9,11 @@ import static org.patternfly.client.resources.CSS.component;
 import static org.patternfly.client.resources.Constants.mainSection;
 import static org.patternfly.client.resources.Constants.page;
 
+/**
+ * PatternFly page section component.
+ *
+ * @see <a href="https://www.patternfly.org/v4/documentation/core/components/page">https://www.patternfly.org/v4/documentation/core/components/page</a>
+ */
 public class PageSection extends ElementBuilder<HTMLElement, PageSection>
         implements HtmlContent<HTMLElement, PageSection> {
 

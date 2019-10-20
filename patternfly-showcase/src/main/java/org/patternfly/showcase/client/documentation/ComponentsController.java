@@ -8,7 +8,7 @@ import com.github.nalukit.nalu.client.component.annotation.AcceptParameter;
 import com.github.nalukit.nalu.client.component.annotation.Controller;
 import elemental2.dom.HTMLElement;
 import org.patternfly.client.components.Page;
-import org.patternfly.client.core.Theme;
+import org.patternfly.client.resources.Theme;
 import org.patternfly.showcase.client.ShowcaseContext;
 import org.patternfly.showcase.client.resources.Ids;
 import org.patternfly.showcase.client.resources.Nav;

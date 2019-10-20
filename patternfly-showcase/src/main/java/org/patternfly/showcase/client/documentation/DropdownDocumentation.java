@@ -131,10 +131,10 @@ class DropdownDocumentation extends ComponentDocumentation {
                                                 .add("Disabled Action", true)
                                                 .addSeparator()
                                                 .add("Separated Link")
-                                                .onToggle((dd, open) ->
+                                                .onToggle(open ->
                                                         toast().add(
                                                                 info("Dropdown " + (open ? "expanded" : "collapsed"))))
-                                                .onChange((dd, value) ->
+                                                .onChange(value ->
                                                         toast().add(
                                                                 info("Dropdown " + (value ? "checked" : "not checked"))))
                                                 .onSelect(item -> toast().add(info("Selected " + item))))

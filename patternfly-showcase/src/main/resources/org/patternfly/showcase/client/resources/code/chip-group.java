@@ -7,4 +7,4 @@ ChipGroup group = new ChipGroup(5)
         .add(Chip.text(uniqueId()));
 
 Button add = Button.link("Add chip").prepend(fas("plus-circle"))
-        .onClick(c -> group.add(Chip.text(uniqueId())));
+        .onClick(() -> group.add(Chip.text(uniqueId())));

@@ -3,7 +3,7 @@ package org.patternfly.client.components;
 import elemental2.dom.HTMLElement;
 import org.jboss.gwt.elemento.core.IsElement;
 import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
-import org.patternfly.client.core.ClickHandler;
+import org.patternfly.client.core.Callback;
 import org.patternfly.client.resources.Constants;
 
 import static org.jboss.gwt.elemento.core.Elements.button;
@@ -55,7 +55,7 @@ public class Chip implements IsElement<HTMLElement> {
     private final int count;
     private final boolean overflow;
     private final boolean readOnly;
-    private ClickHandler<Chip> clickHandler;
+    private Callback callback;
 
 
     private Chip(HTMLElement element, String text, int count, boolean overflow, boolean readOnly) {
@@ -74,8 +74,8 @@ public class Chip implements IsElement<HTMLElement> {
         if (overflow) {
             root.appendChild(button().css(component(button), modifier(plain))
                     .on(click, e -> {
-                        if (clickHandler != null) {
-                            clickHandler.onClick(this);
+                        if (callback != null) {
+                            callback.call();
                         }
                     })
                     .add(this.text = span().css(component(chip, Constants.text)).textContent(text).get())
@@ -101,8 +101,8 @@ public class Chip implements IsElement<HTMLElement> {
                         .aria(label, "Remove")
                         .on(click, e -> {
                             failSafeRemoveFromParent(element());
-                            if (clickHandler != null) {
-                                clickHandler.onClick(this);
+                            if (callback != null) {
+                                callback.call();
                             }
                         })
                         .add(i().css(fas("times-circle")).aria(hidden, true_))
@@ -117,15 +117,15 @@ public class Chip implements IsElement<HTMLElement> {
     }
 
     Chip cloneAsLi() {
-        return new Chip(li().get(), text.textContent, count, overflow, readOnly).onClose(clickHandler);
+        return new Chip(li().get(), text.textContent, count, overflow, readOnly).onClose(callback);
     }
 
 
     // ------------------------------------------------------ public API
 
     /** Called after the chip has been removed. */
-    public Chip onClose(ClickHandler<Chip> clickHandler) {
-        this.clickHandler = clickHandler;
+    public Chip onClose(Callback callback) {
+        this.callback = callback;
         return this;
     }
 

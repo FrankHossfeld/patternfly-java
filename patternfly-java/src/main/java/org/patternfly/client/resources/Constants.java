@@ -4,6 +4,9 @@ package org.patternfly.client.resources;
 public interface Constants {
 
     String _1 = "-1";
+    String _4xl = "4xl";
+    String _3xl = "3xl";
+    String _2xl = "2xl";
     String action = "action";
     String active = "active";
     String alert = "alert";
@@ -71,6 +74,7 @@ public interface Constants {
     String listbox = "listbox";
     String main = "main";
     String mainSection = "main-section";
+    String md = "md";
     String menu = "menu";
     String menuitem = "menuitem";
     String nav = "nav";
@@ -110,4 +114,5 @@ public interface Constants {
     String unread = "unread";
     String warning = "warning";
     String wrapper = "wrapper";
+    String xl = "xl";
 }

@@ -1,6 +1,7 @@
 package org.patternfly.client.components;
 
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import elemental2.dom.HTMLButtonElement;
@@ -94,23 +95,23 @@ public class Dropdown<T> implements Disable<Dropdown<T>>, IsElement<HTMLElement>
 
     private final boolean grouped;
     private final boolean split;
-    private final CollapseExpandBlock<Dropdown<T>> ceb;
-    private final ItemVisualizationBlock<HTMLButtonElement, T> ivb;
-    private BiConsumer<Dropdown<T>, Boolean> onChange;
+    private final CollapseExpandHandler ceh;
+    private final ItemDisplay<HTMLButtonElement, T> itemDisplay;
+    private Consumer<Boolean> onChange;
     private SelectHandler<T> onSelect;
 
     private Dropdown(String text, String icon, boolean grouped, boolean split) {
         this.grouped = grouped;
         this.split = split;
-        this.ceb = new CollapseExpandBlock<>(this);
-        this.ivb = new ItemVisualizationBlock<>();
+        this.ceh = new CollapseExpandHandler();
+        this.itemDisplay = new ItemDisplay<>();
 
         String buttonId = uniqueId(dropdown, Constants.button);
         HtmlContentBuilder<HTMLButtonElement> buttonBuilder = button()
                 .id(buttonId)
                 .aria(expanded, false_)
                 .aria(hasPopup, true_)
-                .on(click, e -> ceb.expand(element(), buttonElement(), menuElement()));
+                .on(click, e -> ceh.expand(element(), buttonElement(), menuElement()));
 
         if (split) {
             HTMLLabelElement le;
@@ -124,7 +125,7 @@ public class Dropdown<T> implements Disable<Dropdown<T>>, IsElement<HTMLElement>
                                             .aria(Constants.label, "Select All")
                                             .on(change, e -> {
                                                 if (onChange != null) {
-                                                    onChange.accept(this, ((HTMLInputElement) e.target).checked);
+                                                    onChange.accept(((HTMLInputElement) e.target).checked);
                                                 }
                                             })
                                             .get()))
@@ -251,12 +252,12 @@ public class Dropdown<T> implements Disable<Dropdown<T>>, IsElement<HTMLElement>
     }
 
     public Dropdown<T> asString(Function<T, String> asString) {
-        ivb.asString = asString;
+        itemDisplay.asString = asString;
         return this;
     }
 
     public Dropdown<T> display(BiConsumer<HtmlContentBuilder<HTMLButtonElement>, T> display) {
-        ivb.display = display;
+        itemDisplay.display = display;
         return this;
     }
 
@@ -325,12 +326,12 @@ public class Dropdown<T> implements Disable<Dropdown<T>>, IsElement<HTMLElement>
 
     // ------------------------------------------------------ events
 
-    public Dropdown<T> onToggle(BiConsumer<Dropdown<T>, Boolean> onToggle) {
-        ceb.onToggle = onToggle;
+    public Dropdown<T> onToggle(Consumer<Boolean> onToggle) {
+        ceh.onToggle = onToggle;
         return this;
     }
 
-    public Dropdown<T> onChange(BiConsumer<Dropdown<T>, Boolean> onChange) {
+    public Dropdown<T> onChange(Consumer<Boolean> onChange) {
         this.onChange = onChange;
         return this;
     }
@@ -346,14 +347,14 @@ public class Dropdown<T> implements Disable<Dropdown<T>>, IsElement<HTMLElement>
     private HTMLLIElement newItem(T item, boolean disabled) {
         HtmlContentBuilder<HTMLButtonElement> button = button().css(component(dropdown, Constants.menu, Constants.item))
                 .attr(tabindex, _1)
-                .data(dropdownItem, ivb.itemId(item))
+                .data(dropdownItem, itemDisplay.itemId(item))
                 .on(click, e -> {
-                    ceb.collapse(element(), buttonElement(), menuElement());
+                    ceh.collapse(element(), buttonElement(), menuElement());
                     if (onSelect != null) {
                         onSelect.onSelect(item);
                     }
                 });
-        ivb.display.accept(button, item);
+        itemDisplay.display.accept(button, item);
         HTMLButtonElement buttonElement = button.get();
         buttonElement.disabled = disabled;
         return li().attr(role, menuitem)
@@ -362,6 +363,6 @@ public class Dropdown<T> implements Disable<Dropdown<T>>, IsElement<HTMLElement>
     }
 
     private HTMLButtonElement itemButton(T item) {
-        return cast(menu.querySelector("button[data-dropdown-item=" + ivb.itemId(item) + "]"));
+        return cast(menu.querySelector("button[data-dropdown-item=" + itemDisplay.itemId(item) + "]"));
     }
 }

@@ -1,6 +1,7 @@
 package org.patternfly.client.components;
 
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import elemental2.dom.HTMLButtonElement;
@@ -65,14 +66,14 @@ public class SingleSelect<T> implements Disable<SingleSelect<T>>, HasValue<T>, I
     private final HTMLElement text;
     private final HTMLElement menu;
 
-    private final CollapseExpandBlock<SingleSelect<T>> ceb;
-    private final ItemVisualizationBlock<HTMLButtonElement, T> ivb;
+    private final CollapseExpandHandler ceh;
+    private final ItemDisplay<HTMLButtonElement, T> itemDisplay;
     private T value;
     private SelectHandler<T> onSelect;
 
     private SingleSelect(String placeholder, String icon, boolean multiple, boolean typeahead) {
-        this.ceb = new CollapseExpandBlock<>(this);
-        this.ivb = new ItemVisualizationBlock<>();
+        this.ceh = new CollapseExpandHandler();
+        this.itemDisplay = new ItemDisplay<>();
 
         String labelId = uniqueId(select, label);
         String buttonId = uniqueId(select, Constants.button);
@@ -83,7 +84,7 @@ public class SingleSelect<T> implements Disable<SingleSelect<T>>, HasValue<T>, I
                         .aria(Constants.expanded, false_)
                         .aria(Constants.hasPopup, listbox)
                         .aria(labelledBy, labelId + " " + buttonId)
-                        .on(click, e -> ceb.expand(element(), buttonElement(), menuElement()))
+                        .on(click, e -> ceh.expand(element(), buttonElement(), menuElement()))
                         .add(div().css(component(select, toggle, wrapper))
                                 .add(text = span().css(component(select, toggle, Constants.text))
                                         .textContent(placeholder)
@@ -152,12 +153,12 @@ public class SingleSelect<T> implements Disable<SingleSelect<T>>, HasValue<T>, I
     public SingleSelect<T> add(T item) {
         HtmlContentBuilder<HTMLButtonElement> button = button()
                 .css(component(select, Constants.menu, Constants.item))
-                .data(singleSelectItem, ivb.itemId(item))
+                .data(singleSelectItem, itemDisplay.itemId(item))
                 .on(click, e -> {
-                    ceb.collapse(element(), buttonElement(), menuElement());
+                    ceh.collapse(element(), buttonElement(), menuElement());
                     select(item);
                 });
-        ivb.display.accept(button, item);
+        itemDisplay.display.accept(button, item);
         menu.appendChild(li().attr(role, presentation)
                 .add(button)
                 .get());
@@ -165,18 +166,18 @@ public class SingleSelect<T> implements Disable<SingleSelect<T>>, HasValue<T>, I
     }
 
     public SingleSelect<T> asString(Function<T, String> asString) {
-        ivb.asString = asString;
+        itemDisplay.asString = asString;
         return this;
     }
 
     public SingleSelect<T> display(BiConsumer<HtmlContentBuilder<HTMLButtonElement>, T> display) {
-        ivb.display = display;
+        itemDisplay.display = display;
         return this;
     }
 
     public SingleSelect<T> select(T item) {
         value = item;
-        text.textContent = ivb.asString.apply(item);
+        text.textContent = itemDisplay.asString.apply(item);
         if (onSelect != null) {
             onSelect.onSelect(value);
         }
@@ -208,8 +209,8 @@ public class SingleSelect<T> implements Disable<SingleSelect<T>>, HasValue<T>, I
 
     // ------------------------------------------------------ events
 
-    public SingleSelect<T> onToggle(BiConsumer<SingleSelect<T>, Boolean> onToggle) {
-        ceb.onToggle = onToggle;
+    public SingleSelect<T> onToggle(Consumer<Boolean> onToggle) {
+        ceh.onToggle = onToggle;
         return this;
     }
 

@@ -1,2 +1,2 @@
-Label l1 = Label.create("Default Label");
-Label l2 = Label.create("Compact Label", true);
+Label l1 = new Label("Default Label");
+Label l2 = new Label("Compact Label", true);

@@ -8,12 +8,13 @@ import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
 
 import static org.jboss.gwt.elemento.core.Elements.buildId;
 
-class ItemVisualizationBlock<E extends HTMLElement, T> {
+/** Reusable class for typed components to customize the item ID and display */
+class ItemDisplay<E extends HTMLElement, T> {
 
     Function<T, String> asString;
     BiConsumer<HtmlContentBuilder<E>, T> display;
 
-    ItemVisualizationBlock() {
+    ItemDisplay() {
         this.asString = String::valueOf;
         this.display = (element, item) -> element.textContent(asString.apply(item));
     }

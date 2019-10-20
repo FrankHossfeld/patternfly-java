@@ -234,7 +234,7 @@ class ButtonDocumentation extends ComponentDocumentation {
                         new Demo("Button event", Code.get().buttonEvent().getText(),
                                 () -> div()
                                         .add(Button.button("Click me").primary()
-                                                .onClick(b -> toast().add(info("Hello"))))
+                                                .onClick(() -> toast().add(info("Hello"))))
                                         .get())
                 ));
     }

@@ -1,6 +1,7 @@
 package org.patternfly.client.components;
 
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import elemental2.dom.HTMLButtonElement;
@@ -43,14 +44,14 @@ public class ContextSelector<T> implements Disable<ContextSelector<T>>, HasValue
     private final HTMLInputElement filter;
     private final HTMLElement ul;
 
-    private final CollapseExpandBlock<ContextSelector<T>> ceb;
-    private final ItemVisualizationBlock<HTMLButtonElement, T> ivb;
+    private final CollapseExpandHandler ceh;
+    private final ItemDisplay<HTMLButtonElement, T> itemDisplay;
     private T value;
     private SelectHandler<T> onSelect;
 
     public ContextSelector(String text) {
-        this.ceb = new CollapseExpandBlock<>(this);
-        this.ivb = new ItemVisualizationBlock<>();
+        this.ceh = new CollapseExpandHandler();
+        this.itemDisplay = new ItemDisplay<>();
 
         String labelId = uniqueId(contextSelector, label);
         String buttonId = uniqueId(contextSelector, Constants.button);
@@ -62,7 +63,7 @@ public class ContextSelector<T> implements Disable<ContextSelector<T>>, HasValue
                         .id(buttonId)
                         .aria(expanded, false_)
                         .aria(labelledBy, labelId + " " + buttonId)
-                        .on(click, e -> ceb.expand(element(), buttonElement(), menuElement()))
+                        .on(click, e -> ceh.expand(element(), buttonElement(), menuElement()))
                         .add(this.text = span().css(component(contextSelector, toggle, Constants.text))
                                 .textContent("Please select")
                                 .get())
@@ -126,12 +127,12 @@ public class ContextSelector<T> implements Disable<ContextSelector<T>>, HasValue
     public ContextSelector<T> add(T item) {
         HtmlContentBuilder<HTMLButtonElement> button = button()
                 .css(component(contextSelector, Constants.menu, list, Constants.item))
-                .data(contextSelectorItem, ivb.itemId(item))
+                .data(contextSelectorItem, itemDisplay.itemId(item))
                 .on(click, e -> {
-                    ceb.collapse(element(), buttonElement(), menuElement());
+                    ceh.collapse(element(), buttonElement(), menuElement());
                     select(item);
                 });
-        ivb.display.accept(button, item);
+        itemDisplay.display.accept(button, item);
         ul.appendChild(li().attr(role, none)
                 .add(button)
                 .get());
@@ -139,18 +140,18 @@ public class ContextSelector<T> implements Disable<ContextSelector<T>>, HasValue
     }
 
     public ContextSelector<T> asString(Function<T, String> asString) {
-        ivb.asString = asString;
+        itemDisplay.asString = asString;
         return this;
     }
 
     public ContextSelector<T> display(BiConsumer<HtmlContentBuilder<HTMLButtonElement>, T> display) {
-        ivb.display = display;
+        itemDisplay.display = display;
         return this;
     }
 
     public ContextSelector<T> select(T item) {
         value = item;
-        text.textContent = ivb.asString.apply(item);
+        text.textContent = itemDisplay.asString.apply(item);
         if (onSelect != null) {
             onSelect.onSelect(value);
         }
@@ -177,8 +178,8 @@ public class ContextSelector<T> implements Disable<ContextSelector<T>>, HasValue
 
     // ------------------------------------------------------ events
 
-    public ContextSelector<T> onToggle(BiConsumer<ContextSelector<T>, Boolean> onToggle) {
-        ceb.onToggle = onToggle;
+    public ContextSelector<T> onToggle(Consumer<Boolean> onToggle) {
+        ceh.onToggle = onToggle;
         return this;
     }
 
