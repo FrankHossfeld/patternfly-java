@@ -19,6 +19,6 @@ class AvatarDocumentation extends ComponentDocumentation {
             new Demo(
                 "Avatar ()",
                 Code.get().avatar().getText(),
-                () -> div().add(Avatar.avatar("./images/img_avatar.svg", "avatar")).get())));
+                () -> div().add(Avatar.create("./images/img_avatar.svg", "avatar")).get())));
   }
 }

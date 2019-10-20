@@ -18,9 +18,9 @@ class LabelDocumentation extends ComponentDocumentation {
                 asList(
                         new Demo("Label ()", Code.get().label().getText(),
                                 () -> div()
-                                        .add(Label.text("Default Label"))
+                                        .add(Label.create("Default Label"))
                                         .add(" ")
-                                        .add(Label.text("Compact Label", true))
+                                        .add(Label.create("Compact Label", true))
                                         .get()
                 )));
     }

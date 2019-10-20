@@ -20,12 +20,12 @@ class TitleDocumentation extends ComponentDocumentation {
                 asList(
                         new Demo("Title ()", Code.get().title().getText(),
                                 () -> div()
-                                        .add(Title.title(HeadingLevel.H1, Size.SIZE_4XL, "4xl Title"))
-                                        .add(Title.title(HeadingLevel.H2, Size.SIZE_3XL, "3xl Title"))
-                                        .add(Title.title(HeadingLevel.H3, Size.SIZE_2XL, "2xl Title"))
-                                        .add(Title.title(HeadingLevel.H4, Size.SIZE_XL, "xl Title"))
-                                        .add(Title.title(HeadingLevel.H5, Size.SIZE_LG, "lg Title"))
-                                        .add(Title.title(HeadingLevel.H6, Size.SIZE_MD, "md Title"))
+                                        .add(Title.create(HeadingLevel.H1, Size.SIZE_4XL, "4xl Title"))
+                                        .add(Title.create(HeadingLevel.H2, Size.SIZE_3XL, "3xl Title"))
+                                        .add(Title.create(HeadingLevel.H3, Size.SIZE_2XL, "2xl Title"))
+                                        .add(Title.create(HeadingLevel.H4, Size.SIZE_XL, "xl Title"))
+                                        .add(Title.create(HeadingLevel.H5, Size.SIZE_LG, "lg Title"))
+                                        .add(Title.create(HeadingLevel.H6, Size.SIZE_MD, "md Title"))
                                         .get()
                 )));
     }

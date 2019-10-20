@@ -36,7 +36,7 @@ public class Avatar implements IsElement<HTMLElement> {
 
   // ------------------------------------------------------ factory methods
 
-  public static Avatar avatar(String src, String alt) {
+  public static Avatar create(String src, String alt) {
     return Avatar.avatar(src, alt, null);
   }
 

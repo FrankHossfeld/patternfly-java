@@ -17,11 +17,11 @@ import org.patternfly.client.resources.Constants;
  */
 public class Label implements IsElement<HTMLElement> {
 
-  public static Label text(String text) {
-    return Label.text(text, false);
+  public static Label create(String text) {
+    return Label.create(text, false);
   }
 
-  public static Label text(String text, boolean compact) {
+  public static Label create(String text, boolean compact) {
     return new Label(span().get(), text, compact);
   }
 

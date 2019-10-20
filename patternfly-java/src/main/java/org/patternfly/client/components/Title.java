@@ -32,13 +32,13 @@ public class Title implements IsElement<HTMLElement> {
 
   // ------------------------------------------------------ factory methods
 
-  public static Title title(HeadingLevel headingLevel, Size size, String text) {
-    return Title.title(headingLevel, size, text, null);
+  public static Title create(HeadingLevel headingLevel, Size size, String text) {
+    return Title.create(headingLevel, size, text, null);
   }
 
   // ------------------------------------------------------ title instance
 
-  public static Title title(HeadingLevel headingLevel, Size size, String text, String className) {
+  public static Title create(HeadingLevel headingLevel, Size size, String text, String className) {
     return new Title(headingLevel, size, text, className);
   }
 
