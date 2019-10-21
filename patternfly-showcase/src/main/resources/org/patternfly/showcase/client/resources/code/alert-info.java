@@ -1,4 +1,5 @@
 import static org.patternfly.client.components.Alert.info;
+import static org.patternfly.client.components.AlertGroup.toast;
 
 Alert info1 = info("Info alert title")
         .add(description()

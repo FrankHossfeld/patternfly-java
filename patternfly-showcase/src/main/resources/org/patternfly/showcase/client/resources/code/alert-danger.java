@@ -1,5 +1,6 @@
 import static org.patternfly.client.components.Alert.danger;
 import static org.patternfly.client.components.Alert.info;
+import static org.patternfly.client.components.AlertGroup.toast;
 
 Alert danger1 = danger("Danger alert title")
         .add(description()

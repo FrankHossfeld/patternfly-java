@@ -1,5 +1,6 @@
 import static org.patternfly.client.components.Alert.default_;
 import static org.patternfly.client.components.Alert.info;
+import static org.patternfly.client.components.AlertGroup.toast;
 
 Alert default1 = default_("Default alert title")
         .add(description()

@@ -1,5 +1,6 @@
 import static org.patternfly.client.components.Alert.info;
 import static org.patternfly.client.components.Alert.success;
+import static org.patternfly.client.components.AlertGroup.toast;
 
 Alert inline1 = success("Success alert title").inline()
         .add(description()
