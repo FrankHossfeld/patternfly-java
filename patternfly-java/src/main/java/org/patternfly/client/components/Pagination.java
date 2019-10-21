@@ -1,7 +1,8 @@
 package org.patternfly.client.components;
 
-import elemental2.dom.HTMLElement;
-import org.jboss.gwt.elemento.core.IsElement;
+import elemental2.dom.HTMLDivElement;
+import org.jboss.gwt.elemento.core.builder.ElementBuilder;
+import org.jboss.gwt.elemento.core.builder.HtmlContent;
 
 import static org.jboss.gwt.elemento.core.Elements.div;
 
@@ -10,16 +11,15 @@ import static org.jboss.gwt.elemento.core.Elements.div;
  *
  * @see <a href="https://www.patternfly.org/v4/documentation/core/components/pagination">https://www.patternfly.org/v4/documentation/core/components/pagination</a>
  */
-public class Pagination implements IsElement<HTMLElement> {
-
-    private final HTMLElement root;
+public class Pagination extends ElementBuilder<HTMLDivElement, Pagination>
+        implements HtmlContent<HTMLDivElement, Pagination> {
 
     public Pagination() {
-        root = div().get();
+        super(div().get());
     }
 
     @Override
-    public HTMLElement element() {
-        return root;
+    public Pagination that() {
+        return this;
     }
 }

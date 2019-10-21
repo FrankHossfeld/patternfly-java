@@ -5,11 +5,13 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 import elemental2.dom.HTMLButtonElement;
+import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
 import org.jboss.gwt.elemento.core.EventType;
 import org.jboss.gwt.elemento.core.InputType;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.gwt.elemento.core.builder.ElementBuilder;
+import org.jboss.gwt.elemento.core.builder.HtmlContent;
 import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
 import org.patternfly.client.core.Disable;
 import org.patternfly.client.core.HasValue;
@@ -35,21 +37,22 @@ import static org.patternfly.client.resources.Dataset.contextSelectorItem;
  *
  * @see <a href="https://www.patternfly.org/v4/documentation/core/components/contextselector">https://www.patternfly.org/v4/documentation/core/components/contextselector</a>
  */
-public class ContextSelector<T> implements Disable<ContextSelector<T>>, HasValue<T>, IsElement<HTMLElement> {
-
-    private final HTMLElement root;
-    private final HTMLElement text;
-    private final HTMLButtonElement button;
-    private final HTMLElement menu;
-    private final HTMLInputElement filter;
-    private final HTMLElement ul;
+public class ContextSelector<T> extends ElementBuilder<HTMLDivElement, ContextSelector<T>>
+        implements HtmlContent<HTMLDivElement, ContextSelector<T>>, Disable<ContextSelector<T>>, HasValue<T> {
 
     private final CollapseExpandHandler ceh;
     private final ItemDisplay<HTMLButtonElement, T> itemDisplay;
     private T value;
     private SelectHandler<T> onSelect;
 
+    private final HTMLElement text;
+    private final HTMLButtonElement button;
+    private final HTMLElement menu;
+    private final HTMLInputElement filter;
+    private final HTMLElement ul;
+
     public ContextSelector(String text) {
+        super(div().css(component(contextSelector)).get());
         this.ceh = new CollapseExpandHandler();
         this.itemDisplay = new ItemDisplay<>();
 
@@ -57,41 +60,45 @@ public class ContextSelector<T> implements Disable<ContextSelector<T>>, HasValue
         String buttonId = uniqueId(contextSelector, Constants.button);
         String searchInputId = uniqueId(contextSelector, "search", input);
         String searchButtonId = uniqueId(contextSelector, "search", Constants.button);
-        root = div().css(component(contextSelector))
-                .add(span().id(labelId).attr(hidden, "").textContent(text))
-                .add(button = button().css(component(contextSelector, toggle))
-                        .id(buttonId)
-                        .aria(expanded, false_)
-                        .aria(labelledBy, labelId + " " + buttonId)
-                        .on(click, e -> ceh.expand(element(), buttonElement(), menuElement()))
-                        .add(this.text = span().css(component(contextSelector, toggle, Constants.text))
-                                .textContent("Please select")
-                                .get())
-                        .add(i().css(fas(caretDown), component(contextSelector, toggle, icon))
-                                .aria(hidden, true_))
+
+        add(span().id(labelId).attr(hidden, "").textContent(text));
+        add(button = button().css(component(contextSelector, toggle))
+                .id(buttonId)
+                .aria(expanded, false_)
+                .aria(labelledBy, labelId + " " + buttonId)
+                .on(click, e -> ceh.expand(get(), buttonElement(), menuElement()))
+                .add(this.text = span().css(component(contextSelector, toggle, Constants.text))
+                        .textContent("Please select")
                         .get())
-                .add(menu = div().css(component(contextSelector, Constants.menu))
-                        .attr(hidden, "")
-                        .add(div().css(component(contextSelector, Constants.menu, input))
-                                .add(div().css(component(inputGroup))
-                                        .add(filter = input(InputType.search).css(component(formControl))
-                                                .id(searchInputId)
-                                                .attr("name", searchInputId)
-                                                .apply(i -> i.placeholder = "Search")
-                                                .aria(labelledBy, searchButtonId)
-                                                .on(keyup, e -> filter(((HTMLInputElement) e.currentTarget).value))
-                                                .on(EventType.search,
-                                                        e -> filter(((HTMLInputElement) e.currentTarget).value))
-                                                .get())
-                                        .add(button().css(component(Constants.button), CSS.modifier(control))
-                                                .id(searchButtonId)
-                                                .aria(label, "Search menu items")
-                                                .add(i().css(fas("search")).aria(hidden, true_)))))
-                        .add(ul = ul().css(component(contextSelector, Constants.menu, list))
-                                .attr(role, Constants.menu)
-                                .get())
+                .add(i().css(fas(caretDown), component(contextSelector, toggle, icon))
+                        .aria(hidden, true_))
+                .get());
+        add(menu = div().css(component(contextSelector, Constants.menu))
+                .attr(hidden, "")
+                .add(div().css(component(contextSelector, Constants.menu, input))
+                        .add(div().css(component(inputGroup))
+                                .add(filter = input(InputType.search).css(component(formControl))
+                                        .id(searchInputId)
+                                        .attr("name", searchInputId)
+                                        .apply(i -> i.placeholder = "Search")
+                                        .aria(labelledBy, searchButtonId)
+                                        .on(keyup, e -> filter(((HTMLInputElement) e.currentTarget).value))
+                                        .on(EventType.search,
+                                                e -> filter(((HTMLInputElement) e.currentTarget).value))
+                                        .get())
+                                .add(button().css(component(Constants.button), CSS.modifier(control))
+                                        .id(searchButtonId)
+                                        .aria(label, "Search menu items")
+                                        .add(i().css(fas("search")).aria(hidden, true_)))))
+                .add(ul = ul().css(component(contextSelector, Constants.menu, list))
+                        .attr(role, Constants.menu)
                         .get())
-                .get();
+                .get());
+    }
+
+    @Override
+    public ContextSelector that() {
+        return this;
     }
 
     private HTMLElement buttonElement() {
@@ -100,11 +107,6 @@ public class ContextSelector<T> implements Disable<ContextSelector<T>>, HasValue
 
     private HTMLElement menuElement() {
         return menu;
-    }
-
-    @Override
-    public HTMLElement element() {
-        return root;
     }
 
 
@@ -129,7 +131,7 @@ public class ContextSelector<T> implements Disable<ContextSelector<T>>, HasValue
                 .css(component(contextSelector, Constants.menu, list, Constants.item))
                 .data(contextSelectorItem, itemDisplay.itemId(item))
                 .on(click, e -> {
-                    ceh.collapse(element(), buttonElement(), menuElement());
+                    ceh.collapse(get(), buttonElement(), menuElement());
                     select(item);
                 });
         itemDisplay.display.accept(button, item);

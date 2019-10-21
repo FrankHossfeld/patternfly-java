@@ -1,11 +1,11 @@
 package org.patternfly.showcase.client.documentation;
 
-import org.patternfly.client.components.Avatar;
 import org.patternfly.showcase.client.resources.Code;
 
 import static java.util.Collections.singletonList;
 import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.jboss.gwt.elemento.core.Elements.p;
+import static org.patternfly.client.components.Components.avatar;
 
 class AvatarDocumentation extends ComponentDocumentation {
 
@@ -17,6 +17,6 @@ class AvatarDocumentation extends ComponentDocumentation {
                         .get(),
                 singletonList(
                         new Demo("Avatar ()", Code.get().avatar().getText(),
-                                () -> div().add(new Avatar("./images/img_avatar.svg", "avatar")).get())));
+                                () -> div().add(avatar("./images/img_avatar.svg", "avatar")).get())));
     }
 }

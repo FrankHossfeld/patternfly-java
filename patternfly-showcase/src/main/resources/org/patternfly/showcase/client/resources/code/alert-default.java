@@ -1,11 +1,13 @@
-Alert default1 = Alert.default_("Default alert title")
-        .description(span()
+import static org.patternfly.client.components.Alert.default_;
+import static org.patternfly.client.components.Alert.info;
+
+Alert default1 = default_("Default alert title")
+        .add(description()
                 .add("Default alert description. ")
-                .add(a("#").textContent("This is a link"))
-                .get())
+                .add(a("#").textContent("This is a link")))
         .closable();
-Alert default2 = Alert.default_("Default alert title")
+Alert default2 = default_("Default alert title")
         .closable();
-Alert default3 = Alert.default_("Default alert title")
-        .action("Action Button", () -> toast().add(Alert.info("Default action button clicked.")));
-Alert default4 = Alert.default_("Default alert title");
+Alert default3 = default_("Default alert title")
+        .action("Action Button", () -> toast().add(info("Default action button clicked.")));
+Alert default4 = default_("Default alert title");

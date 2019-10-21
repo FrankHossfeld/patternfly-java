@@ -63,6 +63,42 @@ public interface Code extends ClientBundle {
     @Source("code/button-variations.java")
     TextResource buttonVariations();
 
+    @Source("code/card-actions-in-head.java")
+    TextResource cardActionsInHead();
+
+    @Source("code/card-body-fill.java")
+    TextResource cardBodyFill();
+
+    @Source("code/card-compact.java")
+    TextResource cardCompact();
+
+    @Source("code/card-content-only.java")
+    TextResource cardContentOnly();
+
+    @Source("code/card-header-in-head.java")
+    TextResource cardHeaderInHead();
+
+    @Source("code/card-hover.java")
+    TextResource cardHover();
+
+    @Source("code/card-image-actions.java")
+    TextResource cardImageActions();
+
+    @Source("code/card-image-in-head.java")
+    TextResource cardImageInHead();
+
+    @Source("code/card-multiple-bodies.java")
+    TextResource cardMultipleBodies();
+
+    @Source("code/card-no-footer.java")
+    TextResource cardNoFooter();
+
+    @Source("code/card-no-header.java")
+    TextResource cardNoHeader();
+
+    @Source("code/card-simple.java")
+    TextResource cardSimple();
+
     @Source("code/chip.java")
     TextResource chip();
 

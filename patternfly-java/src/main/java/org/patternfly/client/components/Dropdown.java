@@ -5,11 +5,13 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 import elemental2.dom.HTMLButtonElement;
+import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLInputElement;
 import elemental2.dom.HTMLLIElement;
 import elemental2.dom.HTMLLabelElement;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.gwt.elemento.core.builder.ElementBuilder;
+import org.jboss.gwt.elemento.core.builder.HtmlContent;
 import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
 import org.patternfly.client.core.Disable;
 import org.patternfly.client.core.SelectHandler;
@@ -37,7 +39,8 @@ import static org.patternfly.client.resources.Dataset.dropdownItem;
  * @see <a href="https://www.patternfly.org/v4/documentation/core/components/dropdown">https://www.patternfly.org/v4/documentation/core/components/dropdown</a>
  */
 // TODO Open with enter, navigation with up/down, select with enter
-public class Dropdown<T> implements Disable<Dropdown<T>>, IsElement<HTMLElement> {
+public class Dropdown<T> extends ElementBuilder<HTMLDivElement, Dropdown<T>>
+        implements HtmlContent<HTMLDivElement, Dropdown<T>>, Disable<Dropdown<T>> {
 
     // ------------------------------------------------------ factory methods
 
@@ -86,13 +89,6 @@ public class Dropdown<T> implements Disable<Dropdown<T>>, IsElement<HTMLElement>
 
     private static final String UNNAMED_GROUP = "org.patternfly.dropdown.unnamedGroup";
 
-    private final HTMLElement toggle;
-    private final HTMLInputElement input;
-    private final HTMLButtonElement button;
-    private final HTMLElement menu;
-    private final HTMLElement root;
-    private HTMLElement lastMenu;
-
     private final boolean grouped;
     private final boolean split;
     private final CollapseExpandHandler ceh;
@@ -100,7 +96,14 @@ public class Dropdown<T> implements Disable<Dropdown<T>>, IsElement<HTMLElement>
     private Consumer<Boolean> onChange;
     private SelectHandler<T> onSelect;
 
+    private final HTMLElement toggle;
+    private final HTMLInputElement input;
+    private final HTMLButtonElement button;
+    private final HTMLElement menu;
+    private HTMLElement lastMenu;
+
     private Dropdown(String text, String icon, boolean grouped, boolean split) {
+        super(div().css(component(dropdown)).get());
         this.grouped = grouped;
         this.split = split;
         this.ceh = new CollapseExpandHandler();
@@ -111,7 +114,7 @@ public class Dropdown<T> implements Disable<Dropdown<T>>, IsElement<HTMLElement>
                 .id(buttonId)
                 .aria(expanded, false_)
                 .aria(hasPopup, true_)
-                .on(click, e -> ceh.expand(element(), buttonElement(), menuElement()));
+                .on(click, e -> ceh.expand(get(), buttonElement(), menuElement()));
 
         if (split) {
             HTMLLabelElement le;
@@ -160,6 +163,7 @@ public class Dropdown<T> implements Disable<Dropdown<T>>, IsElement<HTMLElement>
             }
             toggle = button;
         }
+        add(toggle);
 
         HtmlContentBuilder menuBuilder;
         if (grouped) {
@@ -173,10 +177,12 @@ public class Dropdown<T> implements Disable<Dropdown<T>>, IsElement<HTMLElement>
                 .attr(role, Constants.menu)
                 .get();
         lastMenu = menu;
-        root = div().css(component(dropdown))
-                .add(toggle)
-                .add(menu)
-                .get();
+        add(menu);
+    }
+
+    @Override
+    public Dropdown<T> that() {
+        return this;
     }
 
     private HTMLElement buttonElement() {
@@ -185,11 +191,6 @@ public class Dropdown<T> implements Disable<Dropdown<T>>, IsElement<HTMLElement>
 
     private HTMLElement menuElement() {
         return menu;
-    }
-
-    @Override
-    public HTMLElement element() {
-        return root;
     }
 
 
@@ -269,7 +270,7 @@ public class Dropdown<T> implements Disable<Dropdown<T>>, IsElement<HTMLElement>
     }
 
     public Dropdown<T> up() {
-        root.classList.add(modifier(top));
+        element.classList.add(modifier(top));
         return this;
     }
 
@@ -349,7 +350,7 @@ public class Dropdown<T> implements Disable<Dropdown<T>>, IsElement<HTMLElement>
                 .attr(tabindex, _1)
                 .data(dropdownItem, itemDisplay.itemId(item))
                 .on(click, e -> {
-                    ceh.collapse(element(), buttonElement(), menuElement());
+                    ceh.collapse(get(), buttonElement(), menuElement());
                     if (onSelect != null) {
                         onSelect.onSelect(item);
                     }

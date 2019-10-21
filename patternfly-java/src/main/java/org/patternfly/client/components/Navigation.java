@@ -6,7 +6,8 @@ import java.util.function.Function;
 import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLElement;
 import org.jboss.gwt.elemento.core.Elements;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.gwt.elemento.core.builder.ElementBuilder;
+import org.jboss.gwt.elemento.core.builder.HtmlContent;
 import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
 import org.patternfly.client.core.SelectHandler;
 import org.patternfly.client.resources.Constants;
@@ -35,7 +36,8 @@ import static org.patternfly.client.resources.Dataset.*;
  *
  * @see <a href="https://www.patternfly.org/v4/documentation/core/components/nav">https://www.patternfly.org/v4/documentation/core/components/nav</a>
  */
-public class Navigation implements IsElement<HTMLElement> {
+public class Navigation extends ElementBuilder<HTMLElement, Navigation>
+        implements HtmlContent<HTMLElement, Navigation> {
 
     // ------------------------------------------------------ factory methods
 
@@ -62,10 +64,6 @@ public class Navigation implements IsElement<HTMLElement> {
 
     // ------------------------------------------------------ navigation instance
 
-    private final HTMLElement root;
-    private HTMLElement ul;
-    private HTMLElement lastGroup;
-
     private final boolean horizontal;
     private final boolean tertiary;
     private final boolean grouped;
@@ -73,27 +71,30 @@ public class Navigation implements IsElement<HTMLElement> {
     private final ItemDisplay<HTMLAnchorElement, NavigationItem> itemDisplay;
     private SelectHandler<NavigationItem> onSelect;
 
+    private HTMLElement ul;
+    private HTMLElement lastGroup;
+
     private Navigation(boolean global, boolean horizontal, boolean tertiary, boolean grouped, boolean expandable) {
+        super(nav().css(component(nav)).aria(label, global ? "Global" : "Local").get());
         this.horizontal = horizontal;
         this.tertiary = tertiary;
         this.grouped = grouped;
         this.expandable = expandable;
         this.itemDisplay = new ItemDisplay<>();
 
-        HtmlContentBuilder<HTMLElement> builder = nav().css(component(nav)).aria(label, global ? "Global" : "Local");
         if (horizontal || tertiary) {
-            builder.add(button().css(component(nav, scroll, button))
+            add(button().css(component(nav, scroll, button))
                     .aria(label, "Scroll left")
                     .on(click, e -> scrollLeft())
                     .add(i().css(fas("angle-left")).aria(hidden, true_)));
 
             if (tertiary) { // tertiary (and horizontal)
-                builder.add(ul = ul().css(component(nav, Constants.tertiary, list)).get());
+                add(ul = ul().css(component(nav, Constants.tertiary, list)).get());
 
             } else { // horizontal (and not tertiary)
-                builder.add(ul = ul().css(component(nav, Constants.horizontal, list)).get());
+                add(ul = ul().css(component(nav, Constants.horizontal, list)).get());
             }
-            builder.add(button().css(component(nav, scroll, button))
+            add(button().css(component(nav, scroll, button))
                     .aria(label, "Scroll right")
                     .on(click, e -> scrollRight())
                     .add(i().css(fas("angle-right")).aria(hidden, true_)));
@@ -101,19 +102,18 @@ public class Navigation implements IsElement<HTMLElement> {
         } else {
             if (grouped) {
                 if (expandable) { // expandable (and grouped)
-                    builder.add(ul = ul().css(component(nav, list)).get());
+                    add(ul = ul().css(component(nav, list)).get());
                 } // nothing to do for grouped
 
             } else { // simple
-                builder.add(ul = ul().css(component(nav, simple, list)).get());
+                add(ul = ul().css(component(nav, simple, list)).get());
             }
         }
-        root = builder.get();
     }
 
     @Override
-    public HTMLElement element() {
-        return root;
+    public Navigation that() {
+        return this;
     }
 
 
@@ -140,7 +140,7 @@ public class Navigation implements IsElement<HTMLElement> {
 
     public Navigation add(String group, NavigationItem item) {
         String groupId = groupId(group);
-        lastGroup = cast(root.querySelector("ul[data-nav-group=" + groupId + "]"));
+        lastGroup = cast(element.querySelector("ul[data-nav-group=" + groupId + "]"));
         if (lastGroup == null) {
             lastGroup = ul().css(component(nav, simple, list))
                     .data(navGroup, groupId)
@@ -153,7 +153,7 @@ public class Navigation implements IsElement<HTMLElement> {
                                 .id(labelId)
                                 .data(navGroupLink, groupId)
                                 .textContent(group)
-                                .on(click, e -> toggle(groupId))
+                                .on(click, e -> toggleGroup(groupId))
                                 .add(span().css(component(nav, toggle))
                                         .add(i().css(fas(angleRight))
                                                 .aria(hidden, true_))))
@@ -165,7 +165,7 @@ public class Navigation implements IsElement<HTMLElement> {
                         .get());
 
             } else { // grouped
-                root.appendChild(section().css(component(nav, section))
+                add(section().css(component(nav, section))
                         .aria(labelledBy, labelId)
                         .add(h(2, group).css(component(nav, section, title))
                                 .id(labelId)
@@ -183,7 +183,7 @@ public class Navigation implements IsElement<HTMLElement> {
     }
 
     public void setCurrent(String itemId) {
-        Elements.stream(root.querySelectorAll("a[data-nav-item]"))
+        Elements.stream(element.querySelectorAll("a[data-nav-item]"))
                 .filter(htmlElements())
                 .map(asHtmlElement())
                 .forEach(e -> {
@@ -199,11 +199,11 @@ public class Navigation implements IsElement<HTMLElement> {
                 });
 
         if (expandable) {
-            HTMLElement a = cast(root.querySelector("a[data-nav-item=" + itemId + "]"));
+            HTMLElement a = cast(element.querySelector("a[data-nav-item=" + itemId + "]"));
             if (a != null) {
                 String groupId = a.dataset.get(navGroup);
                 if (groupId != null) {
-                    Elements.stream(root.querySelectorAll("li[data-nav-group-expandable]"))
+                    Elements.stream(element.querySelectorAll("li[data-nav-group-expandable]"))
                             .filter(htmlElements())
                             .map(asHtmlElement())
                             .forEach(e -> {
@@ -269,10 +269,10 @@ public class Navigation implements IsElement<HTMLElement> {
         }
     }
 
-    private void toggle(String groupId) {
-        HTMLElement li = cast(root.querySelector("li[data-nav-group-expandable=" + groupId + "]"));
-        HTMLElement a = cast(root.querySelector("a[data-nav-group-link=" + groupId + "]"));
-        HTMLElement section = cast(root.querySelector("section[data-nav-group-section=" + groupId + "]"));
+    private void toggleGroup(String groupId) {
+        HTMLElement li = cast(element.querySelector("li[data-nav-group-expandable=" + groupId + "]"));
+        HTMLElement a = cast(element.querySelector("a[data-nav-group-link=" + groupId + "]"));
+        HTMLElement section = cast(element.querySelector("section[data-nav-group-section=" + groupId + "]"));
         if (li != null && a != null && section != null) {
             if (li.classList.contains(modifier(expanded))) {
                 // collapse
@@ -290,9 +290,9 @@ public class Navigation implements IsElement<HTMLElement> {
     }
 
     private void expand(String groupId) {
-        HTMLElement li = cast(root.querySelector("li[data-nav-group-expandable=" + groupId + "]"));
-        HTMLElement a = cast(root.querySelector("a[data-nav-group-link=" + groupId + "]"));
-        HTMLElement section = cast(root.querySelector("section[data-nav-group-section=" + groupId + "]"));
+        HTMLElement li = cast(element.querySelector("li[data-nav-group-expandable=" + groupId + "]"));
+        HTMLElement a = cast(element.querySelector("a[data-nav-group-link=" + groupId + "]"));
+        HTMLElement section = cast(element.querySelector("section[data-nav-group-section=" + groupId + "]"));
         if (li != null && a != null && section != null) {
             li.classList.add(modifier(expanded));
             a.setAttribute("aria-expanded", true_);

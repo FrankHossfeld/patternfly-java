@@ -5,8 +5,10 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 import elemental2.dom.HTMLButtonElement;
+import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.gwt.elemento.core.builder.ElementBuilder;
+import org.jboss.gwt.elemento.core.builder.HtmlContent;
 import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
 import org.patternfly.client.core.Disable;
 import org.patternfly.client.core.HasValue;
@@ -34,7 +36,8 @@ import static org.patternfly.client.resources.Dataset.singleSelectItem;
  *
  * @see <a href="https://www.patternfly.org/v4/documentation/core/components/select">https://www.patternfly.org/v4/documentation/core/components/select</a>
  */
-public class SingleSelect<T> implements Disable<SingleSelect<T>>, HasValue<T>, IsElement<HTMLElement> {
+public class SingleSelect<T> extends ElementBuilder<HTMLDivElement, SingleSelect<T>>
+        implements HtmlContent<HTMLDivElement, SingleSelect<T>>, Disable<SingleSelect<T>>, HasValue<T> {
 
     // ------------------------------------------------------ factory methods
 
@@ -61,38 +64,37 @@ public class SingleSelect<T> implements Disable<SingleSelect<T>>, HasValue<T>, I
 
     // ------------------------------------------------------ select instance
 
-    private final HTMLElement root;
-    private final HTMLButtonElement button;
-    private final HTMLElement text;
-    private final HTMLElement menu;
-
     private final CollapseExpandHandler ceh;
     private final ItemDisplay<HTMLButtonElement, T> itemDisplay;
     private T value;
     private SelectHandler<T> onSelect;
 
+    private final HTMLButtonElement button;
+    private final HTMLElement text;
+    private final HTMLElement menu;
+
     private SingleSelect(String placeholder, String icon, boolean multiple, boolean typeahead) {
+        super(div().css(component(select)).get());
         this.ceh = new CollapseExpandHandler();
         this.itemDisplay = new ItemDisplay<>();
 
         String labelId = uniqueId(select, label);
         String buttonId = uniqueId(select, Constants.button);
-        root = div().css(component(select))
-                .add(span().id(labelId).attr(hidden, "").textContent(placeholder))
-                .add(button = button().css(component(select, toggle))
-                        .id(buttonId)
-                        .aria(Constants.expanded, false_)
-                        .aria(Constants.hasPopup, listbox)
-                        .aria(labelledBy, labelId + " " + buttonId)
-                        .on(click, e -> ceh.expand(element(), buttonElement(), menuElement()))
-                        .add(div().css(component(select, toggle, wrapper))
-                                .add(text = span().css(component(select, toggle, Constants.text))
-                                        .textContent(placeholder)
-                                        .get()))
-                        .add(i().css(fas(caretDown), component(select, toggle, arrow))
-                                .aria(hidden, true_))
-                        .get())
-                .get();
+
+        add(span().id(labelId).attr(hidden, "").textContent(placeholder));
+        add(button = button().css(component(select, toggle))
+                .id(buttonId)
+                .aria(Constants.expanded, false_)
+                .aria(Constants.hasPopup, listbox)
+                .aria(labelledBy, labelId + " " + buttonId)
+                .on(click, e -> ceh.expand(get(), buttonElement(), menuElement()))
+                .add(div().css(component(select, toggle, wrapper))
+                        .add(text = span().css(component(select, toggle, Constants.text))
+                                .textContent(placeholder)
+                                .get()))
+                .add(i().css(fas(caretDown), component(select, toggle, arrow))
+                        .aria(hidden, true_))
+                .get());
 
         HTMLElement menuElement;
         if (multiple) {
@@ -111,13 +113,19 @@ public class SingleSelect<T> implements Disable<SingleSelect<T>>, HasValue<T>, I
                     .get();
             menu = menuElement;
         }
-        root.appendChild(menuElement);
+        add(menuElement);
 
         if (icon != null) {
             insertBefore(span().css(component(select, toggle, Constants.icon))
-                    .add(i().css(icon).aria(hidden, true_))
-                    .get(), text);
+                            .add(i().css(icon).aria(hidden, true_))
+                            .get(),
+                    text);
         }
+    }
+
+    @Override
+    public SingleSelect<T> that() {
+        return this;
     }
 
     private HTMLElement buttonElement() {
@@ -126,11 +134,6 @@ public class SingleSelect<T> implements Disable<SingleSelect<T>>, HasValue<T>, I
 
     private HTMLElement menuElement() {
         return menu;
-    }
-
-    @Override
-    public HTMLElement element() {
-        return root;
     }
 
 
@@ -155,7 +158,7 @@ public class SingleSelect<T> implements Disable<SingleSelect<T>>, HasValue<T>, I
                 .css(component(select, Constants.menu, Constants.item))
                 .data(singleSelectItem, itemDisplay.itemId(item))
                 .on(click, e -> {
-                    ceh.collapse(element(), buttonElement(), menuElement());
+                    ceh.collapse(get(), buttonElement(), menuElement());
                     select(item);
                 });
         itemDisplay.display.accept(button, item);
@@ -185,7 +188,7 @@ public class SingleSelect<T> implements Disable<SingleSelect<T>>, HasValue<T>, I
     }
 
     public SingleSelect<T> up() {
-        root.classList.add(CSS.modifier(Constants.top));
+        element.classList.add(CSS.modifier(Constants.top));
         return this;
     }
 

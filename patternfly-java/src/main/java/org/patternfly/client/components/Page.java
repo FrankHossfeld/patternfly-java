@@ -1,9 +1,11 @@
 package org.patternfly.client.components;
 
+import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
-import org.jboss.gwt.elemento.core.IsElement;
-import org.patternfly.client.resources.Theme;
+import org.jboss.gwt.elemento.core.builder.ElementBuilder;
+import org.jboss.gwt.elemento.core.builder.HtmlContent;
 import org.patternfly.client.resources.Constants;
+import org.patternfly.client.resources.Theme;
 
 import static org.jboss.gwt.elemento.core.Elements.*;
 import static org.patternfly.client.resources.CSS.component;
@@ -27,17 +29,18 @@ import static org.patternfly.client.resources.Constants.tabindex;
  *
  * @see https://www.patternfly.org/v4/documentation/core/components/page
  */
-public class Page implements IsElement<HTMLElement> {
+public class Page extends ElementBuilder<HTMLDivElement, Page>
+        implements HtmlContent<HTMLDivElement, Page> {
 
     // ------------------------------------------------------ factory methods
 
     private static Page instance;
 
-    public static Page get() {
+    public static Page instance() {
         return instance;
     }
 
-    public static Page create(PageHeader header, String mainContainerId) {
+    public static Page page(PageHeader header, String mainContainerId) {
         instance = new Page(header, mainContainerId);
         return instance;
     }
@@ -46,22 +49,21 @@ public class Page implements IsElement<HTMLElement> {
     // ------------------------------------------------------ page instance
 
     private final HTMLElement main;
-    private final HTMLElement root;
     private HTMLElement sidebar;
 
     private Page(PageHeader header, String mainContainerId) {
-        root = div().css(component(page))
-                .add(header)
-                .add(main = main().id(mainContainerId).css(component(page, Constants.main))
-                        .attr(role, Constants.main)
-                        .attr(tabindex, "-1")
-                        .get())
-                .get();
+        super(div().css(component(page)).get());
+
+        add(header);
+        add(main = main().id(mainContainerId).css(component(page, Constants.main))
+                .attr(role, Constants.main)
+                .attr(tabindex, "-1")
+                .get());
     }
 
     @Override
-    public HTMLElement element() {
-        return root;
+    public Page that() {
+        return this;
     }
 
 
@@ -78,15 +80,15 @@ public class Page implements IsElement<HTMLElement> {
     }
 
     public Page sidebar(PageSidebar sidebar) {
-        failSafeRemoveFromParent(this.sidebar);
-        insertBefore(sidebar.element(), main);
-        this.sidebar = sidebar.element();
+        removeSidebar();
+
+        insertBefore(sidebar.get(), main);
+        this.sidebar = sidebar.get();
         return this;
     }
 
     public void removeSidebar() {
         failSafeRemoveFromParent(this.sidebar);
-        this.sidebar = null;
     }
 
     public Page section(PageSection firstSection, PageSection... moreSections) {

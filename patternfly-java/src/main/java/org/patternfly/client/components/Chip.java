@@ -1,7 +1,8 @@
 package org.patternfly.client.components;
 
 import elemental2.dom.HTMLElement;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.gwt.elemento.core.builder.ElementBuilder;
+import org.jboss.gwt.elemento.core.builder.HtmlContent;
 import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
 import org.patternfly.client.core.Callback;
 import org.patternfly.client.resources.Constants;
@@ -21,15 +22,16 @@ import static org.patternfly.client.resources.Constants.*;
  *
  * @see <a href="https://www.patternfly.org/v4/documentation/core/components/chip">https://www.patternfly.org/v4/documentation/core/components/chip</a>
  */
-public class Chip implements IsElement<HTMLElement> {
+public class Chip extends ElementBuilder<HTMLElement, Chip>
+        implements HtmlContent<HTMLElement, Chip> {
 
     // ------------------------------------------------------ factory methods
 
-    public static Chip text(String text) {
+    public static Chip chip(String text) {
         return new Chip(div().get(), text, -1, false, false);
     }
 
-    public static Chip text(String text, int count) {
+    public static Chip chip(String text, int count) {
         return new Chip(div().get(), text, count, false, false);
     }
 
@@ -48,31 +50,29 @@ public class Chip implements IsElement<HTMLElement> {
 
     // ------------------------------------------------------ chip instance
 
-    private final HTMLElement root;
-    private final HTMLElement text;
-    private Badge badge;
-
     private final int count;
     private final boolean overflow;
     private final boolean readOnly;
     private Callback callback;
 
+    private final HTMLElement text;
+    private Badge badge;
 
     private Chip(HTMLElement element, String text, int count, boolean overflow, boolean readOnly) {
-        this.root = element;
+        super(element);
         this.count = count;
         this.overflow = overflow;
         this.readOnly = readOnly;
 
-        root.classList.add(component(chip));
+        element.classList.add(component(chip));
         if (readOnly) {
-            root.classList.add(modifier(Constants.readOnly));
+            element.classList.add(modifier(Constants.readOnly));
         } else if (overflow) {
-            root.classList.add(modifier(Constants.overflow));
+            element.classList.add(modifier(Constants.overflow));
         }
 
         if (overflow) {
-            root.appendChild(button().css(component(button), modifier(plain))
+            element.appendChild(button().css(component(button), modifier(plain))
                     .on(click, e -> {
                         if (callback != null) {
                             callback.call();
@@ -93,14 +93,14 @@ public class Chip implements IsElement<HTMLElement> {
                 badge = Badge.read(count);
                 builder.add(badge);
             }
-            root.appendChild(this.text = builder.get());
+            element.appendChild(this.text = builder.get());
             if (!readOnly) {
-                root.appendChild(button().css(component(Constants.button), modifier(plain))
+                element.appendChild(button().css(component(Constants.button), modifier(plain))
                         .id(buttonId)
                         .aria(labelledBy, buttonId + " " + textId)
                         .aria(label, "Remove")
                         .on(click, e -> {
-                            failSafeRemoveFromParent(element());
+                            failSafeRemoveFromParent(element);
                             if (callback != null) {
                                 callback.call();
                             }
@@ -112,8 +112,8 @@ public class Chip implements IsElement<HTMLElement> {
     }
 
     @Override
-    public HTMLElement element() {
-        return root;
+    public Chip that() {
+        return this;
     }
 
     Chip cloneAsLi() {
@@ -129,7 +129,7 @@ public class Chip implements IsElement<HTMLElement> {
         return this;
     }
 
-    public Chip setText(String text) {
+    public Chip text(String text) {
         this.text.textContent = text;
         return this;
     }

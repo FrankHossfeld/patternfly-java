@@ -4,13 +4,15 @@ import elemental2.dom.HTMLAnchorElement;
 import elemental2.dom.HTMLButtonElement;
 import elemental2.dom.HTMLElement;
 import org.jboss.gwt.elemento.core.Elements;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.gwt.elemento.core.builder.ElementBuilder;
+import org.jboss.gwt.elemento.core.builder.HtmlContent;
 import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
 import org.patternfly.client.core.Callback;
 import org.patternfly.client.core.Disable;
 import org.patternfly.client.resources.Constants;
 
 import static org.jboss.gwt.elemento.core.Elements.i;
+import static org.jboss.gwt.elemento.core.Elements.insertFirst;
 import static org.jboss.gwt.elemento.core.Elements.span;
 import static org.jboss.gwt.elemento.core.EventType.click;
 import static org.patternfly.client.resources.CSS.component;
@@ -22,7 +24,8 @@ import static org.patternfly.client.resources.Constants.*;
  *
  * @see <a href="https://www.patternfly.org/v4/documentation/core/components/button">https://www.patternfly.org/v4/documentation/core/components/button</a>
  */
-public class Button implements Disable<Button>, IsElement<HTMLElement> {
+public class Button extends ElementBuilder<HTMLElement, Button>
+        implements HtmlContent<HTMLElement, Button>, Disable<Button> {
 
     // ------------------------------------------------------ factory methods
 
@@ -93,53 +96,41 @@ public class Button implements Disable<Button>, IsElement<HTMLElement> {
 
     // ------------------------------------------------------ button instance
 
-    private final HTMLElement root;
     private final HTMLButtonElement button;
     private final HTMLAnchorElement a;
     private Callback callback;
 
-    @SuppressWarnings("unchecked")
     private Button(HtmlContentBuilder builder) {
-        root = builder.css(component(Constants.button))
-                .on(click, e -> {
-                    if (callback != null) {
-                        callback.call();
-                    }
-                })
-                .get();
-        if (root.tagName.equalsIgnoreCase("button")) {
+        super(builder.css(component(Constants.button)).get());
+        on(click, e -> {
+            if (callback != null) {
+                callback.call();
+            }
+        });
+
+        if (element.tagName.equalsIgnoreCase("button")) {
             a = null;
-            button = (HTMLButtonElement) root;
+            button = (HTMLButtonElement) element;
         } else {
-            a = (HTMLAnchorElement) root;
+            a = (HTMLAnchorElement) element;
             button = null;
         }
     }
 
     @Override
-    public HTMLElement element() {
-        return root;
-    }
-
-
-    public HTMLButtonElement buttonElement() {
-        return button;
-    }
-
-    public HTMLAnchorElement linkElement() {
-        return a;
+    public Button that() {
+        return this;
     }
 
 
     // ------------------------------------------------------ public API
 
-    public Button prepend(String icon) {
-        return prepend(i().css(icon).get());
+    public Button withIcon(String icon) {
+        return withIcon(i().css(icon).get());
     }
 
-    public Button prepend(HTMLElement icon) {
-        HTMLElement element = span().css(component(Constants.button, Constants.icon)).add(icon).get();
-        root.insertBefore(element, root.firstChild);
+    public Button withIcon(HTMLElement icon) {
+        insertFirst(element, span().css(component(Constants.button, Constants.icon)).add(icon).get());
         return this;
     }
 
@@ -176,50 +167,50 @@ public class Button implements Disable<Button>, IsElement<HTMLElement> {
     // ------------------------------------------------------ modifiers
 
     public Button active() {
-        root.classList.add(modifier(active));
+        element.classList.add(modifier(active));
         return this;
     }
 
     public Button block() {
-        root.classList.add(modifier(block));
+        element.classList.add(modifier(block));
         return this;
     }
 
     public Button danger() {
-        root.classList.add(modifier(danger));
+        element.classList.add(modifier(danger));
         return this;
     }
 
     public Button expanded() {
-        root.classList.add(modifier(expanded));
+        element.classList.add(modifier(expanded));
         return this;
     }
 
     public Button focus() {
-        root.classList.add(modifier(focus));
+        element.classList.add(modifier(focus));
         return this;
     }
 
     public Button primary() {
-        root.classList.add(modifier(primary));
+        element.classList.add(modifier(primary));
         return this;
     }
 
     public Button secondary() {
-        root.classList.add(modifier(secondary));
+        element.classList.add(modifier(secondary));
         return this;
     }
 
     public Button tertiary() {
-        root.classList.add(modifier(tertiary));
+        element.classList.add(modifier(tertiary));
         return this;
     }
 
     /** Removes modifiers added by @{@link #active()}, @{@link #expanded()} or @{@link #focus()} */
     public Button clear() {
-        root.classList.remove(modifier(active));
-        root.classList.remove(modifier(focus));
-        root.classList.remove(modifier(expanded));
+        element.classList.remove(modifier(active));
+        element.classList.remove(modifier(focus));
+        element.classList.remove(modifier(expanded));
         return this;
     }
 
@@ -242,10 +233,6 @@ public class Button implements Disable<Button>, IsElement<HTMLElement> {
 
         Type(String attributeValue) {
             this.attributeValue = attributeValue;
-        }
-
-        String attributeValue() {
-            return attributeValue;
         }
     }
 }

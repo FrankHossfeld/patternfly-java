@@ -8,10 +8,12 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 
 import elemental2.dom.HTMLButtonElement;
+import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLUListElement;
 import org.jboss.gwt.elemento.core.Elements;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.gwt.elemento.core.builder.ElementBuilder;
+import org.jboss.gwt.elemento.core.builder.HtmlContent;
 import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
 import org.patternfly.client.core.Disable;
 import org.patternfly.client.core.HasValue;
@@ -35,7 +37,8 @@ import static org.patternfly.client.resources.Dataset.singleOptionsMenuCheck;
  *
  * @see <a href="https://www.patternfly.org/v4/documentation/core/components/optionsmenu">https://www.patternfly.org/v4/documentation/core/components/optionsmenu</a>
  */
-public class MultiOptionsMenu implements Disable<MultiOptionsMenu>, IsElement<HTMLElement> {
+public class MultiOptionsMenu extends ElementBuilder<HTMLDivElement, MultiOptionsMenu>
+        implements HtmlContent<HTMLDivElement, MultiOptionsMenu>, Disable<MultiOptionsMenu> {
 
     // ------------------------------------------------------ factory methods
 
@@ -54,15 +57,15 @@ public class MultiOptionsMenu implements Disable<MultiOptionsMenu>, IsElement<HT
 
     // ------------------------------------------------------ options menu instance
 
-    private final HTMLElement root;
+    private final CollapseExpandHandler ceh;
+    private final Map<String, Group<?>> groups;
+
     private final HTMLButtonElement button;
     private final HTMLElement plain;
     private final HTMLElement menu;
 
-    private final CollapseExpandHandler ceh;
-    private final Map<String, Group<?>> groups;
-
     private MultiOptionsMenu(String text, String icon, boolean plain) {
+        super(div().css(component(optionsMenu)).get());
         this.ceh = new CollapseExpandHandler();
         this.groups = new HashMap<>();
 
@@ -71,7 +74,7 @@ public class MultiOptionsMenu implements Disable<MultiOptionsMenu>, IsElement<HT
                 .id(buttonId)
                 .aria(expanded, false_)
                 .aria(hasPopup, listbox)
-                .on(click, e -> ceh.expand(element(), buttonElement(), menuElement()));
+                .on(click, e -> ceh.expand(get(), buttonElement(), menuElement()));
 
         HTMLElement trigger;
         if (icon != null) {
@@ -108,14 +111,17 @@ public class MultiOptionsMenu implements Disable<MultiOptionsMenu>, IsElement<HT
             }
         }
 
-        root = div().css(component(optionsMenu))
-                .add(trigger)
-                .add(menu = ul().css(component(optionsMenu, Constants.menu))
-                        .aria(labelledBy, buttonId)
-                        .attr(hidden, "")
-                        .attr(role, Constants.menu)
-                        .get())
-                .get();
+        add(trigger);
+        add(menu = ul().css(component(optionsMenu, Constants.menu))
+                .aria(labelledBy, buttonId)
+                .attr(hidden, "")
+                .attr(role, Constants.menu)
+                .get());
+    }
+
+    @Override
+    public MultiOptionsMenu that() {
+        return this;
     }
 
     private HTMLElement buttonElement() {
@@ -124,11 +130,6 @@ public class MultiOptionsMenu implements Disable<MultiOptionsMenu>, IsElement<HT
 
     private HTMLElement menuElement() {
         return menu;
-    }
-
-    @Override
-    public HTMLElement element() {
-        return root;
     }
 
 
@@ -150,7 +151,7 @@ public class MultiOptionsMenu implements Disable<MultiOptionsMenu>, IsElement<HT
                     .attr(Constants.tabindex, _1)
                     .data(multiOptionsMenuItem, group.itemId(item))
                     .on(click, e -> {
-                        ceh.collapse(element(), buttonElement(), menuElement());
+                        ceh.collapse(get(), buttonElement(), menuElement());
                         if (group.onSelect != null) {
                             group.onSelect.onSelect(item);
                         }
@@ -172,7 +173,7 @@ public class MultiOptionsMenu implements Disable<MultiOptionsMenu>, IsElement<HT
     }
 
     public MultiOptionsMenu up() {
-        root.classList.add(modifier(top));
+        element.classList.add(modifier(top));
         return this;
     }
 

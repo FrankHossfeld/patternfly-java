@@ -5,9 +5,11 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 import elemental2.dom.HTMLButtonElement;
+import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import org.jboss.gwt.elemento.core.Elements;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.gwt.elemento.core.builder.ElementBuilder;
+import org.jboss.gwt.elemento.core.builder.HtmlContent;
 import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
 import org.patternfly.client.core.Disable;
 import org.patternfly.client.core.HasValue;
@@ -31,7 +33,8 @@ import static org.patternfly.client.resources.Dataset.singleOptionsMenuItem;
  *
  * @see <a href="https://www.patternfly.org/v4/documentation/core/components/optionsmenu">https://www.patternfly.org/v4/documentation/core/components/optionsmenu</a>
  */
-public class SingleOptionsMenu<T> implements HasValue<T>, Disable<SingleOptionsMenu<T>>, IsElement<HTMLElement> {
+public class SingleOptionsMenu<T> extends ElementBuilder<HTMLDivElement, SingleOptionsMenu<T>>
+        implements HtmlContent<HTMLDivElement, SingleOptionsMenu<T>>, HasValue<T>, Disable<SingleOptionsMenu<T>> {
 
     // ------------------------------------------------------ factory methods
 
@@ -50,17 +53,17 @@ public class SingleOptionsMenu<T> implements HasValue<T>, Disable<SingleOptionsM
 
     // ------------------------------------------------------ options menu instance
 
-    private final HTMLElement root;
-    private final HTMLButtonElement button;
-    private final HTMLElement plain;
-    private final HTMLElement menu;
-
     private final CollapseExpandHandler ceh;
     private final ItemDisplay<HTMLButtonElement, T> itemDisplay;
     private T value;
     private SelectHandler<T> onSelect;
 
+    private final HTMLButtonElement button;
+    private final HTMLElement plain;
+    private final HTMLElement menu;
+
     private SingleOptionsMenu(String text, String icon, boolean plain) {
+        super(div().css(component(optionsMenu)).get());
         this.ceh = new CollapseExpandHandler();
         this.itemDisplay = new ItemDisplay<>();
 
@@ -69,7 +72,7 @@ public class SingleOptionsMenu<T> implements HasValue<T>, Disable<SingleOptionsM
                 .id(buttonId)
                 .aria(expanded, false_)
                 .aria(hasPopup, listbox)
-                .on(click, e -> ceh.expand(element(), buttonElement(), menuElement()));
+                .on(click, e -> ceh.expand(get(), buttonElement(), menuElement()));
 
         HTMLElement trigger;
         if (icon != null) {
@@ -106,14 +109,17 @@ public class SingleOptionsMenu<T> implements HasValue<T>, Disable<SingleOptionsM
             }
         }
 
-        root = div().css(component(optionsMenu))
-                .add(trigger)
-                .add(menu = ul().css(component(optionsMenu, Constants.menu))
-                        .aria(Constants.labelledBy, buttonId)
-                        .attr(hidden, "")
-                        .attr(role, Constants.menu)
-                        .get())
-                .get();
+        add(trigger);
+        add(menu = ul().css(component(optionsMenu, Constants.menu))
+                .aria(Constants.labelledBy, buttonId)
+                .attr(hidden, "")
+                .attr(role, Constants.menu)
+                .get());
+    }
+
+    @Override
+    public SingleOptionsMenu<T> that() {
+        return this;
     }
 
     private HTMLElement buttonElement() {
@@ -122,11 +128,6 @@ public class SingleOptionsMenu<T> implements HasValue<T>, Disable<SingleOptionsM
 
     private HTMLElement menuElement() {
         return menu;
-    }
-
-    @Override
-    public HTMLElement element() {
-        return root;
     }
 
 
@@ -153,7 +154,7 @@ public class SingleOptionsMenu<T> implements HasValue<T>, Disable<SingleOptionsM
                 .attr(tabindex, _1)
                 .data(singleOptionsMenuItem, itemId)
                 .on(click, e -> {
-                    ceh.collapse(element(), buttonElement(), menuElement());
+                    ceh.collapse(get(), buttonElement(), menuElement());
                     select(item);
                 });
         itemDisplay.display.accept(button, item);
@@ -196,7 +197,7 @@ public class SingleOptionsMenu<T> implements HasValue<T>, Disable<SingleOptionsM
     }
 
     public SingleOptionsMenu<T> up() {
-        root.classList.add(modifier(top));
+        element.classList.add(modifier(top));
         return this;
     }
 

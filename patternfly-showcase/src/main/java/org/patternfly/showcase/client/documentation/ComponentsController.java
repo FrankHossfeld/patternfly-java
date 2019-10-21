@@ -29,6 +29,7 @@ public class ComponentsController
         components.put("badge", new BadgeDocumentation());
         components.put("brand", new BrandDocumentation());
         components.put("button", new ButtonDocumentation());
+        components.put("card", new CardDocumentation());
         components.put("chip", new ChipDocumentation());
         components.put("chip-group", new ChipGroupDocumentation());
         components.put("context-selector", new ContextSelectorDocumentation());
@@ -39,7 +40,7 @@ public class ComponentsController
 
     @Override
     public void start() {
-        Page.get().verticalNavigation(Nav.documentation(), Theme.LIGHT);
+        Page.instance().verticalNavigation(Nav.documentation(), Theme.LIGHT);
     }
 
     @AcceptParameter("component")

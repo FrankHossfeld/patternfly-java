@@ -19,7 +19,7 @@ public class HomeController
 
     @Override
     public void start() {
-        Page.get().removeSidebar();
+        Page.instance().removeSidebar();
     }
 
     @Override

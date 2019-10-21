@@ -4,17 +4,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 import elemental2.dom.Element;
-import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLUListElement;
 import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.gwt.elemento.core.builder.ElementBuilder;
+import org.jboss.gwt.elemento.core.builder.HtmlContent;
 import org.patternfly.client.resources.Constants;
 import org.patternfly.client.resources.Dataset;
 
 import static elemental2.dom.DomGlobal.clearTimeout;
 import static elemental2.dom.DomGlobal.setTimeout;
 import static org.jboss.gwt.elemento.core.Elements.failSafeRemoveFromParent;
+import static org.jboss.gwt.elemento.core.Elements.insertFirst;
 import static org.jboss.gwt.elemento.core.Elements.ul;
 import static org.jboss.gwt.elemento.core.Elements.uniqueId;
-import static org.jboss.gwt.elemento.core.EventType.bind;
 import static org.jboss.gwt.elemento.core.EventType.mouseout;
 import static org.jboss.gwt.elemento.core.EventType.mouseover;
 import static org.patternfly.client.resources.CSS.component;
@@ -26,7 +28,8 @@ import static org.patternfly.client.resources.Constants.alertGroup;
  *
  * @see <a href="https://www.patternfly.org/v4/documentation/core/components/alertgroup">https://www.patternfly.org/v4/documentation/core/components/alertgroup</a>
  */
-public class AlertGroup implements IsElement<HTMLElement> {
+public class AlertGroup extends ElementBuilder<HTMLUListElement, AlertGroup>
+        implements HtmlContent<HTMLUListElement, AlertGroup>, IsElement<HTMLUListElement> {
 
     // ------------------------------------------------------ factory methods
 
@@ -35,7 +38,7 @@ public class AlertGroup implements IsElement<HTMLElement> {
     public static AlertGroup toast() {
         if (toast == null) {
             toast = new AlertGroup(DEFAULT_TIMEOUT);
-            toast.element().classList.add(modifier(Constants.toast));
+            toast.element.classList.add(modifier(Constants.toast));
         }
         return toast;
     }
@@ -51,18 +54,16 @@ public class AlertGroup implements IsElement<HTMLElement> {
 
     private final double timeout;
     private final Map<String, Double> messageIds;
-    private final HTMLElement root;
 
     private AlertGroup(double timeout) {
+        super(ul().css(component(alertGroup)).get());
         this.timeout = timeout;
         this.messageIds = new HashMap<>();
-        this.root = ul().css(component(alertGroup))
-                .get();
     }
 
     @Override
-    public HTMLElement element() {
-        return root;
+    public AlertGroup that() {
+        return this;
     }
 
 
@@ -71,17 +72,17 @@ public class AlertGroup implements IsElement<HTMLElement> {
     public AlertGroup add(Alert alert) {
         if (timeout > 100) {
             String id = uniqueId();
-            alert.element().dataset.set(Dataset.alert, id);
+            alert.data(Dataset.alert, id);
             alert.onClose(() -> stopMessageTimeout(id));
 
             startMessageTimeout(id);
-            bind(alert.element(), mouseover, e1 -> stopMessageTimeout(id));
-            bind(alert.element(), mouseout, e2 -> startMessageTimeout(id));
+            alert.on(mouseover, e -> stopMessageTimeout(id));
+            alert.on(mouseout, e -> startMessageTimeout(id));
         }
         if (this == toast && !alert.hasClose()) {
             alert.closable();
         }
-        root.insertBefore(alert.element(), root.firstChild);
+        insertFirst(element, alert.get());
         return this;
     }
 
@@ -101,8 +102,8 @@ public class AlertGroup implements IsElement<HTMLElement> {
     }
 
     private void remove(String id) {
-        Element element = root.querySelector("[data-alert=" + id + "]");
-        failSafeRemoveFromParent(element);
+        Element e = element.querySelector("[data-alert=" + id + "]");
+        failSafeRemoveFromParent(e);
         messageIds.remove(id);
     }
 }

@@ -1,8 +1,7 @@
 package org.patternfly.client.components;
 
-import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLImageElement;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.gwt.elemento.core.builder.ElementBuilder;
 
 import static org.jboss.gwt.elemento.core.Elements.img;
 import static org.patternfly.client.resources.CSS.component;
@@ -13,17 +12,15 @@ import static org.patternfly.client.resources.Constants.avatar;
  *
  * @see <a href="https://www.patternfly.org/v4/documentation/react/components/avatar/">https://www.patternfly.org/v4/documentation/react/components/avatar</a>
  */
-public class Avatar implements IsElement<HTMLElement> {
-
-    private final HTMLImageElement root;
+public class Avatar extends ElementBuilder<HTMLImageElement, Avatar> {
 
     public Avatar(String src, String alt) {
-        root = img().css(component(avatar)).get();
-        root.alt = alt;
+        super(img(src).css(component(avatar)).get());
+        element.alt = alt;
     }
 
     @Override
-    public HTMLElement element() {
-        return root;
+    public Avatar that() {
+        return this;
     }
 }

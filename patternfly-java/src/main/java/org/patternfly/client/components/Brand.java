@@ -1,7 +1,7 @@
 package org.patternfly.client.components;
 
-import elemental2.dom.HTMLElement;
-import org.jboss.gwt.elemento.core.IsElement;
+import elemental2.dom.HTMLImageElement;
+import org.jboss.gwt.elemento.core.builder.ElementBuilder;
 
 import static org.jboss.gwt.elemento.core.Elements.img;
 import static org.patternfly.client.resources.Constants.brand;
@@ -11,16 +11,14 @@ import static org.patternfly.client.resources.Constants.brand;
  *
  * @see <a href="https://www.patternfly.org/v4/documentation/core/components/brand">https://www.patternfly.org/v4/documentation/core/components/brand</a>
  */
-public class Brand implements IsElement<HTMLElement> {
-
-    private final HTMLElement root;
+public class Brand extends ElementBuilder<HTMLImageElement, Brand> {
 
     public Brand(String src) {
-        root = img(src).css(brand).get();
+        super(img(src).css(brand).get());
     }
 
     @Override
-    public HTMLElement element() {
-        return root;
+    public Brand that() {
+        return this;
     }
 }

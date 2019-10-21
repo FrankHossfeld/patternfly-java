@@ -8,6 +8,7 @@ import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.jboss.gwt.elemento.core.Elements.p;
 import static org.patternfly.client.components.Alert.info;
 import static org.patternfly.client.components.AlertGroup.toast;
+import static org.patternfly.client.components.Chip.chip;
 
 class ChipDocumentation extends ComponentDocumentation {
 
@@ -20,9 +21,9 @@ class ChipDocumentation extends ComponentDocumentation {
                         new Demo("Chip", Code.get().chip().getText(),
                                 () -> div()
                                         .add(div().css("sc-demo__code-block")
-                                                .add(Chip.text("Just Text")))
+                                                .add(chip("Just Text")))
                                         .add(div().css("sc-demo__code-block")
-                                                .add(Chip.text("Count", 23)))
+                                                .add(chip("Count", 23)))
                                         .add(div().css("sc-demo__code-block")
                                                 .add(Chip.readOnly("Readonly")))
                                         .add(div().css("sc-demo__code-block")
@@ -32,7 +33,7 @@ class ChipDocumentation extends ComponentDocumentation {
                                         .get()),
                         new Demo("Chip onClose", Code.get().chipOnClose().getText(),
                                 () -> div()
-                                        .add(Chip.text("Close Me").onClose(() -> toast().add(info("Goodbye"))))
+                                        .add(chip("Close Me").onClose(() -> toast().add(info("Goodbye"))))
                                         .get())
                 ));
     }

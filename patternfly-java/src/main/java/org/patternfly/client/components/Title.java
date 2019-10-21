@@ -1,8 +1,8 @@
 package org.patternfly.client.components;
 
-import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLHeadingElement;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.gwt.elemento.core.builder.ElementBuilder;
+import org.jboss.gwt.elemento.core.builder.HtmlContent;
 
 import static org.jboss.gwt.elemento.core.Elements.h;
 import static org.patternfly.client.resources.CSS.component;
@@ -14,19 +14,17 @@ import static org.patternfly.client.resources.Constants.title;
  *
  * @see <a href="https://www.patternfly.org/v4/documentation/react/components/title/">https://www.patternfly.org/v4/documentation/react/components/title</a>
  */
-public class Title implements IsElement<HTMLElement> {
-
-    private final HTMLHeadingElement root;
+public class Title extends ElementBuilder<HTMLHeadingElement, Title>
+        implements HtmlContent<HTMLHeadingElement, Title> {
 
     public Title(int level, String text, Size size) {
-        root = h(level, text).css(component(title), modifier(size.size)).get();
+        super(h(level, text).css(component(title), modifier(size.size)).get());
     }
 
     @Override
-    public HTMLElement element() {
-        return root;
+    public Title that() {
+        return this;
     }
-
 
     // ------------------------------------------------------ inner classes
 

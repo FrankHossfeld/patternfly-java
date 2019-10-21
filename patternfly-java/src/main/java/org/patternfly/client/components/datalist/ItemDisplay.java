@@ -15,12 +15,13 @@
  */
 package org.patternfly.client.components.datalist;
 
+import elemental2.dom.HTMLElement;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 import org.patternfly.client.dataprovider.DataProvider;
 
 /** Controls the layout of a data list item. */
-public interface ItemDisplay<T> extends IsElement {
+public interface ItemDisplay<T> extends IsElement<HTMLElement> {
 
     /**
      * An unique id for this item. If you use a {@link DataProvider}
@@ -28,7 +29,7 @@ public interface ItemDisplay<T> extends IsElement {
      *
      * @return n unique id from {@link Elements#uniqueId()}
      */
-    default String getId() {
+    default String id() {
         return Elements.uniqueId();
     }
 }

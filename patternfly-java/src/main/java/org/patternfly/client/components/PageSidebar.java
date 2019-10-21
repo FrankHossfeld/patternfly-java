@@ -1,14 +1,15 @@
 package org.patternfly.client.components;
 
-import elemental2.dom.HTMLElement;
-import org.jboss.gwt.elemento.core.IsElement;
+import elemental2.dom.HTMLDivElement;
+import org.jboss.gwt.elemento.core.builder.ElementBuilder;
+import org.jboss.gwt.elemento.core.builder.HtmlContent;
 import org.patternfly.client.resources.Theme;
 
 import static org.jboss.gwt.elemento.core.Elements.div;
-import static org.patternfly.client.resources.Theme.DARK;
 import static org.patternfly.client.resources.CSS.component;
 import static org.patternfly.client.resources.CSS.modifier;
 import static org.patternfly.client.resources.Constants.*;
+import static org.patternfly.client.resources.Theme.DARK;
 
 /**
  * = PatternFly Sidebar Component
@@ -28,27 +29,26 @@ import static org.patternfly.client.resources.Constants.*;
  *
  * @see https://www.patternfly.org/v4/documentation/core/components/page
  */
-public class PageSidebar implements IsElement<HTMLElement> {
-
-    private final HTMLElement root;
+public class PageSidebar extends ElementBuilder<HTMLDivElement, PageSidebar>
+        implements HtmlContent<HTMLDivElement, PageSidebar> {
 
     public PageSidebar(Navigation navigation) {
         this(navigation, DARK);
     }
 
     public PageSidebar(Navigation navigation, Theme theme) {
-        root = div().css(component(page, sidebar), modifier(expanded))
-                .add(div().css(component(page, sidebar, body))
-                        .add(navigation))
+        super(div().css(component(page, sidebar), modifier(expanded)).get());
+        add(div().css(component(page, sidebar, body))
+                .add(navigation))
                 .get();
         if (theme == DARK) {
-            root.classList.add(modifier(dark));
-            navigation.element().classList.add(modifier(dark));
+            element.classList.add(modifier(dark));
+            navigation.css(modifier(dark));
         }
     }
 
     @Override
-    public HTMLElement element() {
-        return root;
+    public PageSidebar that() {
+        return this;
     }
 }

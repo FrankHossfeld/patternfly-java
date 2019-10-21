@@ -4,7 +4,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
 import elemental2.dom.HTMLElement;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.gwt.elemento.core.builder.ElementBuilder;
+import org.jboss.gwt.elemento.core.builder.HtmlContent;
 import org.patternfly.client.resources.CSS;
 import org.patternfly.client.resources.Constants;
 
@@ -21,45 +22,44 @@ import static org.patternfly.client.resources.Constants.chipGroup;
  *
  * @see <a href="https://www.patternfly.org/v4/documentation/core/components/chipgroup">https://www.patternfly.org/v4/documentation/core/components/chipgroup</a>
  */
-public class ChipGroup implements IsElement<HTMLElement> {
-
-    private final HTMLElement root;
-    private Chip overflow;
+public class ChipGroup extends ElementBuilder<HTMLElement, ChipGroup>
+        implements HtmlContent<HTMLElement, ChipGroup> {
 
     private final int max;
     private boolean expanded;
+    private Chip overflow;
 
     public ChipGroup() {
         this(-1);
     }
 
     public ChipGroup(int max) {
+        super(ul().css(component(chipGroup)).get());
+
         this.max = max > 1 ? max : -1; // assert max > 1
-        this.root = ul().css(component(chipGroup)).get();
         this.expanded = false;
 
         if (constrained()) {
-            overflow = Chip.overflow("").cloneAsLi().onClose(c -> toggle());
-            setVisible(overflow.element(), false);
-            root.appendChild(overflow.element());
+            add(overflow = Chip.overflow("").cloneAsLi().onClose(this::toggle));
+            setVisible(overflow.get(), false);
         }
     }
 
     @Override
-    public HTMLElement element() {
-        return root;
+    public ChipGroup that() {
+        return this;
     }
 
     public ChipGroup add(Chip chip) {
         Chip liChip = chip.cloneAsLi();
 
         if (constrained()) {
-            liChip.onClose(c -> redraw()); // redraw after chip has been removed
-            setVisible(liChip.element(), false);
-            insertBefore(liChip.element(), overflow.element());
+            liChip.onClose(this::redraw); // redraw after chip has been removed
+            setVisible(liChip.get(), false);
+            insertBefore(liChip.get(), overflow.get());
             redraw();
         } else {
-            root.appendChild(liChip.element());
+            add(liChip);
         }
         return this;
     }
@@ -69,8 +69,8 @@ public class ChipGroup implements IsElement<HTMLElement> {
         chips().forEach(e -> setVisible(e, expanded || index.getAndIncrement() < max));
 
         int space = max - chipsCount();
-        overflow.setText(expanded ? "Show Less" : abs(space) + " more");
-        setVisible(overflow.element(), space < 0);
+        overflow.text(expanded ? "Show Less" : abs(space) + " more");
+        setVisible(overflow.get(), space < 0);
         if (expanded && space >= 0) {
             expanded = false;
         }
@@ -86,7 +86,7 @@ public class ChipGroup implements IsElement<HTMLElement> {
     }
 
     private Stream<HTMLElement> chips() {
-        return stream(root).filter(e -> e.classList.contains(component(Constants.chip)) &&
+        return stream(element).filter(e -> e.classList.contains(component(Constants.chip)) &&
                 !e.classList.contains(CSS.modifier(Constants.overflow)));
     }
 

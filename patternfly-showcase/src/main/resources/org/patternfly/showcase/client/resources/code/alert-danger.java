@@ -1,11 +1,13 @@
-Alert danger1 = Alert.danger("Danger alert title")
-        .description(span()
+import static org.patternfly.client.components.Alert.danger;
+import static org.patternfly.client.components.Alert.info;
+
+Alert danger1 = danger("Danger alert title")
+        .add(description()
                 .add("Danger alert description. ")
-                .add(a("#").textContent("This is a link"))
-                .get())
+                .add(a("#").textContent("This is a link")))
         .closable();
-Alert danger2 = Alert.danger("Danger alert title")
+Alert danger2 = danger("Danger alert title")
         .closable();
-Alert danger3 = Alert.danger("Danger alert title")
-        .action("Action Button", () -> toast().add(Alert.info("Danger action button clicked.")));
-Alert danger4 = Alert.danger("Danger alert title");
+Alert danger3 = danger("Danger alert title")
+        .action("Action Button", () -> toast().add(info("Danger action button clicked.")));
+Alert danger4 = danger("Danger alert title");

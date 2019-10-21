@@ -1,12 +1,9 @@
 package org.patternfly.client.components;
 
-import java.util.function.Consumer;
-import java.util.function.Supplier;
-
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
-import org.jboss.gwt.elemento.core.IsElement;
-import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
+import org.jboss.gwt.elemento.core.builder.ElementBuilder;
+import org.jboss.gwt.elemento.core.builder.HtmlContent;
 import org.patternfly.client.core.Callback;
 import org.patternfly.client.resources.Constants;
 
@@ -16,6 +13,7 @@ import static org.jboss.gwt.elemento.core.EventType.click;
 import static org.patternfly.client.resources.CSS.component;
 import static org.patternfly.client.resources.CSS.fas;
 import static org.patternfly.client.resources.CSS.modifier;
+import static org.patternfly.client.resources.Constants.label;
 import static org.patternfly.client.resources.Constants.*;
 
 /**
@@ -23,7 +21,8 @@ import static org.patternfly.client.resources.Constants.*;
  *
  * @see <a href="https://www.patternfly.org/v4/documentation/core/components/alert">https://www.patternfly.org/v4/documentation/core/components/alert</a>
  */
-public class Alert implements IsElement<HTMLElement> {
+public class Alert extends ElementBuilder<HTMLDivElement, Alert>
+        implements HtmlContent<HTMLDivElement, Alert> {
 
     // ------------------------------------------------------ factory methods
 
@@ -52,93 +51,68 @@ public class Alert implements IsElement<HTMLElement> {
 
     private final Type type;
     private final String title;
-    private Callback onClose;
+    private Callback callback;
 
     private final HTMLElement titleElement;
-    private final HTMLElement root;
 
     private Alert(Type type, String title) {
+        super(div().css(component(alert)).aria(label, type.aria).get());
         this.type = type;
         this.title = title;
 
-        HtmlContentBuilder<HTMLDivElement> builder = div().css(component(alert)).aria(label, type.aria);
         if (type.modifier != null) {
-            builder.css(type.modifier);
+            element.classList.add(type.modifier);
         }
-        builder.add(div().css(component(alert, icon)).add(i().css(type.icon).aria(hidden, true_)))
+        add(div().css(component(alert, icon)).add(i().css(type.icon).aria(hidden, true_)))
                 .add(this.titleElement = h(4).css(component(alert, Constants.title))
                         .add(span().css("pf-screen-reader").textContent(type.aria))
                         .add(title)
                         .get());
-        this.root = builder.get();
     }
 
     @Override
-    public HTMLElement element() {
-        return root;
+    public Alert that() {
+        return this;
     }
 
 
     // ------------------------------------------------------ public API
 
     public Alert inline() {
-        root.classList.add(modifier(inline));
-        return this;
+        return css(modifier(inline));
     }
 
     public Alert description(String description) {
-        return description(p().textContent(description).get());
-    }
-
-    public Alert description(HTMLElement description) {
-        HTMLElement container = createOrGetContainer("." + component(alert, Constants.description),
-                () -> div().css(component(alert, Constants.description)).get(),
-                c -> insertAfter(c, titleElement));
-        removeChildrenFrom(container);
-        container.appendChild(description);
-        return this;
-    }
-
-    public Alert description(Consumer<HtmlContentBuilder<HTMLElement>> consumer) {
-        HTMLElement container = createOrGetContainer("." + component(alert, Constants.description),
-                () -> div().css(component(alert, Constants.description)).get(),
-                c -> insertAfter(c, titleElement));
-        removeChildrenFrom(container);
-        consumer.accept(new HtmlContentBuilder<>(container));
-        return this;
+        return add(description().textContent(description));
     }
 
     public Alert closable() {
-        String label = "close " + type.aria + title;
-        return action(Button.icon(fas("times"), label).element(), this::close);
+        String label = "close " + type.aria + ": " + title;
+        return action(Button.icon(fas("times"), label).get(), this::close);
     }
 
     public void close() {
-        failSafeRemoveFromParent(root);
-        if (onClose != null) {
-            onClose.call();
+        failSafeRemoveFromParent(element);
+        if (callback != null) {
+            callback.call();
         }
     }
 
     public Alert action(String action, Callback callback) {
-        return action(Button.link(action).element(), callback);
+        return action(Button.link(action).get(), callback);
     }
 
     public Alert action(HTMLElement action, Callback callback) {
-        HTMLElement container = createOrGetContainer("." + component(alert, Constants.action),
-                () -> div().css(component(alert, Constants.action)).get(),
-                root::appendChild);
-        removeChildrenFrom(container);
-        container.appendChild(action);
         bind(action, click, e -> callback.call());
-        return this;
+        return add(div().css(component(alert, Constants.action))
+                .add(action));
     }
 
 
     // ------------------------------------------------------ events
 
-    public Alert onClose(Callback onClose) {
-        this.onClose = onClose;
+    public Alert onClose(Callback callback) {
+        this.callback = callback;
         return this;
     }
 
@@ -147,18 +121,9 @@ public class Alert implements IsElement<HTMLElement> {
 
     boolean hasClose() {
         String selector = "." + component(alert, action) + " ." + fas("times");
-        return root.querySelector(selector) != null;
+        return element.querySelector(selector) != null;
     }
 
-    private HTMLElement createOrGetContainer(String selector, Supplier<HTMLElement> create,
-            Consumer<HTMLElement> init) {
-        HTMLElement container = (HTMLElement) root.querySelector(selector);
-        if (container == null) {
-            container = create.get();
-            init.accept(container);
-        }
-        return container;
-    }
 
     // ------------------------------------------------------ inner classes
 
@@ -178,6 +143,23 @@ public class Alert implements IsElement<HTMLElement> {
             this.icon = icon;
             this.modifier = modifier;
             this.aria = aria;
+        }
+    }
+
+    public static Description description() {
+        return new Description();
+    }
+
+    public static class Description extends ElementBuilder<HTMLElement, Description>
+            implements HtmlContent<HTMLElement, Description> {
+
+        private Description() {
+            super(div().css(component(alert, description)).get());
+        }
+
+        @Override
+        public Description that() {
+            return this;
         }
     }
 }

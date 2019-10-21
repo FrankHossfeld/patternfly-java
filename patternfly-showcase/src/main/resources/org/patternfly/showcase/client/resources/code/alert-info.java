@@ -1,11 +1,12 @@
-Alert info1 = Alert.info("Info alert title")
-        .description(span()
+import static org.patternfly.client.components.Alert.info;
+
+Alert info1 = info("Info alert title")
+        .add(description()
                 .add("Info alert description. ")
-                .add(a("#").textContent("This is a link"))
-                .get())
+                .add(a("#").textContent("This is a link")))
         .closable();
-    Alert info2 = Alert.info("Info alert title")
+Alert info2 = info("Info alert title")
         .closable();
-    Alert info3 = Alert.info("Info alert title")
-        .action("Action Button", () -> toast().add(Alert.info("Info action button clicked.")));
-    Alert info4 = Alert.info("Info alert title");
+Alert info3 = info("Info alert title")
+        .action("Action Button", () -> toast().add(info("Info action button clicked.")));
+Alert info4 = info("Info alert title");

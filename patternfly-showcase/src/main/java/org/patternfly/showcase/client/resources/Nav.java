@@ -25,6 +25,8 @@ public interface Nav {
                     hash(COMPONENT.replace(":component", "brand"))))
             .add("Component", new NavigationItem("button", "Button",
                     hash(COMPONENT.replace(":component", "button"))))
+            .add("Component", new NavigationItem("chip", "Card",
+                    hash(COMPONENT.replace(":component", "card"))))
             .add("Component", new NavigationItem("chip", "Chip",
                     hash(COMPONENT.replace(":component", "chip"))))
             .add("Component", new NavigationItem("chip-group", "Chip Group",

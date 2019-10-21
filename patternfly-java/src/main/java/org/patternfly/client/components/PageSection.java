@@ -18,9 +18,7 @@ public class PageSection extends ElementBuilder<HTMLElement, PageSection>
         implements HtmlContent<HTMLElement, PageSection> {
 
     public PageSection() {
-        super(section()
-                .css(component(page, mainSection))
-                .get());
+        super(section().css(component(page, mainSection)).get());
     }
 
     @Override

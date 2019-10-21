@@ -5,8 +5,10 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 import elemental2.dom.HTMLButtonElement;
+import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.gwt.elemento.core.builder.ElementBuilder;
+import org.jboss.gwt.elemento.core.builder.HtmlContent;
 import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
 import org.patternfly.client.core.Disable;
 import org.patternfly.client.core.SelectHandler;
@@ -37,7 +39,8 @@ import static org.patternfly.client.resources.Dataset.multiSelectItem;
  *
  * @see <a href="https://www.patternfly.org/v4/documentation/core/components/select">https://www.patternfly.org/v4/documentation/core/components/select</a>
  */
-public class MultiSelect<T> implements Disable<MultiSelect<T>>, IsElement<HTMLElement> {
+public class MultiSelect<T> extends ElementBuilder<HTMLDivElement, MultiSelect<T>>
+        implements HtmlContent<HTMLDivElement, MultiSelect<T>>, Disable<MultiSelect<T>> {
 
     // ------------------------------------------------------ factory methods
 
@@ -60,50 +63,54 @@ public class MultiSelect<T> implements Disable<MultiSelect<T>>, IsElement<HTMLEl
 
     // ------------------------------------------------------ select instance
 
-    private final HTMLElement root;
-    private final HTMLButtonElement button;
-    private final HTMLElement text;
-    private final HTMLElement menu;
-
     private final boolean typeahead;
     private final CollapseExpandHandler ceh;
     private final ItemDisplay<HTMLElement, T> itemDisplay;
     private SelectHandler<T> onSelect;
 
+    private final HTMLButtonElement button;
+    private final HTMLElement text;
+    private final HTMLElement menu;
+
     public MultiSelect(String text, String icon, boolean typeahead) {
+        super(div().css(component(select)).get());
         this.typeahead = typeahead;
         this.ceh = new CollapseExpandHandler();
         this.itemDisplay = new ItemDisplay<>();
 
         String labelId = uniqueId(select, label);
         String buttonId = uniqueId(select, Constants.button);
-        root = div().css(component(select))
-                .add(span().id(labelId).attr(hidden, "").textContent(text))
-                .add(button = button().css(component(select, toggle))
-                        .id(buttonId)
-                        .aria(expanded, false_)
-                        .aria(labelledBy, labelId + " " + buttonId)
-                        .on(click, e -> ceh.expand(element(), buttonElement(), menuElement()))
-                        .add(div().css(component(select, toggle, wrapper))
-                                .add(this.text = span().css(component(select, toggle, Constants.text))
-                                        .textContent(text)
-                                        .get()))
-                        .add(i().css(CSS.fas(caretDown), component(select, toggle, arrow))
-                                .aria(hidden, true_))
-                        .get())
-                .add(div().css(component(select, Constants.menu))
-                        .add(form().css(component(form)).attr(novalidate, "")
-                                .add(div().css(component(form, group))
-                                        .add(menu = fieldset().css(component(component(form, fieldset)))
-                                                .aria(label, "Select input")
-                                                .get()))))
-                .get();
+        add(span().id(labelId).attr(hidden, "").textContent(text));
+        add(button = button().css(component(select, toggle))
+                .id(buttonId)
+                .aria(expanded, false_)
+                .aria(labelledBy, labelId + " " + buttonId)
+                .on(click, e -> ceh.expand(get(), buttonElement(), menuElement()))
+                .add(div().css(component(select, toggle, wrapper))
+                        .add(this.text = span().css(component(select, toggle, Constants.text))
+                                .textContent(text)
+                                .get()))
+                .add(i().css(CSS.fas(caretDown), component(select, toggle, arrow))
+                        .aria(hidden, true_))
+                .get());
+        add(div().css(component(select, Constants.menu))
+                .add(form().css(component(form)).attr(novalidate, "")
+                        .add(div().css(component(form, group))
+                                .add(menu = fieldset().css(component(component(form, fieldset)))
+                                        .aria(label, "Select input")
+                                        .get()))));
 
         if (icon != null) {
             insertBefore(span().css(component(select, toggle, Constants.icon))
-                    .add(i().css(icon).aria(hidden, true_))
-                    .get(), this.text);
+                            .add(i().css(icon).aria(hidden, true_))
+                            .get(),
+                    this.text);
         }
+    }
+
+    @Override
+    public MultiSelect<T> that() {
+        return this;
     }
 
     private HTMLElement buttonElement() {
@@ -112,11 +119,6 @@ public class MultiSelect<T> implements Disable<MultiSelect<T>>, IsElement<HTMLEl
 
     private HTMLElement menuElement() {
         return menu;
-    }
-
-    @Override
-    public HTMLElement element() {
-        return root;
     }
 
 
@@ -144,7 +146,7 @@ public class MultiSelect<T> implements Disable<MultiSelect<T>>, IsElement<HTMLEl
                 .add(input(checkbox).css(component(check, input))
                         .data(multiSelectItem, itemDisplay.itemId(item))
                         .on(click, e -> {
-                            ceh.collapse(element(), buttonElement(), menuElement());
+                            ceh.collapse(get(), buttonElement(), menuElement());
                             select(item);
                         }))
                 .add(span().css(component(check, label)).textContent(Constants.text))
@@ -171,7 +173,7 @@ public class MultiSelect<T> implements Disable<MultiSelect<T>>, IsElement<HTMLEl
     }
 
     public MultiSelect<T> up() {
-        root.classList.add(modifier(top));
+        element.classList.add(modifier(top));
         return this;
     }
 

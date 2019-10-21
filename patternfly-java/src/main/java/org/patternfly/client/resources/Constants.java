@@ -48,14 +48,17 @@ public interface Constants {
     String fill = "fill";
     String filter = "filter";
     String focus = "focus";
+    String footer = "footer";
     String form = "form";
     String formControl = "form-control";
     String global = "global";
     String group = "group";
     String hasPopup = "haspopup";
+    String head = "head";
     String header = "header";
     String hidden = "hidden";
     String horizontal = "horizontal";
+    String hoverable = "hoverable";
     String icon = "icon";
     String info = "info";
     String inline = "inline";

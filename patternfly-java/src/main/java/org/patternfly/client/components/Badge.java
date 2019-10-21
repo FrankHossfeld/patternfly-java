@@ -1,7 +1,8 @@
 package org.patternfly.client.components;
 
 import elemental2.dom.HTMLElement;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.gwt.elemento.core.builder.ElementBuilder;
+import org.jboss.gwt.elemento.core.builder.HtmlContent;
 import org.patternfly.client.resources.Constants;
 
 import static org.jboss.gwt.elemento.core.Elements.span;
@@ -35,7 +36,8 @@ import static org.patternfly.client.resources.Constants.unread;
  *
  * @see https://www.patternfly.org/v4/documentation/core/components/badge
  */
-public class Badge implements IsElement<HTMLElement> {
+public class Badge extends ElementBuilder<HTMLElement, Badge>
+        implements HtmlContent<HTMLElement, Badge> {
 
     // ------------------------------------------------------ factory methods
 
@@ -58,18 +60,16 @@ public class Badge implements IsElement<HTMLElement> {
 
     // ------------------------------------------------------ badge instance
 
-    private final HTMLElement root;
-
     /** Creates a new badge. */
     private Badge(String text, boolean read) {
-        root = span().css(component(badge), read ? modifier(Constants.read) : modifier(Constants.unread))
+        super(span().css(component(badge), read ? modifier(Constants.read) : modifier(Constants.unread))
                 .textContent(text)
-                .get();
+                .get());
     }
 
     @Override
-    public HTMLElement element() {
-        return root;
+    public Badge that() {
+        return this;
     }
 
 
@@ -77,15 +77,15 @@ public class Badge implements IsElement<HTMLElement> {
 
     /** Marks the badge as read. */
     public Badge read() {
-        root.classList.remove(modifier(unread));
-        root.classList.add(modifier(read));
+        element.classList.remove(modifier(unread));
+        element.classList.add(modifier(read));
         return this;
     }
 
     /** Marks the badge as unread. */
     public Badge unread() {
-        root.classList.remove(modifier(read));
-        root.classList.add(modifier(unread));
+        element.classList.remove(modifier(read));
+        element.classList.add(modifier(unread));
         return this;
     }
 
@@ -96,7 +96,7 @@ public class Badge implements IsElement<HTMLElement> {
 
     /** Modifies the text of this badge. */
     public Badge text(String text) {
-        root.textContent = text;
+        element.textContent = text;
         return this;
     }
 }

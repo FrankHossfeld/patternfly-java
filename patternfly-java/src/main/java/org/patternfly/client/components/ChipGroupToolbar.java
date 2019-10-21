@@ -1,7 +1,8 @@
 package org.patternfly.client.components;
 
 import elemental2.dom.HTMLElement;
-import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.gwt.elemento.core.builder.ElementBuilder;
+import org.jboss.gwt.elemento.core.builder.HtmlContent;
 import org.patternfly.client.resources.Constants;
 
 import static org.jboss.gwt.elemento.core.Elements.h;
@@ -18,21 +19,20 @@ import static org.patternfly.client.resources.Constants.toolbar;
  *
  * @see <a href="https://www.patternfly.org/v4/documentation/core/components/chipgroup">https://www.patternfly.org/v4/documentation/core/components/chipgroup</a>
  */
-public class ChipGroupToolbar implements IsElement<HTMLElement> {
-
-    private final HTMLElement root;
+public class ChipGroupToolbar extends ElementBuilder<HTMLElement, ChipGroupToolbar>
+        implements HtmlContent<HTMLElement, ChipGroupToolbar> {
 
     public ChipGroupToolbar() {
-        root = ul().css(component(chipGroup), modifier(toolbar)).get();
+        super(ul().css(component(chipGroup), modifier(toolbar)).get());
     }
 
     @Override
-    public HTMLElement element() {
-        return root;
+    public ChipGroupToolbar that() {
+        return this;
     }
 
     public ChipGroupToolbar add(String category, ChipGroup chipGroup) {
-        root.appendChild(li()
+        add(li()
                 .add(h(4, category).css(component(Constants.chipGroup, label)))
                 .add(chipGroup)
                 .get());

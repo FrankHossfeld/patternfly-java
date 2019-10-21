@@ -25,18 +25,18 @@ import static org.patternfly.client.resources.Constants.dataList;
 import static org.patternfly.client.resources.Constants.labelledBy;
 
 /** An item inside a {@link DataList}. */
-class Item<T> implements IsElement {
+class VisualItem<T> implements IsElement<HTMLElement> {
 
     final String id;
     final T item;
     private final HTMLElement root;
 
 
-    Item(T item, ItemDisplay<T> display) {
-        this.id = display.getId();
+    VisualItem(T item, ItemDisplay<T> display) {
+        this.id = display.id();
         this.item = item;
         this.root = li().css(component(dataList, Constants.item))
-                .aria(labelledBy, display.getId())
+                .aria(labelledBy, display.id())
                 .add(display.element())
                 .get();
     }
