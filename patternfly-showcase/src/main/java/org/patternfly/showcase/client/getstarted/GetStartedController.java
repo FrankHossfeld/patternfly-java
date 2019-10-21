@@ -1,18 +1,17 @@
 package org.patternfly.showcase.client.getstarted;
 
-import com.github.nalukit.nalu.client.component.AbstractComponentController;
-import com.github.nalukit.nalu.client.component.IsComponentCreator;
-import com.github.nalukit.nalu.client.component.annotation.Controller;
-import elemental2.dom.HTMLElement;
 import org.patternfly.client.components.Page;
 import org.patternfly.showcase.client.ShowcaseContext;
 import org.patternfly.showcase.client.resources.Ids;
 import org.patternfly.showcase.client.resources.Routes;
 
-@Controller(route = Routes.GET_STARTED,
-        selector = Ids.ROOT_CONTAINER,
-        component = GetStartedElement.class,
-        componentInterface = GetStarted.Component.class)
+import com.github.nalukit.nalu.client.component.AbstractComponentController;
+import com.github.nalukit.nalu.client.component.IsComponentCreator;
+import com.github.nalukit.nalu.client.component.annotation.Controller;
+
+import elemental2.dom.HTMLElement;
+
+@Controller(route = Routes.GET_STARTED, selector = Ids.ROOT_CONTAINER, component = GetStartedElement.class, componentInterface = GetStarted.Component.class)
 public class GetStartedController
         extends AbstractComponentController<ShowcaseContext, GetStarted.Component, HTMLElement>
         implements GetStarted.Controller, IsComponentCreator<GetStarted.Component> {

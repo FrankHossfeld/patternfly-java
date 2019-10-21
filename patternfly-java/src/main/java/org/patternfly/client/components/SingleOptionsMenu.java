@@ -1,12 +1,21 @@
 package org.patternfly.client.components;
 
+import static org.jboss.gwt.elemento.core.Elements.*;
+import static org.jboss.gwt.elemento.core.Elements.button;
+import static org.jboss.gwt.elemento.core.EventType.click;
+import static org.patternfly.client.resources.CSS.component;
+import static org.patternfly.client.resources.CSS.fas;
+import static org.patternfly.client.resources.CSS.modifier;
+import static org.patternfly.client.resources.Constants.*;
+import static org.patternfly.client.resources.Constants.label;
+import static org.patternfly.client.resources.Constants.toggle;
+import static org.patternfly.client.resources.Dataset.singleOptionsMenuCheck;
+import static org.patternfly.client.resources.Dataset.singleOptionsMenuItem;
+
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-import elemental2.dom.HTMLButtonElement;
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.builder.ElementBuilder;
 import org.jboss.gwt.elemento.core.builder.HtmlContent;
@@ -16,22 +25,15 @@ import org.patternfly.client.core.HasValue;
 import org.patternfly.client.core.SelectHandler;
 import org.patternfly.client.resources.Constants;
 
-import static org.jboss.gwt.elemento.core.Elements.button;
-import static org.jboss.gwt.elemento.core.Elements.*;
-import static org.jboss.gwt.elemento.core.EventType.click;
-import static org.patternfly.client.resources.CSS.component;
-import static org.patternfly.client.resources.CSS.fas;
-import static org.patternfly.client.resources.CSS.modifier;
-import static org.patternfly.client.resources.Constants.label;
-import static org.patternfly.client.resources.Constants.toggle;
-import static org.patternfly.client.resources.Constants.*;
-import static org.patternfly.client.resources.Dataset.singleOptionsMenuCheck;
-import static org.patternfly.client.resources.Dataset.singleOptionsMenuItem;
+import elemental2.dom.HTMLButtonElement;
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
 
 /**
  * PatternFly options menu component.
  *
- * @see <a href="https://www.patternfly.org/v4/documentation/core/components/optionsmenu">https://www.patternfly.org/v4/documentation/core/components/optionsmenu</a>
+ * @see <a href=
+ *      "https://www.patternfly.org/v4/documentation/core/components/optionsmenu">https://www.patternfly.org/v4/documentation/core/components/optionsmenu</a>
  */
 public class SingleOptionsMenu<T> extends ElementBuilder<HTMLDivElement, SingleOptionsMenu<T>>
         implements HtmlContent<HTMLDivElement, SingleOptionsMenu<T>>, HasValue<T>, Disable<SingleOptionsMenu<T>> {
@@ -49,7 +51,6 @@ public class SingleOptionsMenu<T> extends ElementBuilder<HTMLDivElement, SingleO
     public static <T> SingleOptionsMenu<T> plain(String text) {
         return new SingleOptionsMenu<>(text, null, true);
     }
-
 
     // ------------------------------------------------------ options menu instance
 
@@ -129,7 +130,6 @@ public class SingleOptionsMenu<T> extends ElementBuilder<HTMLDivElement, SingleO
     private HTMLElement menuElement() {
         return menu;
     }
-
 
     // ------------------------------------------------------ public API
 
@@ -228,7 +228,6 @@ public class SingleOptionsMenu<T> extends ElementBuilder<HTMLDivElement, SingleO
     public T value() {
         return value;
     }
-
 
     // ------------------------------------------------------ events
 

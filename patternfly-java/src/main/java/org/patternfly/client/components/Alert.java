@@ -1,25 +1,27 @@
 package org.patternfly.client.components;
 
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
-import org.jboss.gwt.elemento.core.builder.ElementBuilder;
-import org.jboss.gwt.elemento.core.builder.HtmlContent;
-import org.patternfly.client.core.Callback;
-import org.patternfly.client.resources.Constants;
-
 import static org.jboss.gwt.elemento.core.Elements.*;
 import static org.jboss.gwt.elemento.core.EventType.bind;
 import static org.jboss.gwt.elemento.core.EventType.click;
 import static org.patternfly.client.resources.CSS.component;
 import static org.patternfly.client.resources.CSS.fas;
 import static org.patternfly.client.resources.CSS.modifier;
-import static org.patternfly.client.resources.Constants.label;
 import static org.patternfly.client.resources.Constants.*;
+import static org.patternfly.client.resources.Constants.label;
+
+import org.jboss.gwt.elemento.core.builder.ElementBuilder;
+import org.jboss.gwt.elemento.core.builder.HtmlContent;
+import org.patternfly.client.core.Callback;
+import org.patternfly.client.resources.Constants;
+
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
 
 /**
  * PatternFly alert component.
  *
- * @see <a href="https://www.patternfly.org/v4/documentation/core/components/alert">https://www.patternfly.org/v4/documentation/core/components/alert</a>
+ * @see <a href=
+ *      "https://www.patternfly.org/v4/documentation/core/components/alert">https://www.patternfly.org/v4/documentation/core/components/alert</a>
  */
 public class Alert extends ElementBuilder<HTMLDivElement, Alert>
         implements HtmlContent<HTMLDivElement, Alert> {
@@ -45,7 +47,6 @@ public class Alert extends ElementBuilder<HTMLDivElement, Alert>
     public static Alert danger(String title) {
         return new Alert(Type.DANGER, title);
     }
-
 
     // ------------------------------------------------------ alert instance
 
@@ -74,7 +75,6 @@ public class Alert extends ElementBuilder<HTMLDivElement, Alert>
     public Alert that() {
         return this;
     }
-
 
     // ------------------------------------------------------ public API
 
@@ -108,14 +108,12 @@ public class Alert extends ElementBuilder<HTMLDivElement, Alert>
                 .add(action));
     }
 
-
     // ------------------------------------------------------ events
 
     public Alert onClose(Callback callback) {
         this.callback = callback;
         return this;
     }
-
 
     // ------------------------------------------------------ internals
 
@@ -124,9 +122,7 @@ public class Alert extends ElementBuilder<HTMLDivElement, Alert>
         return element.querySelector(selector) != null;
     }
 
-
     // ------------------------------------------------------ inner classes
-
 
     enum Type {
         DEFAULT(fas("bell"), null, "default alert"),

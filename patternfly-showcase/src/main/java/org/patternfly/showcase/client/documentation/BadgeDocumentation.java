@@ -1,11 +1,11 @@
 package org.patternfly.showcase.client.documentation;
 
-import org.patternfly.client.components.Badge;
-import org.patternfly.showcase.client.resources.Code;
-
 import static java.util.Arrays.asList;
 import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.jboss.gwt.elemento.core.Elements.p;
+
+import org.patternfly.client.components.Badge;
+import org.patternfly.showcase.client.resources.Code;
 
 class BadgeDocumentation extends ComponentDocumentation {
 
@@ -34,7 +34,6 @@ class BadgeDocumentation extends ComponentDocumentation {
                                         .add(Badge.unread(423))
                                         .add(" ")
                                         .add(Badge.unread("999+"))
-                                        .get())
-                ));
+                                        .get())));
     }
 }

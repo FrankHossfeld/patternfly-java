@@ -1,13 +1,22 @@
 package org.patternfly.client.components;
 
+import static org.jboss.gwt.elemento.core.Elements.*;
+import static org.jboss.gwt.elemento.core.Elements.button;
+import static org.jboss.gwt.elemento.core.Elements.input;
+import static org.jboss.gwt.elemento.core.EventType.click;
+import static org.jboss.gwt.elemento.core.EventType.keyup;
+import static org.patternfly.client.resources.CSS.component;
+import static org.patternfly.client.resources.CSS.fas;
+import static org.patternfly.client.resources.Constants.*;
+import static org.patternfly.client.resources.Constants.input;
+import static org.patternfly.client.resources.Constants.label;
+import static org.patternfly.client.resources.Constants.toggle;
+import static org.patternfly.client.resources.Dataset.contextSelectorItem;
+
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-import elemental2.dom.HTMLButtonElement;
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLInputElement;
 import org.jboss.gwt.elemento.core.EventType;
 import org.jboss.gwt.elemento.core.InputType;
 import org.jboss.gwt.elemento.core.builder.ElementBuilder;
@@ -19,23 +28,16 @@ import org.patternfly.client.core.SelectHandler;
 import org.patternfly.client.resources.CSS;
 import org.patternfly.client.resources.Constants;
 
-import static org.jboss.gwt.elemento.core.Elements.button;
-import static org.jboss.gwt.elemento.core.Elements.input;
-import static org.jboss.gwt.elemento.core.Elements.*;
-import static org.jboss.gwt.elemento.core.EventType.click;
-import static org.jboss.gwt.elemento.core.EventType.keyup;
-import static org.patternfly.client.resources.CSS.component;
-import static org.patternfly.client.resources.CSS.fas;
-import static org.patternfly.client.resources.Constants.input;
-import static org.patternfly.client.resources.Constants.label;
-import static org.patternfly.client.resources.Constants.toggle;
-import static org.patternfly.client.resources.Constants.*;
-import static org.patternfly.client.resources.Dataset.contextSelectorItem;
+import elemental2.dom.HTMLButtonElement;
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLInputElement;
 
 /**
  * PatternFly context selector component.
  *
- * @see <a href="https://www.patternfly.org/v4/documentation/core/components/contextselector">https://www.patternfly.org/v4/documentation/core/components/contextselector</a>
+ * @see <a href=
+ *      "https://www.patternfly.org/v4/documentation/core/components/contextselector">https://www.patternfly.org/v4/documentation/core/components/contextselector</a>
  */
 public class ContextSelector<T> extends ElementBuilder<HTMLDivElement, ContextSelector<T>>
         implements HtmlContent<HTMLDivElement, ContextSelector<T>>, Disable<ContextSelector<T>>, HasValue<T> {
@@ -109,7 +111,6 @@ public class ContextSelector<T> extends ElementBuilder<HTMLDivElement, ContextSe
         return menu;
     }
 
-
     // ------------------------------------------------------ public API
 
     public ContextSelector<T> add(Iterable<T> items) {
@@ -177,7 +178,6 @@ public class ContextSelector<T> extends ElementBuilder<HTMLDivElement, ContextSe
         return value;
     }
 
-
     // ------------------------------------------------------ events
 
     public ContextSelector<T> onToggle(Consumer<Boolean> onToggle) {
@@ -189,7 +189,6 @@ public class ContextSelector<T> extends ElementBuilder<HTMLDivElement, ContextSe
         this.onSelect = onSelect;
         return this;
     }
-
 
     // ------------------------------------------------------ internals
 

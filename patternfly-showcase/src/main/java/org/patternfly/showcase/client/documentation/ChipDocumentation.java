@@ -1,14 +1,14 @@
 package org.patternfly.showcase.client.documentation;
 
-import org.patternfly.client.components.Chip;
-import org.patternfly.showcase.client.resources.Code;
-
 import static java.util.Arrays.asList;
 import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.jboss.gwt.elemento.core.Elements.p;
 import static org.patternfly.client.components.Alert.info;
 import static org.patternfly.client.components.AlertGroup.toast;
 import static org.patternfly.client.components.Chip.chip;
+
+import org.patternfly.client.components.Chip;
+import org.patternfly.showcase.client.resources.Code;
 
 class ChipDocumentation extends ComponentDocumentation {
 
@@ -34,7 +34,6 @@ class ChipDocumentation extends ComponentDocumentation {
                         new Demo("Chip onClose", Code.get().chipOnClose().getText(),
                                 () -> div()
                                         .add(chip("Close Me").onClose(() -> toast().add(info("Goodbye"))))
-                                        .get())
-                ));
+                                        .get())));
     }
 }

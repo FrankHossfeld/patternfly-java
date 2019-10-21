@@ -1,28 +1,11 @@
 package org.patternfly.client.components;
 
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Function;
-
-import elemental2.dom.HTMLButtonElement;
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLInputElement;
-import elemental2.dom.HTMLLIElement;
-import elemental2.dom.HTMLLabelElement;
-import org.jboss.gwt.elemento.core.builder.ElementBuilder;
-import org.jboss.gwt.elemento.core.builder.HtmlContent;
-import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
-import org.patternfly.client.core.Disable;
-import org.patternfly.client.core.SelectHandler;
-import org.patternfly.client.resources.Constants;
-
 import static jsinterop.base.Js.cast;
+import static org.jboss.gwt.elemento.core.Elements.*;
 import static org.jboss.gwt.elemento.core.Elements.button;
 import static org.jboss.gwt.elemento.core.Elements.input;
 import static org.jboss.gwt.elemento.core.Elements.label;
 import static org.jboss.gwt.elemento.core.Elements.section;
-import static org.jboss.gwt.elemento.core.Elements.*;
 import static org.jboss.gwt.elemento.core.EventType.change;
 import static org.jboss.gwt.elemento.core.EventType.click;
 import static org.jboss.gwt.elemento.core.InputType.checkbox;
@@ -33,10 +16,29 @@ import static org.patternfly.client.resources.Constants.*;
 import static org.patternfly.client.resources.Dataset.dropdownGroup;
 import static org.patternfly.client.resources.Dataset.dropdownItem;
 
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Function;
+
+import org.jboss.gwt.elemento.core.builder.ElementBuilder;
+import org.jboss.gwt.elemento.core.builder.HtmlContent;
+import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
+import org.patternfly.client.core.Disable;
+import org.patternfly.client.core.SelectHandler;
+import org.patternfly.client.resources.Constants;
+
+import elemental2.dom.HTMLButtonElement;
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLInputElement;
+import elemental2.dom.HTMLLIElement;
+import elemental2.dom.HTMLLabelElement;
+
 /**
  * PatternFly dropdown component.
  *
- * @see <a href="https://www.patternfly.org/v4/documentation/core/components/dropdown">https://www.patternfly.org/v4/documentation/core/components/dropdown</a>
+ * @see <a href=
+ *      "https://www.patternfly.org/v4/documentation/core/components/dropdown">https://www.patternfly.org/v4/documentation/core/components/dropdown</a>
  */
 // TODO Open with enter, navigation with up/down, select with enter
 public class Dropdown<T> extends ElementBuilder<HTMLDivElement, Dropdown<T>>
@@ -83,7 +85,6 @@ public class Dropdown<T> extends ElementBuilder<HTMLDivElement, Dropdown<T>>
     public static <T> Dropdown<T> split(String text, boolean grouped) {
         return new Dropdown<>(text, null, grouped, true);
     }
-
 
     // ------------------------------------------------------ dropdown instance
 
@@ -192,7 +193,6 @@ public class Dropdown<T> extends ElementBuilder<HTMLDivElement, Dropdown<T>>
     private HTMLElement menuElement() {
         return menu;
     }
-
 
     // ------------------------------------------------------ public API
 
@@ -324,7 +324,6 @@ public class Dropdown<T> extends ElementBuilder<HTMLDivElement, Dropdown<T>>
         }
     }
 
-
     // ------------------------------------------------------ events
 
     public Dropdown<T> onToggle(Consumer<Boolean> onToggle) {
@@ -341,7 +340,6 @@ public class Dropdown<T> extends ElementBuilder<HTMLDivElement, Dropdown<T>>
         this.onSelect = onSelect;
         return this;
     }
-
 
     // ------------------------------------------------------ internals
 

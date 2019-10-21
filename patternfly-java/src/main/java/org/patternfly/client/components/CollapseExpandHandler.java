@@ -1,11 +1,5 @@
 package org.patternfly.client.components;
 
-import java.util.function.Consumer;
-
-import elemental2.dom.HTMLElement;
-import elemental2.dom.Node;
-import org.gwtproject.event.shared.HandlerRegistration;
-
 import static elemental2.dom.DomGlobal.document;
 import static org.jboss.gwt.elemento.core.Elements.setVisible;
 import static org.jboss.gwt.elemento.core.EventType.bind;
@@ -15,6 +9,13 @@ import static org.patternfly.client.resources.Constants.expanded;
 import static org.patternfly.client.resources.Constants.false_;
 import static org.patternfly.client.resources.Constants.hidden;
 import static org.patternfly.client.resources.Constants.true_;
+
+import java.util.function.Consumer;
+
+import org.gwtproject.event.shared.HandlerRegistration;
+
+import elemental2.dom.HTMLElement;
+import elemental2.dom.Node;
 
 /** Reusable class for components which have a collapsible / expandable UI element */
 class CollapseExpandHandler {

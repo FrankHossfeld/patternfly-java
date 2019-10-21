@@ -1,12 +1,5 @@
 package org.patternfly.showcase.client.documentation;
 
-import java.util.Random;
-
-import org.patternfly.client.components.Button;
-import org.patternfly.client.components.ChipGroup;
-import org.patternfly.client.components.ChipGroupToolbar;
-import org.patternfly.showcase.client.resources.Code;
-
 import static java.util.Arrays.asList;
 import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.jboss.gwt.elemento.core.Elements.p;
@@ -15,6 +8,13 @@ import static org.patternfly.client.components.Chip.chip;
 import static org.patternfly.client.components.Components.chipGroup;
 import static org.patternfly.client.components.Components.chipGroupToolbar;
 import static org.patternfly.client.resources.CSS.fas;
+
+import java.util.Random;
+
+import org.patternfly.client.components.Button;
+import org.patternfly.client.components.ChipGroup;
+import org.patternfly.client.components.ChipGroupToolbar;
+import org.patternfly.showcase.client.resources.Code;
 
 class ChipGroupDocumentation extends ComponentDocumentation {
 
@@ -40,7 +40,7 @@ class ChipGroupDocumentation extends ComponentDocumentation {
                                 }),
                         new Demo("Chip toolbar", Code.get().chipToolbar().getText(),
                                 () -> {
-                                    ChipGroup[] groups = new ChipGroup[]{
+                                    ChipGroup[] groups = new ChipGroup[] {
                                             chipGroup(3),
                                             chipGroup(4),
                                             chipGroup()
@@ -61,7 +61,6 @@ class ChipGroupDocumentation extends ComponentDocumentation {
                                                                 groups[i].add(chip(uniqueId()));
                                                             })))
                                             .get();
-                                })
-                ));
+                                })));
     }
 }

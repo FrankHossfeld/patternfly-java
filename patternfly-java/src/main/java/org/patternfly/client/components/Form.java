@@ -1,20 +1,22 @@
 package org.patternfly.client.components;
 
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLFormElement;
-import org.jboss.gwt.elemento.core.builder.ElementBuilder;
-import org.jboss.gwt.elemento.core.builder.HtmlContent;
-
 import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.jboss.gwt.elemento.core.Elements.form;
 import static org.patternfly.client.resources.CSS.component;
 import static org.patternfly.client.resources.Constants.form;
 import static org.patternfly.client.resources.Constants.group;
 
+import org.jboss.gwt.elemento.core.builder.ElementBuilder;
+import org.jboss.gwt.elemento.core.builder.HtmlContent;
+
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLFormElement;
+
 /**
  * PatternFly form component.
  *
- * @see <a href="https://www.patternfly.org/v4/documentation/core/components/form">https://www.patternfly.org/v4/documentation/core/components/form</a>
+ * @see <a href=
+ *      "https://www.patternfly.org/v4/documentation/core/components/form">https://www.patternfly.org/v4/documentation/core/components/form</a>
  */
 public class Form extends ElementBuilder<HTMLFormElement, Form>
         implements HtmlContent<HTMLFormElement, Form> {
@@ -27,7 +29,6 @@ public class Form extends ElementBuilder<HTMLFormElement, Form>
     public Form that() {
         return this;
     }
-
 
     // ------------------------------------------------------ inner classes
 

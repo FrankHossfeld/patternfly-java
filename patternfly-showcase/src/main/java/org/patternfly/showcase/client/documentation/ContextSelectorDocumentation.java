@@ -1,16 +1,16 @@
 package org.patternfly.showcase.client.documentation;
 
-import org.patternfly.client.components.Badge;
-import org.patternfly.client.components.Components;
-import org.patternfly.client.components.ContextSelector;
-import org.patternfly.showcase.client.resources.Code;
-
 import static java.util.Arrays.asList;
 import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.jboss.gwt.elemento.core.Elements.p;
 import static org.patternfly.client.components.Alert.info;
 import static org.patternfly.client.components.AlertGroup.toast;
 import static org.patternfly.client.resources.CSS.util;
+
+import org.patternfly.client.components.Badge;
+import org.patternfly.client.components.Components;
+import org.patternfly.client.components.ContextSelector;
+import org.patternfly.showcase.client.resources.Code;
 
 class ContextSelectorDocumentation extends ComponentDocumentation {
 
@@ -27,7 +27,7 @@ class ContextSelectorDocumentation extends ComponentDocumentation {
                                         .get()),
                         new Demo("Typed context selector", Code.get().contextSelectorTyped().getText(),
                                 () -> div()
-                                        .add(Components.<Stage>contextSelector("Stage")
+                                        .add(Components.<Stage> contextSelector("Stage")
                                                 .display(
                                                         (html, stage) -> html.css(util("justify-content-space-between"))
                                                                 .title(stage.url)
@@ -41,16 +41,13 @@ class ContextSelectorDocumentation extends ComponentDocumentation {
                         new Demo("Context selector events", Code.get().contextSelectorEvent().getText(),
                                 () -> div()
                                         .add(new ContextSelector<String>("Stage")
-                                                .onToggle(open ->
-                                                        toast().add(
-                                                                info("Context selector " + (open ? "expanded" : "collapsed"))))
+                                                .onToggle(open -> toast().add(
+                                                        info("Context selector " + (open ? "expanded" : "collapsed"))))
                                                 .onSelect(
                                                         stage -> toast().add(info("Stage selected").description(stage)))
                                                 .add(asList("Development", "Staging", "QA", "Production")))
-                                        .get())
-                ));
+                                        .get())));
     }
-
 
     static class Stage {
 

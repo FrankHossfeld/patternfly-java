@@ -15,6 +15,12 @@
  */
 package org.patternfly.client.dataprovider;
 
+import static java.lang.Math.min;
+import static java.util.Collections.emptyList;
+import static java.util.function.Function.identity;
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toMap;
+
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -28,12 +34,6 @@ import java.util.stream.Collector;
 import java.util.stream.Stream;
 
 import org.patternfly.client.core.SelectHandler;
-
-import static java.lang.Math.min;
-import static java.util.Collections.emptyList;
-import static java.util.function.Function.identity;
-import static java.util.stream.Collectors.toList;
-import static java.util.stream.Collectors.toMap;
 
 /**
  * Holds items and state for components like data lists and tables.
@@ -69,7 +69,6 @@ public class DataProvider<T> {
 
         reset();
     }
-
 
     // ------------------------------------------------------ items
 
@@ -164,7 +163,6 @@ public class DataProvider<T> {
                 LinkedHashMap::new);
     }
 
-
     // ------------------------------------------------------ selection
 
     public void onSelect(SelectHandler<T> selectHandler) {
@@ -230,7 +228,6 @@ public class DataProvider<T> {
         }
     }
 
-
     // ------------------------------------------------------ filter
 
     public void addFilter(String name, FilterValue<T> filter) {
@@ -267,7 +264,6 @@ public class DataProvider<T> {
         return !filterValues.isEmpty();
     }
 
-
     // ------------------------------------------------------ sort
 
     public void setComparator(Comparator<T> comparator) {
@@ -280,7 +276,6 @@ public class DataProvider<T> {
     public Comparator<T> getComparator() {
         return comparator;
     }
-
 
     // ------------------------------------------------------ paging
 
@@ -338,7 +333,6 @@ public class DataProvider<T> {
         return emptyList();
     }
 
-
     // ------------------------------------------------------ displays
 
     public void addDisplay(Display<T> display) {
@@ -357,9 +351,7 @@ public class DataProvider<T> {
         }
     }
 
-
     // ------------------------------------------------------ inner classes
-
 
     private static class Partition<T> extends AbstractList<List<T>> {
 

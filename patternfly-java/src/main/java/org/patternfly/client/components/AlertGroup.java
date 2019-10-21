@@ -26,7 +26,8 @@ import static org.patternfly.client.resources.Constants.alertGroup;
 /**
  * PatternFly alert group component.
  *
- * @see <a href="https://www.patternfly.org/v4/documentation/core/components/alertgroup">https://www.patternfly.org/v4/documentation/core/components/alertgroup</a>
+ * @see <a href=
+ *      "https://www.patternfly.org/v4/documentation/core/components/alertgroup">https://www.patternfly.org/v4/documentation/core/components/alertgroup</a>
  */
 public class AlertGroup extends ElementBuilder<HTMLUListElement, AlertGroup>
         implements HtmlContent<HTMLUListElement, AlertGroup>, IsElement<HTMLUListElement> {
@@ -47,7 +48,6 @@ public class AlertGroup extends ElementBuilder<HTMLUListElement, AlertGroup>
         return new AlertGroup(0);
     }
 
-
     // ------------------------------------------------------ alert group instance
 
     private static final double DEFAULT_TIMEOUT = 8000; // ms
@@ -65,7 +65,6 @@ public class AlertGroup extends ElementBuilder<HTMLUListElement, AlertGroup>
     public AlertGroup that() {
         return this;
     }
-
 
     // ------------------------------------------------------ public API
 
@@ -87,7 +86,6 @@ public class AlertGroup extends ElementBuilder<HTMLUListElement, AlertGroup>
         }
         return this;
     }
-
 
     // ------------------------------------------------------ internals
 

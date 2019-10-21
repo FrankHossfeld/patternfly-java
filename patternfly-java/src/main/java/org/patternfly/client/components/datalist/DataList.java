@@ -1,9 +1,14 @@
 package org.patternfly.client.components.datalist;
 
+import static org.jboss.gwt.elemento.core.Elements.div;
+import static org.jboss.gwt.elemento.core.Elements.removeChildrenFrom;
+import static org.jboss.gwt.elemento.core.Elements.ul;
+import static org.patternfly.client.resources.CSS.component;
+import static org.patternfly.client.resources.Constants.*;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import elemental2.dom.HTMLElement;
 import org.jboss.gwt.elemento.core.builder.ElementBuilder;
 import org.jboss.gwt.elemento.core.builder.HtmlContent;
 import org.patternfly.client.dataprovider.DataProvider;
@@ -11,18 +16,16 @@ import org.patternfly.client.dataprovider.Display;
 import org.patternfly.client.dataprovider.PageInfo;
 import org.patternfly.client.dataprovider.SelectionInfo;
 
-import static org.jboss.gwt.elemento.core.Elements.div;
-import static org.jboss.gwt.elemento.core.Elements.removeChildrenFrom;
-import static org.jboss.gwt.elemento.core.Elements.ul;
-import static org.patternfly.client.resources.CSS.component;
-import static org.patternfly.client.resources.Constants.*;
+import elemental2.dom.HTMLElement;
 
 /**
  * PatternFly data list.
  *
- * <p>The data list does not manage data by itself. Use a {@link
+ * <p>
+ * The data list does not manage data by itself. Use a {@link
  * DataProvider} and add the data list as a display to the data
- * provider:</p>
+ * provider:
+ * </p>
  *
  * <pre>
  * DataProvider dataProvider = ...;
@@ -32,7 +35,8 @@ import static org.patternfly.client.resources.Constants.*;
  * dataProvider.setItems(...);
  * </pre>
  *
- * @see <a href="https://www.patternfly.org/v4/documentation/core/components/datalist">https://www.patternfly.org/v4/documentation/core/components/datalist</a>
+ * @see <a href=
+ *      "https://www.patternfly.org/v4/documentation/core/components/datalist">https://www.patternfly.org/v4/documentation/core/components/datalist</a>
  */
 public class DataList<T> extends ElementBuilder<HTMLElement, DataList<T>>
         implements HtmlContent<HTMLElement, DataList<T>>, Display<T> {
@@ -70,7 +74,6 @@ public class DataList<T> extends ElementBuilder<HTMLElement, DataList<T>>
     @Override
     public void updateSelection(SelectionInfo<T> selectionInfo) {
     }
-
 
     // ------------------------------------------------------ inner classes
 

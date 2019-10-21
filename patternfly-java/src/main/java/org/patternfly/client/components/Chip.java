@@ -1,26 +1,28 @@
 package org.patternfly.client.components;
 
-import elemental2.dom.HTMLElement;
+import static org.jboss.gwt.elemento.core.Elements.*;
+import static org.jboss.gwt.elemento.core.Elements.button;
+import static org.jboss.gwt.elemento.core.EventType.click;
+import static org.patternfly.client.resources.CSS.component;
+import static org.patternfly.client.resources.CSS.fas;
+import static org.patternfly.client.resources.CSS.modifier;
+import static org.patternfly.client.resources.Constants.*;
+import static org.patternfly.client.resources.Constants.button;
+import static org.patternfly.client.resources.Constants.label;
+
 import org.jboss.gwt.elemento.core.builder.ElementBuilder;
 import org.jboss.gwt.elemento.core.builder.HtmlContent;
 import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
 import org.patternfly.client.core.Callback;
 import org.patternfly.client.resources.Constants;
 
-import static org.jboss.gwt.elemento.core.Elements.button;
-import static org.jboss.gwt.elemento.core.Elements.*;
-import static org.jboss.gwt.elemento.core.EventType.click;
-import static org.patternfly.client.resources.CSS.component;
-import static org.patternfly.client.resources.CSS.fas;
-import static org.patternfly.client.resources.CSS.modifier;
-import static org.patternfly.client.resources.Constants.button;
-import static org.patternfly.client.resources.Constants.label;
-import static org.patternfly.client.resources.Constants.*;
+import elemental2.dom.HTMLElement;
 
 /**
  * PatternFly chip component.
  *
- * @see <a href="https://www.patternfly.org/v4/documentation/core/components/chip">https://www.patternfly.org/v4/documentation/core/components/chip</a>
+ * @see <a href=
+ *      "https://www.patternfly.org/v4/documentation/core/components/chip">https://www.patternfly.org/v4/documentation/core/components/chip</a>
  */
 public class Chip extends ElementBuilder<HTMLElement, Chip>
         implements HtmlContent<HTMLElement, Chip> {
@@ -46,7 +48,6 @@ public class Chip extends ElementBuilder<HTMLElement, Chip>
     public static Chip overflow(String text) {
         return new Chip(div().get(), text, -1, true, false);
     }
-
 
     // ------------------------------------------------------ chip instance
 
@@ -119,7 +120,6 @@ public class Chip extends ElementBuilder<HTMLElement, Chip>
     Chip cloneAsLi() {
         return new Chip(li().get(), text.textContent, count, overflow, readOnly).onClose(callback);
     }
-
 
     // ------------------------------------------------------ public API
 

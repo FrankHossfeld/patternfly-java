@@ -15,19 +15,20 @@
  */
 package org.patternfly.client.dataprovider;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.function.Function;
-
-import com.google.common.primitives.Ints;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import static com.google.common.primitives.Ints.toArray;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.function.Function;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import com.google.common.primitives.Ints;
 
 class SelectionInfoTest {
 
@@ -37,13 +38,13 @@ class SelectionInfoTest {
     private SelectionInfo<Integer> multi;
 
     @BeforeEach
-     void setUp() {
+    void setUp() {
         single = new SelectionInfo<>(IDENTIFIER, false);
         multi = new SelectionInfo<>(IDENTIFIER, true);
     }
 
     @Test
-     void addSingle() {
+    void addSingle() {
         single.add("0", 0);
         assertSelection(single, 0);
         single.add("1", 1);
@@ -53,7 +54,7 @@ class SelectionInfoTest {
     }
 
     @Test
-     void addMulti() {
+    void addMulti() {
         multi.add("0", 0);
         assertSelection(multi, 0);
         multi.add("1", 1);
@@ -63,7 +64,7 @@ class SelectionInfoTest {
     }
 
     @Test
-     void removeSingle() {
+    void removeSingle() {
         single.add("0", 0);
         assertSelection(single, 0);
         single.remove("0");
@@ -71,7 +72,7 @@ class SelectionInfoTest {
     }
 
     @Test
-     void removeMulti() {
+    void removeMulti() {
         multi.add("0", 0);
         multi.add("1", 1);
         multi.add("2", 2);

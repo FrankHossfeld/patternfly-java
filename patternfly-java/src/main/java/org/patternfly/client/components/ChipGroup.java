@@ -1,14 +1,5 @@
 package org.patternfly.client.components;
 
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Stream;
-
-import elemental2.dom.HTMLElement;
-import org.jboss.gwt.elemento.core.builder.ElementBuilder;
-import org.jboss.gwt.elemento.core.builder.HtmlContent;
-import org.patternfly.client.resources.CSS;
-import org.patternfly.client.resources.Constants;
-
 import static java.lang.Math.abs;
 import static org.jboss.gwt.elemento.core.Elements.insertBefore;
 import static org.jboss.gwt.elemento.core.Elements.setVisible;
@@ -17,10 +8,21 @@ import static org.jboss.gwt.elemento.core.Elements.ul;
 import static org.patternfly.client.resources.CSS.component;
 import static org.patternfly.client.resources.Constants.chipGroup;
 
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Stream;
+
+import org.jboss.gwt.elemento.core.builder.ElementBuilder;
+import org.jboss.gwt.elemento.core.builder.HtmlContent;
+import org.patternfly.client.resources.CSS;
+import org.patternfly.client.resources.Constants;
+
+import elemental2.dom.HTMLElement;
+
 /**
  * PatternFly chip group component.
  *
- * @see <a href="https://www.patternfly.org/v4/documentation/core/components/chipgroup">https://www.patternfly.org/v4/documentation/core/components/chipgroup</a>
+ * @see <a href=
+ *      "https://www.patternfly.org/v4/documentation/core/components/chipgroup">https://www.patternfly.org/v4/documentation/core/components/chipgroup</a>
  */
 public class ChipGroup extends ElementBuilder<HTMLElement, ChipGroup>
         implements HtmlContent<HTMLElement, ChipGroup> {

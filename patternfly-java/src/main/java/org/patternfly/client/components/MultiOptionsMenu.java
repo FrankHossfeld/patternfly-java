@@ -1,5 +1,17 @@
 package org.patternfly.client.components;
 
+import static org.jboss.gwt.elemento.core.Elements.*;
+import static org.jboss.gwt.elemento.core.Elements.button;
+import static org.jboss.gwt.elemento.core.EventType.click;
+import static org.patternfly.client.resources.CSS.component;
+import static org.patternfly.client.resources.CSS.fas;
+import static org.patternfly.client.resources.CSS.modifier;
+import static org.patternfly.client.resources.Constants.*;
+import static org.patternfly.client.resources.Constants.label;
+import static org.patternfly.client.resources.Constants.toggle;
+import static org.patternfly.client.resources.Dataset.multiOptionsMenuItem;
+import static org.patternfly.client.resources.Dataset.singleOptionsMenuCheck;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,10 +19,6 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
-import elemental2.dom.HTMLButtonElement;
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLUListElement;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.builder.ElementBuilder;
 import org.jboss.gwt.elemento.core.builder.HtmlContent;
@@ -20,22 +28,16 @@ import org.patternfly.client.core.HasValue;
 import org.patternfly.client.core.SelectHandler;
 import org.patternfly.client.resources.Constants;
 
-import static org.jboss.gwt.elemento.core.Elements.button;
-import static org.jboss.gwt.elemento.core.Elements.*;
-import static org.jboss.gwt.elemento.core.EventType.click;
-import static org.patternfly.client.resources.CSS.component;
-import static org.patternfly.client.resources.CSS.fas;
-import static org.patternfly.client.resources.CSS.modifier;
-import static org.patternfly.client.resources.Constants.label;
-import static org.patternfly.client.resources.Constants.toggle;
-import static org.patternfly.client.resources.Constants.*;
-import static org.patternfly.client.resources.Dataset.multiOptionsMenuItem;
-import static org.patternfly.client.resources.Dataset.singleOptionsMenuCheck;
+import elemental2.dom.HTMLButtonElement;
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLUListElement;
 
 /**
  * PatternFly options menu component.
  *
- * @see <a href="https://www.patternfly.org/v4/documentation/core/components/optionsmenu">https://www.patternfly.org/v4/documentation/core/components/optionsmenu</a>
+ * @see <a href=
+ *      "https://www.patternfly.org/v4/documentation/core/components/optionsmenu">https://www.patternfly.org/v4/documentation/core/components/optionsmenu</a>
  */
 public class MultiOptionsMenu extends ElementBuilder<HTMLDivElement, MultiOptionsMenu>
         implements HtmlContent<HTMLDivElement, MultiOptionsMenu>, Disable<MultiOptionsMenu> {
@@ -53,7 +55,6 @@ public class MultiOptionsMenu extends ElementBuilder<HTMLDivElement, MultiOption
     public static MultiOptionsMenu plain(String text) {
         return new MultiOptionsMenu(text, null, true);
     }
-
 
     // ------------------------------------------------------ options menu instance
 
@@ -132,7 +133,6 @@ public class MultiOptionsMenu extends ElementBuilder<HTMLDivElement, MultiOption
         return menu;
     }
 
-
     // ------------------------------------------------------ public API
 
     public <T> MultiOptionsMenu add(Group<T> group) {
@@ -200,9 +200,7 @@ public class MultiOptionsMenu extends ElementBuilder<HTMLDivElement, MultiOption
         return this;
     }
 
-
     // ------------------------------------------------------ inner classes
-
 
     public static class Group<T> implements HasValue<T> {
 
@@ -260,9 +258,9 @@ public class MultiOptionsMenu extends ElementBuilder<HTMLDivElement, MultiOption
             String itemId = itemId(item);
             stream(groupElement.querySelectorAll(
                     "." + component(optionsMenu, Constants.menu, Constants.item, icon)))
-                    .filter(htmlElements())
-                    .map(asHtmlElement())
-                    .forEach(e -> setVisible(e, itemId.equals(e.dataset.get(singleOptionsMenuCheck))));
+                            .filter(htmlElements())
+                            .map(asHtmlElement())
+                            .forEach(e -> setVisible(e, itemId.equals(e.dataset.get(singleOptionsMenuCheck))));
 
             if (onSelect != null) {
                 onSelect.onSelect(value);

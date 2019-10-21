@@ -1,17 +1,18 @@
 package org.patternfly.client.components;
 
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
-import org.jboss.gwt.elemento.core.builder.ElementBuilder;
-import org.jboss.gwt.elemento.core.builder.HtmlContent;
-import org.patternfly.client.resources.Constants;
-import org.patternfly.client.resources.Theme;
-
 import static org.jboss.gwt.elemento.core.Elements.*;
 import static org.patternfly.client.resources.CSS.component;
 import static org.patternfly.client.resources.Constants.page;
 import static org.patternfly.client.resources.Constants.role;
 import static org.patternfly.client.resources.Constants.tabindex;
+
+import org.jboss.gwt.elemento.core.builder.ElementBuilder;
+import org.jboss.gwt.elemento.core.builder.HtmlContent;
+import org.patternfly.client.resources.Constants;
+import org.patternfly.client.resources.Theme;
+
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
 
 /**
  * = PatternFly page Component
@@ -45,7 +46,6 @@ public class Page extends ElementBuilder<HTMLDivElement, Page>
         return instance;
     }
 
-
     // ------------------------------------------------------ page instance
 
     private final HTMLElement main;
@@ -65,7 +65,6 @@ public class Page extends ElementBuilder<HTMLDivElement, Page>
     public Page that() {
         return this;
     }
-
 
     // ------------------------------------------------------ public API
 

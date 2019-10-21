@@ -15,14 +15,15 @@
  */
 package org.patternfly.client.components.datalist;
 
-import elemental2.dom.HTMLElement;
-import org.jboss.gwt.elemento.core.IsElement;
-import org.patternfly.client.resources.Constants;
-
 import static org.jboss.gwt.elemento.core.Elements.li;
 import static org.patternfly.client.resources.CSS.component;
 import static org.patternfly.client.resources.Constants.dataList;
 import static org.patternfly.client.resources.Constants.labelledBy;
+
+import org.jboss.gwt.elemento.core.IsElement;
+import org.patternfly.client.resources.Constants;
+
+import elemental2.dom.HTMLElement;
 
 /** An item inside a {@link DataList}. */
 class VisualItem<T> implements IsElement<HTMLElement> {
@@ -30,7 +31,6 @@ class VisualItem<T> implements IsElement<HTMLElement> {
     final String id;
     final T item;
     private final HTMLElement root;
-
 
     VisualItem(T item, ItemDisplay<T> display) {
         this.id = display.id();

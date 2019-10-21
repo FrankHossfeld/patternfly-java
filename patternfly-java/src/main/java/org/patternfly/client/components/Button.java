@@ -1,16 +1,5 @@
 package org.patternfly.client.components;
 
-import elemental2.dom.HTMLAnchorElement;
-import elemental2.dom.HTMLButtonElement;
-import elemental2.dom.HTMLElement;
-import org.jboss.gwt.elemento.core.Elements;
-import org.jboss.gwt.elemento.core.builder.ElementBuilder;
-import org.jboss.gwt.elemento.core.builder.HtmlContent;
-import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
-import org.patternfly.client.core.Callback;
-import org.patternfly.client.core.Disable;
-import org.patternfly.client.resources.Constants;
-
 import static org.jboss.gwt.elemento.core.Elements.i;
 import static org.jboss.gwt.elemento.core.Elements.insertFirst;
 import static org.jboss.gwt.elemento.core.Elements.span;
@@ -19,10 +8,23 @@ import static org.patternfly.client.resources.CSS.component;
 import static org.patternfly.client.resources.CSS.modifier;
 import static org.patternfly.client.resources.Constants.*;
 
+import org.jboss.gwt.elemento.core.Elements;
+import org.jboss.gwt.elemento.core.builder.ElementBuilder;
+import org.jboss.gwt.elemento.core.builder.HtmlContent;
+import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
+import org.patternfly.client.core.Callback;
+import org.patternfly.client.core.Disable;
+import org.patternfly.client.resources.Constants;
+
+import elemental2.dom.HTMLAnchorElement;
+import elemental2.dom.HTMLButtonElement;
+import elemental2.dom.HTMLElement;
+
 /**
  * PatternFly button component.
  *
- * @see <a href="https://www.patternfly.org/v4/documentation/core/components/button">https://www.patternfly.org/v4/documentation/core/components/button</a>
+ * @see <a href=
+ *      "https://www.patternfly.org/v4/documentation/core/components/button">https://www.patternfly.org/v4/documentation/core/components/button</a>
  */
 public class Button extends ElementBuilder<HTMLElement, Button>
         implements HtmlContent<HTMLElement, Button>, Disable<Button> {
@@ -93,7 +95,6 @@ public class Button extends ElementBuilder<HTMLElement, Button>
                 .add(icon));
     }
 
-
     // ------------------------------------------------------ button instance
 
     private final HTMLButtonElement button;
@@ -121,7 +122,6 @@ public class Button extends ElementBuilder<HTMLElement, Button>
     public Button that() {
         return this;
     }
-
 
     // ------------------------------------------------------ public API
 
@@ -162,7 +162,6 @@ public class Button extends ElementBuilder<HTMLElement, Button>
         }
         return this;
     }
-
 
     // ------------------------------------------------------ modifiers
 
@@ -214,7 +213,6 @@ public class Button extends ElementBuilder<HTMLElement, Button>
         return this;
     }
 
-
     // ------------------------------------------------------ event handler
 
     public Button onClick(Callback callback) {
@@ -222,12 +220,12 @@ public class Button extends ElementBuilder<HTMLElement, Button>
         return this;
     }
 
-
     // ------------------------------------------------------ inner classes
 
-
     public enum Type {
-        SUBMIT("submit"), RESET("reset"), DEFAULT("default");
+        SUBMIT("submit"),
+        RESET("reset"),
+        DEFAULT("default");
 
         private final String attributeValue;
 

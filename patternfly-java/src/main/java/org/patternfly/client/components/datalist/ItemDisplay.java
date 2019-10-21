@@ -15,10 +15,11 @@
  */
 package org.patternfly.client.components.datalist;
 
-import elemental2.dom.HTMLElement;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.IsElement;
 import org.patternfly.client.dataprovider.DataProvider;
+
+import elemental2.dom.HTMLElement;
 
 /** Controls the layout of a data list item. */
 public interface ItemDisplay<T> extends IsElement<HTMLElement> {

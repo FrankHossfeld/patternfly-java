@@ -1,13 +1,13 @@
 package org.patternfly.showcase.client.documentation;
 
-import org.patternfly.showcase.client.resources.Code;
-
 import static java.util.Arrays.asList;
 import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.jboss.gwt.elemento.core.Elements.p;
 import static org.patternfly.client.components.EmptyState.emptyState;
 import static org.patternfly.client.core.Callback.noop;
 import static org.patternfly.client.resources.CSS.fas;
+
+import org.patternfly.showcase.client.resources.Code;
 
 class EmptyStateDocumentation extends ComponentDocumentation {
 
@@ -49,7 +49,6 @@ class EmptyStateDocumentation extends ComponentDocumentation {
                         new Demo("Empty state no match found", Code.get().emptyStateNoMatch().getText(),
                                 () -> div()
                                         .add("NYI")
-                                        .get())
-                ));
+                                        .get())));
     }
 }

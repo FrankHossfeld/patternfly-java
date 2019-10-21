@@ -1,12 +1,12 @@
 package org.patternfly.showcase.client.documentation;
 
-import org.patternfly.client.components.Title;
-import org.patternfly.client.components.Title.Size;
-import org.patternfly.showcase.client.resources.Code;
-
 import static java.util.Collections.singletonList;
 import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.jboss.gwt.elemento.core.Elements.p;
+
+import org.patternfly.client.components.Title;
+import org.patternfly.client.components.Title.Size;
+import org.patternfly.showcase.client.resources.Code;
 
 class TitleDocumentation extends ComponentDocumentation {
 
@@ -24,7 +24,6 @@ class TitleDocumentation extends ComponentDocumentation {
                                         .add(new Title(4, "xl Title", Size.SIZE_XL))
                                         .add(new Title(5, "lg Title", Size.SIZE_LG))
                                         .add(new Title(6, "md Title", Size.SIZE_MD))
-                                        .get()
-                        )));
+                                        .get())));
     }
 }

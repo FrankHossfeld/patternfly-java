@@ -1,11 +1,11 @@
 package org.patternfly.showcase.client.documentation;
 
-import org.patternfly.client.components.Label;
-import org.patternfly.showcase.client.resources.Code;
-
 import static java.util.Collections.singletonList;
 import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.jboss.gwt.elemento.core.Elements.p;
+
+import org.patternfly.client.components.Label;
+import org.patternfly.showcase.client.resources.Code;
 
 class LabelDocumentation extends ComponentDocumentation {
 
@@ -19,7 +19,6 @@ class LabelDocumentation extends ComponentDocumentation {
                                 .add(new Label("Default Label"))
                                 .add(" ")
                                 .add(new Label("Compact Label", true))
-                                .get()
-                )));
+                                .get())));
     }
 }

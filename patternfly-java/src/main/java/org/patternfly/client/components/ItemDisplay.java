@@ -1,12 +1,13 @@
 package org.patternfly.client.components;
 
+import static org.jboss.gwt.elemento.core.Elements.buildId;
+
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
-import elemental2.dom.HTMLElement;
 import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
 
-import static org.jboss.gwt.elemento.core.Elements.buildId;
+import elemental2.dom.HTMLElement;
 
 /** Reusable class for typed components to customize the item ID and display */
 class ItemDisplay<E extends HTMLElement, T> {

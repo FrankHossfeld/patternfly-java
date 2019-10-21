@@ -1,12 +1,5 @@
 package org.patternfly.client.components;
 
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
-import org.jboss.gwt.elemento.core.builder.ElementBuilder;
-import org.jboss.gwt.elemento.core.builder.HtmlContent;
-import org.patternfly.client.core.Callback;
-import org.patternfly.client.resources.Constants;
-
 import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.jboss.gwt.elemento.core.Elements.i;
 import static org.jboss.gwt.elemento.core.Elements.insertAfter;
@@ -16,10 +9,19 @@ import static org.patternfly.client.resources.Constants.emptyState;
 import static org.patternfly.client.resources.Constants.hidden;
 import static org.patternfly.client.resources.Constants.true_;
 
+import org.jboss.gwt.elemento.core.builder.ElementBuilder;
+import org.jboss.gwt.elemento.core.builder.HtmlContent;
+import org.patternfly.client.core.Callback;
+import org.patternfly.client.resources.Constants;
+
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
+
 /**
  * PatternFly empty state component.
  *
- * @see <a href="https://www.patternfly.org/v4/documentation/core/components/emptystate">https://www.patternfly.org/v4/documentation/core/components/emptystate</a>
+ * @see <a href=
+ *      "https://www.patternfly.org/v4/documentation/core/components/emptystate">https://www.patternfly.org/v4/documentation/core/components/emptystate</a>
  */
 public class EmptyState extends ElementBuilder<HTMLDivElement, EmptyState>
         implements HtmlContent<HTMLDivElement, EmptyState> {
@@ -40,7 +42,6 @@ public class EmptyState extends ElementBuilder<HTMLDivElement, EmptyState>
         return new EmptyState("", "NYI");
     }
 
-
     // ------------------------------------------------------ empty state instance
 
     private HTMLElement body;
@@ -56,7 +57,6 @@ public class EmptyState extends ElementBuilder<HTMLDivElement, EmptyState>
     public EmptyState that() {
         return this;
     }
-
 
     // ------------------------------------------------------ pubic API
 
@@ -100,7 +100,6 @@ public class EmptyState extends ElementBuilder<HTMLDivElement, EmptyState>
         secondary.appendChild(element);
         return this;
     }
-
 
     // ------------------------------------------------------ inner classes
 

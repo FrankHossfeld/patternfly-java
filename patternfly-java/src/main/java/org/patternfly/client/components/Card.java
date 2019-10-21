@@ -1,19 +1,21 @@
 package org.patternfly.client.components;
 
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
-import org.jboss.gwt.elemento.core.builder.ElementBuilder;
-import org.jboss.gwt.elemento.core.builder.HtmlContent;
-
 import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.patternfly.client.resources.CSS.component;
 import static org.patternfly.client.resources.CSS.modifier;
 import static org.patternfly.client.resources.Constants.*;
 
+import org.jboss.gwt.elemento.core.builder.ElementBuilder;
+import org.jboss.gwt.elemento.core.builder.HtmlContent;
+
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
+
 /**
  * PatternFly card component.
  *
- * @see <a href="https://www.patternfly.org/v4/documentation/core/components/card">https://www.patternfly.org/v4/documentation/core/components/card</a>
+ * @see <a href=
+ *      "https://www.patternfly.org/v4/documentation/core/components/card">https://www.patternfly.org/v4/documentation/core/components/card</a>
  */
 public class Card extends ElementBuilder<HTMLDivElement, Card>
         implements HtmlContent<HTMLDivElement, Card> {
@@ -36,7 +38,6 @@ public class Card extends ElementBuilder<HTMLDivElement, Card>
         element.classList.add(modifier(hoverable));
         return this;
     }
-
 
     // ------------------------------------------------------ inner classes
 

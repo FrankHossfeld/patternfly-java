@@ -1,11 +1,11 @@
 package org.patternfly.showcase.client.documentation;
 
-import org.patternfly.showcase.client.resources.Code;
-
 import static java.util.Collections.singletonList;
 import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.jboss.gwt.elemento.core.Elements.p;
 import static org.patternfly.client.components.Components.avatar;
+
+import org.patternfly.showcase.client.resources.Code;
 
 class AvatarDocumentation extends ComponentDocumentation {
 

@@ -23,8 +23,12 @@ public class NavigationItem {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) { return true; }
-        if (!(o instanceof NavigationItem)) { return false; }
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof NavigationItem)) {
+            return false;
+        }
         NavigationItem that = (NavigationItem) o;
         return id.equals(that.id);
     }

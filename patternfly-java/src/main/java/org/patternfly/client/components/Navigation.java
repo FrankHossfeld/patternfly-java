@@ -1,10 +1,25 @@
 package org.patternfly.client.components;
 
+import static jsinterop.base.Js.cast;
+import static org.jboss.gwt.elemento.core.Elements.*;
+import static org.jboss.gwt.elemento.core.Elements.button;
+import static org.jboss.gwt.elemento.core.Elements.nav;
+import static org.jboss.gwt.elemento.core.Elements.section;
+import static org.jboss.gwt.elemento.core.EventType.click;
+import static org.patternfly.client.resources.CSS.component;
+import static org.patternfly.client.resources.CSS.fas;
+import static org.patternfly.client.resources.CSS.modifier;
+import static org.patternfly.client.resources.Constants.*;
+import static org.patternfly.client.resources.Constants.button;
+import static org.patternfly.client.resources.Constants.label;
+import static org.patternfly.client.resources.Constants.nav;
+import static org.patternfly.client.resources.Constants.section;
+import static org.patternfly.client.resources.Constants.toggle;
+import static org.patternfly.client.resources.Dataset.*;
+
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
-import elemental2.dom.HTMLAnchorElement;
-import elemental2.dom.HTMLElement;
 import org.jboss.gwt.elemento.core.Elements;
 import org.jboss.gwt.elemento.core.builder.ElementBuilder;
 import org.jboss.gwt.elemento.core.builder.HtmlContent;
@@ -12,29 +27,16 @@ import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
 import org.patternfly.client.core.SelectHandler;
 import org.patternfly.client.resources.Constants;
 
-import static jsinterop.base.Js.cast;
-import static org.jboss.gwt.elemento.core.Elements.button;
-import static org.jboss.gwt.elemento.core.Elements.nav;
-import static org.jboss.gwt.elemento.core.Elements.section;
-import static org.jboss.gwt.elemento.core.Elements.*;
-import static org.jboss.gwt.elemento.core.EventType.click;
-import static org.patternfly.client.resources.CSS.component;
-import static org.patternfly.client.resources.CSS.fas;
-import static org.patternfly.client.resources.CSS.modifier;
-import static org.patternfly.client.resources.Constants.button;
-import static org.patternfly.client.resources.Constants.label;
-import static org.patternfly.client.resources.Constants.nav;
-import static org.patternfly.client.resources.Constants.section;
-import static org.patternfly.client.resources.Constants.toggle;
-import static org.patternfly.client.resources.Constants.*;
-import static org.patternfly.client.resources.Dataset.*;
+import elemental2.dom.HTMLAnchorElement;
+import elemental2.dom.HTMLElement;
 
 /**
  * PatternFly nav component.
  *
  * Identifiers for items need to be unique across groups!
  *
- * @see <a href="https://www.patternfly.org/v4/documentation/core/components/nav">https://www.patternfly.org/v4/documentation/core/components/nav</a>
+ * @see <a href=
+ *      "https://www.patternfly.org/v4/documentation/core/components/nav">https://www.patternfly.org/v4/documentation/core/components/nav</a>
  */
 public class Navigation extends ElementBuilder<HTMLElement, Navigation>
         implements HtmlContent<HTMLElement, Navigation> {
@@ -60,7 +62,6 @@ public class Navigation extends ElementBuilder<HTMLElement, Navigation>
     public static Navigation tertiary() {
         return new Navigation(false, true, true, false, false);
     }
-
 
     // ------------------------------------------------------ navigation instance
 
@@ -115,7 +116,6 @@ public class Navigation extends ElementBuilder<HTMLElement, Navigation>
     public Navigation that() {
         return this;
     }
-
 
     // ------------------------------------------------------ public API
 
@@ -230,14 +230,12 @@ public class Navigation extends ElementBuilder<HTMLElement, Navigation>
         return this;
     }
 
-
     // ------------------------------------------------------ events
 
     public Navigation onSelect(SelectHandler<NavigationItem> onSelect) {
         this.onSelect = onSelect;
         return this;
     }
-
 
     // ------------------------------------------------------ internals
 

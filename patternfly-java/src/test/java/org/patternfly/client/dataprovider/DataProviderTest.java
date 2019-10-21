@@ -15,21 +15,6 @@
  */
 package org.patternfly.client.dataprovider;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-
-import com.google.common.collect.Lists;
-import com.google.common.primitives.Ints;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentMatcher;
-import org.patternfly.client.core.SelectHandler;
-
 import static com.google.common.primitives.Ints.asList;
 import static java.lang.Integer.parseInt;
 import static java.lang.System.arraycopy;
@@ -44,6 +29,22 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatcher;
+import org.patternfly.client.core.SelectHandler;
+
+import com.google.common.collect.Lists;
+import com.google.common.primitives.Ints;
+
 @SuppressWarnings("unchecked")
 class DataProviderTest {
 
@@ -51,7 +52,9 @@ class DataProviderTest {
 
         private final int[] expected;
 
-        private ItemsMatcher(int[] expected) {this.expected = expected;}
+        private ItemsMatcher(int[] expected) {
+            this.expected = expected;
+        }
 
         @Override
         public String toString() {
@@ -63,7 +66,6 @@ class DataProviderTest {
             return Arrays.equals(expected, toArray(argument));
         }
     }
-
 
     private static Iterable<Integer> itemsMatcher(int[] items) {
         return argThat(new ItemsMatcher(items));
@@ -78,12 +80,11 @@ class DataProviderTest {
     }
 
     private static final int PAGE_SIZE = 10;
-    private static final int[] EVEN = new int[]{0, 2, 4, 6, 8};
-    private static final int[] BY_THREE = new int[]{0, 3, 6, 9};
-    private static final int[] COMBINED = new int[]{0, 6};
+    private static final int[] EVEN = new int[] { 0, 2, 4, 6, 8 };
+    private static final int[] BY_THREE = new int[] { 0, 3, 6, 9 };
+    private static final int[] COMBINED = new int[] { 0, 6 };
     private static final Function<Integer, String> IDENTIFIER = String::valueOf;
     private static final Filter<Integer> DIVISIBLE = (number, filter) -> number % parseInt(filter) == 0;
-
 
     private DataProvider<Integer> single;
     private DataProvider<Integer> multi;
@@ -103,7 +104,6 @@ class DataProviderTest {
         single.onSelect(selectHandler);
         multi.onSelect(selectHandler);
     }
-
 
     // ------------------------------------------------------ items
 
@@ -136,7 +136,6 @@ class DataProviderTest {
         assertFalse(single.isVisible(23));
     }
 
-
     // ------------------------------------------------------ page size
 
     @Test
@@ -162,7 +161,6 @@ class DataProviderTest {
         single.update(asList(items(PAGE_SIZE + 1)));
         assertEquals(2, single.getPageInfo().getPages());
     }
-
 
     // ------------------------------------------------------ paging
 
@@ -207,7 +205,6 @@ class DataProviderTest {
         verify(display, never()).showItems(any(), any());
     }
 
-
     // ------------------------------------------------------ select
 
     @Test
@@ -216,8 +213,8 @@ class DataProviderTest {
 
         reset(display, selectHandler);
         single.select(2, true);
-        assertSelection(single, new int[]{2});
-        verify(display).updateSelection(new SelectionInfo<>(IDENTIFIER, false, selection(new int[]{2})));
+        assertSelection(single, new int[] { 2 });
+        verify(display).updateSelection(new SelectionInfo<>(IDENTIFIER, false, selection(new int[] { 2 })));
         verify(selectHandler).onSelect(2);
 
         reset(display, selectHandler);
@@ -233,32 +230,32 @@ class DataProviderTest {
 
         reset(display, selectHandler);
         multi.select(1, true);
-        assertSelection(multi, new int[]{1});
-        verify(display).updateSelection(new SelectionInfo<>(IDENTIFIER, true, selection(new int[]{1})));
+        assertSelection(multi, new int[] { 1 });
+        verify(display).updateSelection(new SelectionInfo<>(IDENTIFIER, true, selection(new int[] { 1 })));
         verify(selectHandler).onSelect(1);
 
         reset(display, selectHandler);
         multi.select(3, true);
-        assertSelection(multi, new int[]{1, 3});
-        verify(display).updateSelection(new SelectionInfo<>(IDENTIFIER, true, selection(new int[]{1, 3})));
+        assertSelection(multi, new int[] { 1, 3 });
+        verify(display).updateSelection(new SelectionInfo<>(IDENTIFIER, true, selection(new int[] { 1, 3 })));
         verify(selectHandler).onSelect(3);
 
         reset(display, selectHandler);
         multi.select(5, true);
-        assertSelection(multi, new int[]{1, 3, 5});
-        verify(display).updateSelection(new SelectionInfo<>(IDENTIFIER, true, selection(new int[]{1, 3, 5})));
+        assertSelection(multi, new int[] { 1, 3, 5 });
+        verify(display).updateSelection(new SelectionInfo<>(IDENTIFIER, true, selection(new int[] { 1, 3, 5 })));
         verify(selectHandler).onSelect(5);
 
         reset(display, selectHandler);
         multi.select(5, false);
-        assertSelection(multi, new int[]{1, 3});
-        verify(display).updateSelection(new SelectionInfo<>(IDENTIFIER, true, selection(new int[]{1, 3})));
+        assertSelection(multi, new int[] { 1, 3 });
+        verify(display).updateSelection(new SelectionInfo<>(IDENTIFIER, true, selection(new int[] { 1, 3 })));
         verify(selectHandler, never()).onSelect(anyInt());
 
         reset(display, selectHandler);
         multi.select(3, false);
-        assertSelection(multi, new int[]{1});
-        verify(display).updateSelection(new SelectionInfo<>(IDENTIFIER, true, selection(new int[]{1})));
+        assertSelection(multi, new int[] { 1 });
+        verify(display).updateSelection(new SelectionInfo<>(IDENTIFIER, true, selection(new int[] { 1 })));
         verify(selectHandler, never()).onSelect(anyInt());
 
         reset(display, selectHandler);
@@ -361,7 +358,6 @@ class DataProviderTest {
         verify(selectHandler, never()).onSelect(anyInt());
     }
 
-
     // ------------------------------------------------------ filter
 
     @Test
@@ -426,8 +422,8 @@ class DataProviderTest {
 
     @Test
     void sortAsc() {
-        int[] items = {0, 8, 1, 5};
-        int[] sorted = {0, 1, 5, 8};
+        int[] items = { 0, 8, 1, 5 };
+        int[] sorted = { 0, 1, 5, 8 };
 
         single.update(asList(items));
         verify(display).showItems(itemsMatcher(items), eq(new PageInfo(PAGE_SIZE, 0, 4, 4)));
@@ -437,15 +433,14 @@ class DataProviderTest {
 
     @Test
     void sortDesc() {
-        int[] items = {0, 8, 1, 5};
-        int[] sorted = {8, 5, 1, 0};
+        int[] items = { 0, 8, 1, 5 };
+        int[] sorted = { 8, 5, 1, 0 };
 
         single.update(asList(items));
         verify(display).showItems(itemsMatcher(items), eq(new PageInfo(PAGE_SIZE, 0, 4, 4)));
-        single.setComparator(Comparator.<Integer>naturalOrder().reversed());
+        single.setComparator(Comparator.<Integer> naturalOrder().reversed());
         verify(display).showItems(itemsMatcher(sorted), eq(new PageInfo(PAGE_SIZE, 0, 4, 4)));
     }
-
 
     // ------------------------------------------------------ helper methods
 

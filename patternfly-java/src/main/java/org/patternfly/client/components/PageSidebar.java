@@ -1,15 +1,16 @@
 package org.patternfly.client.components;
 
-import elemental2.dom.HTMLDivElement;
-import org.jboss.gwt.elemento.core.builder.ElementBuilder;
-import org.jboss.gwt.elemento.core.builder.HtmlContent;
-import org.patternfly.client.resources.Theme;
-
 import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.patternfly.client.resources.CSS.component;
 import static org.patternfly.client.resources.CSS.modifier;
 import static org.patternfly.client.resources.Constants.*;
 import static org.patternfly.client.resources.Theme.DARK;
+
+import org.jboss.gwt.elemento.core.builder.ElementBuilder;
+import org.jboss.gwt.elemento.core.builder.HtmlContent;
+import org.patternfly.client.resources.Theme;
+
+import elemental2.dom.HTMLDivElement;
 
 /**
  * = PatternFly Sidebar Component
@@ -40,7 +41,7 @@ public class PageSidebar extends ElementBuilder<HTMLDivElement, PageSidebar>
         super(div().css(component(page, sidebar), modifier(expanded)).get());
         add(div().css(component(page, sidebar, body))
                 .add(navigation))
-                .get();
+                        .get();
         if (theme == DARK) {
             element.classList.add(modifier(dark));
             navigation.css(modifier(dark));

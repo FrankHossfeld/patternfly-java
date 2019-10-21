@@ -1,9 +1,9 @@
 package org.patternfly.showcase.client.resources;
 
+import static org.patternfly.showcase.client.resources.Routes.*;
+
 import org.patternfly.client.components.Navigation;
 import org.patternfly.client.components.NavigationItem;
-
-import static org.patternfly.showcase.client.resources.Routes.*;
 
 public interface Nav {
 

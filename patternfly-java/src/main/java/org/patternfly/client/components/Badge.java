@@ -1,16 +1,17 @@
 package org.patternfly.client.components;
 
-import elemental2.dom.HTMLElement;
-import org.jboss.gwt.elemento.core.builder.ElementBuilder;
-import org.jboss.gwt.elemento.core.builder.HtmlContent;
-import org.patternfly.client.resources.Constants;
-
 import static org.jboss.gwt.elemento.core.Elements.span;
 import static org.patternfly.client.resources.CSS.component;
 import static org.patternfly.client.resources.CSS.modifier;
 import static org.patternfly.client.resources.Constants.badge;
 import static org.patternfly.client.resources.Constants.read;
 import static org.patternfly.client.resources.Constants.unread;
+
+import org.jboss.gwt.elemento.core.builder.ElementBuilder;
+import org.jboss.gwt.elemento.core.builder.HtmlContent;
+import org.patternfly.client.resources.Constants;
+
+import elemental2.dom.HTMLElement;
 
 /**
  * = PatternFly Badge Component
@@ -57,7 +58,6 @@ public class Badge extends ElementBuilder<HTMLElement, Badge>
         return new Badge(text, false);
     }
 
-
     // ------------------------------------------------------ badge instance
 
     /** Creates a new badge. */
@@ -71,7 +71,6 @@ public class Badge extends ElementBuilder<HTMLElement, Badge>
     public Badge that() {
         return this;
     }
-
 
     // ------------------------------------------------------ public API
 

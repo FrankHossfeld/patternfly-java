@@ -1,12 +1,24 @@
 package org.patternfly.client.components;
 
+import static org.jboss.gwt.elemento.core.Elements.*;
+import static org.jboss.gwt.elemento.core.Elements.button;
+import static org.jboss.gwt.elemento.core.Elements.fieldset;
+import static org.jboss.gwt.elemento.core.Elements.form;
+import static org.jboss.gwt.elemento.core.EventType.click;
+import static org.patternfly.client.resources.CSS.component;
+import static org.patternfly.client.resources.CSS.fas;
+import static org.patternfly.client.resources.Constants.*;
+import static org.patternfly.client.resources.Constants.fieldset;
+import static org.patternfly.client.resources.Constants.form;
+import static org.patternfly.client.resources.Constants.label;
+import static org.patternfly.client.resources.Constants.select;
+import static org.patternfly.client.resources.Constants.toggle;
+import static org.patternfly.client.resources.Dataset.singleSelectItem;
+
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-import elemental2.dom.HTMLButtonElement;
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
 import org.jboss.gwt.elemento.core.builder.ElementBuilder;
 import org.jboss.gwt.elemento.core.builder.HtmlContent;
 import org.jboss.gwt.elemento.core.builder.HtmlContentBuilder;
@@ -16,25 +28,15 @@ import org.patternfly.client.core.SelectHandler;
 import org.patternfly.client.resources.CSS;
 import org.patternfly.client.resources.Constants;
 
-import static org.jboss.gwt.elemento.core.Elements.button;
-import static org.jboss.gwt.elemento.core.Elements.fieldset;
-import static org.jboss.gwt.elemento.core.Elements.form;
-import static org.jboss.gwt.elemento.core.Elements.*;
-import static org.jboss.gwt.elemento.core.EventType.click;
-import static org.patternfly.client.resources.CSS.component;
-import static org.patternfly.client.resources.CSS.fas;
-import static org.patternfly.client.resources.Constants.fieldset;
-import static org.patternfly.client.resources.Constants.form;
-import static org.patternfly.client.resources.Constants.label;
-import static org.patternfly.client.resources.Constants.select;
-import static org.patternfly.client.resources.Constants.toggle;
-import static org.patternfly.client.resources.Constants.*;
-import static org.patternfly.client.resources.Dataset.singleSelectItem;
+import elemental2.dom.HTMLButtonElement;
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
 
 /**
  * PatternFly single select component.
  *
- * @see <a href="https://www.patternfly.org/v4/documentation/core/components/select">https://www.patternfly.org/v4/documentation/core/components/select</a>
+ * @see <a href=
+ *      "https://www.patternfly.org/v4/documentation/core/components/select">https://www.patternfly.org/v4/documentation/core/components/select</a>
  */
 public class SingleSelect<T> extends ElementBuilder<HTMLDivElement, SingleSelect<T>>
         implements HtmlContent<HTMLDivElement, SingleSelect<T>>, Disable<SingleSelect<T>>, HasValue<T> {
@@ -60,7 +62,6 @@ public class SingleSelect<T> extends ElementBuilder<HTMLDivElement, SingleSelect
     public static <T> SingleSelect<T> multiple() {
         return new SingleSelect<>(null, null, true, false);
     }
-
 
     // ------------------------------------------------------ select instance
 
@@ -117,8 +118,8 @@ public class SingleSelect<T> extends ElementBuilder<HTMLDivElement, SingleSelect
 
         if (icon != null) {
             insertBefore(span().css(component(select, toggle, Constants.icon))
-                            .add(i().css(icon).aria(hidden, true_))
-                            .get(),
+                    .add(i().css(icon).aria(hidden, true_))
+                    .get(),
                     text);
         }
     }
@@ -135,7 +136,6 @@ public class SingleSelect<T> extends ElementBuilder<HTMLDivElement, SingleSelect
     private HTMLElement menuElement() {
         return menu;
     }
-
 
     // ------------------------------------------------------ public API
 
@@ -208,7 +208,6 @@ public class SingleSelect<T> extends ElementBuilder<HTMLDivElement, SingleSelect
     public T value() {
         return value;
     }
-
 
     // ------------------------------------------------------ events
 

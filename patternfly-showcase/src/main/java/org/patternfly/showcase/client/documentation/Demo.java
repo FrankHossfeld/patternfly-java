@@ -1,17 +1,18 @@
 package org.patternfly.showcase.client.documentation;
 
-import java.util.function.Supplier;
-
-import elemental2.dom.HTMLElement;
-import org.jboss.gwt.elemento.core.IsElement;
-import org.patternfly.client.components.Button;
-
 import static org.jboss.gwt.elemento.core.Elements.*;
 import static org.patternfly.client.resources.CSS.component;
 import static org.patternfly.client.resources.CSS.fas;
 import static org.patternfly.client.resources.CSS.modifier;
 import static org.patternfly.client.resources.Constants.lg;
 import static org.patternfly.client.resources.Constants.title;
+
+import java.util.function.Supplier;
+
+import org.jboss.gwt.elemento.core.IsElement;
+import org.patternfly.client.components.Button;
+
+import elemental2.dom.HTMLElement;
 
 class Demo implements IsElement<HTMLElement> {
 

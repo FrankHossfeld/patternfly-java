@@ -1,18 +1,20 @@
 package org.patternfly.client.components;
 
-import elemental2.dom.HTMLHeadingElement;
-import org.jboss.gwt.elemento.core.builder.ElementBuilder;
-import org.jboss.gwt.elemento.core.builder.HtmlContent;
-
 import static org.jboss.gwt.elemento.core.Elements.h;
 import static org.patternfly.client.resources.CSS.component;
 import static org.patternfly.client.resources.CSS.modifier;
 import static org.patternfly.client.resources.Constants.title;
 
+import org.jboss.gwt.elemento.core.builder.ElementBuilder;
+import org.jboss.gwt.elemento.core.builder.HtmlContent;
+
+import elemental2.dom.HTMLHeadingElement;
+
 /**
  * PatternFly title component.
  *
- * @see <a href="https://www.patternfly.org/v4/documentation/react/components/title/">https://www.patternfly.org/v4/documentation/react/components/title</a>
+ * @see <a href=
+ *      "https://www.patternfly.org/v4/documentation/react/components/title/">https://www.patternfly.org/v4/documentation/react/components/title</a>
  */
 public class Title extends ElementBuilder<HTMLHeadingElement, Title>
         implements HtmlContent<HTMLHeadingElement, Title> {
@@ -27,7 +29,6 @@ public class Title extends ElementBuilder<HTMLHeadingElement, Title>
     }
 
     // ------------------------------------------------------ inner classes
-
 
     public enum Size {
         SIZE_4XL("4xl"),

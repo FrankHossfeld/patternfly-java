@@ -1,26 +1,28 @@
 package org.patternfly.client.components;
 
-import elemental2.dom.HTMLElement;
+import static org.jboss.gwt.elemento.core.Elements.*;
+import static org.jboss.gwt.elemento.core.Elements.button;
+import static org.jboss.gwt.elemento.core.Elements.header;
+import static org.patternfly.client.resources.CSS.component;
+import static org.patternfly.client.resources.CSS.fas;
+import static org.patternfly.client.resources.Constants.*;
+import static org.patternfly.client.resources.Constants.button;
+import static org.patternfly.client.resources.Constants.header;
+import static org.patternfly.client.resources.Constants.label;
+import static org.patternfly.client.resources.Constants.nav;
+
 import org.jboss.gwt.elemento.core.builder.ElementBuilder;
 import org.jboss.gwt.elemento.core.builder.HtmlContent;
 import org.patternfly.client.resources.CSS;
 import org.patternfly.client.resources.Constants;
 
-import static org.jboss.gwt.elemento.core.Elements.button;
-import static org.jboss.gwt.elemento.core.Elements.header;
-import static org.jboss.gwt.elemento.core.Elements.*;
-import static org.patternfly.client.resources.CSS.component;
-import static org.patternfly.client.resources.CSS.fas;
-import static org.patternfly.client.resources.Constants.button;
-import static org.patternfly.client.resources.Constants.header;
-import static org.patternfly.client.resources.Constants.label;
-import static org.patternfly.client.resources.Constants.nav;
-import static org.patternfly.client.resources.Constants.*;
+import elemental2.dom.HTMLElement;
 
 /**
  * PatternFly page header component.
  *
- * @see <a href="https://www.patternfly.org/v4/documentation/core/components/page">https://www.patternfly.org/v4/documentation/core/components/page</a>
+ * @see <a href=
+ *      "https://www.patternfly.org/v4/documentation/core/components/page">https://www.patternfly.org/v4/documentation/core/components/page</a>
  */
 public class PageHeader extends ElementBuilder<HTMLElement, PageHeader>
         implements HtmlContent<HTMLElement, PageHeader> {
@@ -47,7 +49,6 @@ public class PageHeader extends ElementBuilder<HTMLElement, PageHeader>
         instance = new PageHeader(brand, homeLink);
         return instance;
     }
-
 
     // ------------------------------------------------------ page instance
 
@@ -84,7 +85,6 @@ public class PageHeader extends ElementBuilder<HTMLElement, PageHeader>
     public PageHeader that() {
         return this;
     }
-
 
     // ------------------------------------------------------ public API
 

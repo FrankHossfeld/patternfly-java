@@ -1,15 +1,17 @@
 package org.patternfly.client.components;
 
-import elemental2.dom.HTMLDivElement;
+import static org.jboss.gwt.elemento.core.Elements.div;
+
 import org.jboss.gwt.elemento.core.builder.ElementBuilder;
 import org.jboss.gwt.elemento.core.builder.HtmlContent;
 
-import static org.jboss.gwt.elemento.core.Elements.div;
+import elemental2.dom.HTMLDivElement;
 
 /**
  * PatternFly pagination component.
  *
- * @see <a href="https://www.patternfly.org/v4/documentation/core/components/pagination">https://www.patternfly.org/v4/documentation/core/components/pagination</a>
+ * @see <a href=
+ *      "https://www.patternfly.org/v4/documentation/core/components/pagination">https://www.patternfly.org/v4/documentation/core/components/pagination</a>
  */
 public class Pagination extends ElementBuilder<HTMLDivElement, Pagination>
         implements HtmlContent<HTMLDivElement, Pagination> {
