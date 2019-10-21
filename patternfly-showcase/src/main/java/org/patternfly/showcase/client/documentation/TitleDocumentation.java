@@ -16,7 +16,7 @@ class TitleDocumentation extends ComponentDocumentation {
                         "The title component applies top and bottom margins, font-weight, font-size, and line-height to titles.")
                         .get(),
                 singletonList(
-                        new Demo("Title ()", Code.get().title().getText(),
+                        new Demo("Title sizes", Code.get().title().getText(),
                                 () -> div()
                                         .add(new Title(1, "4xl Title", Size.SIZE_4XL))
                                         .add(new Title(2, "3xl Title", Size.SIZE_3XL))

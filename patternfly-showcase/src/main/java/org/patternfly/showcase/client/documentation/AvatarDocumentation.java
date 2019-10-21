@@ -16,7 +16,7 @@ class AvatarDocumentation extends ComponentDocumentation {
                         "The avatar is used to represent a user. It may contain an image that represents the user or a placeholder graphic in the absence of an image. Typical usage is to represent the current user in the masthead. Related design guidelines: Masthead")
                         .get(),
                 singletonList(
-                        new Demo("Avatar ()", Code.get().avatar().getText(),
+                        new Demo("Simple avatar", Code.get().avatar().getText(),
                                 () -> div().add(avatar("./images/img_avatar.svg", "avatar")).get())));
     }
 }

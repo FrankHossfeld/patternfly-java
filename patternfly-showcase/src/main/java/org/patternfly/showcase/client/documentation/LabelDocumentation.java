@@ -14,7 +14,7 @@ class LabelDocumentation extends ComponentDocumentation {
                 p().textContent(
                         "Use a label when you want to highlight an element on a page to draw attention to it or make it more searchable.")
                         .get(),
-                singletonList(new Demo("Label ()", Code.get().label().getText(),
+                singletonList(new Demo("Simple label", Code.get().label().getText(),
                         () -> div()
                                 .add(new Label("Default Label"))
                                 .add(" ")
