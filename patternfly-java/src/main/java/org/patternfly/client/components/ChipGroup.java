@@ -40,7 +40,8 @@ public class ChipGroup extends ElementBuilder<HTMLElement, ChipGroup>
         this.expanded = false;
 
         if (constrained()) {
-            add(overflow = Chip.overflow("").cloneAsLi().onClose(this::toggle));
+            overflow = Chip.overflow("").cloneAsLi().onClose(this::toggle);
+            element.appendChild(overflow.get()); // do not use add(overflow)!
             setVisible(overflow.get(), false);
         }
     }
@@ -59,7 +60,7 @@ public class ChipGroup extends ElementBuilder<HTMLElement, ChipGroup>
             insertBefore(liChip.get(), overflow.get());
             redraw();
         } else {
-            add(liChip);
+            element.appendChild(liChip.get());
         }
         return this;
     }

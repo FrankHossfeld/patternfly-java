@@ -1,6 +1,7 @@
 package org.patternfly.showcase.client.documentation;
 
 import org.patternfly.client.components.Badge;
+import org.patternfly.client.components.Components;
 import org.patternfly.client.components.ContextSelector;
 import org.patternfly.showcase.client.resources.Code;
 
@@ -26,7 +27,7 @@ class ContextSelectorDocumentation extends ComponentDocumentation {
                                         .get()),
                         new Demo("Typed context selector", Code.get().contextSelectorTyped().getText(),
                                 () -> div()
-                                        .add(new ContextSelector<Stage>("Stage")
+                                        .add(Components.<Stage>contextSelector("Stage")
                                                 .display(
                                                         (html, stage) -> html.css(util("justify-content-space-between"))
                                                                 .title(stage.url)
