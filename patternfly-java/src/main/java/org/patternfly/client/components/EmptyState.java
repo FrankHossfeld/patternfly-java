@@ -4,15 +4,14 @@ import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import org.jboss.gwt.elemento.core.builder.ElementBuilder;
 import org.jboss.gwt.elemento.core.builder.HtmlContent;
+import org.patternfly.client.core.Callback;
 import org.patternfly.client.resources.Constants;
 
 import static org.jboss.gwt.elemento.core.Elements.div;
-import static org.jboss.gwt.elemento.core.Elements.h;
 import static org.jboss.gwt.elemento.core.Elements.i;
 import static org.jboss.gwt.elemento.core.Elements.insertAfter;
+import static org.patternfly.client.components.Button.button;
 import static org.patternfly.client.resources.CSS.component;
-import static org.patternfly.client.resources.CSS.modifier;
-import static org.patternfly.client.resources.Constants.card;
 import static org.patternfly.client.resources.Constants.emptyState;
 import static org.patternfly.client.resources.Constants.hidden;
 import static org.patternfly.client.resources.Constants.true_;
@@ -50,7 +49,7 @@ public class EmptyState extends ElementBuilder<HTMLDivElement, EmptyState>
     public EmptyState(String icon, String title) {
         super(div().css(component(emptyState)).get());
         add(i().css(component(emptyState, Constants.icon), icon).aria(hidden, true_));
-        add(h(1, title).css(component(Constants.title), modifier(Constants.lg)));
+        add(Components.title(1, title, Title.Size.SIZE_LG));
     }
 
     @Override
@@ -69,6 +68,10 @@ public class EmptyState extends ElementBuilder<HTMLDivElement, EmptyState>
         return add(this.body = body.get());
     }
 
+    public EmptyState primary(String text, Callback callback) {
+        return primary(button(text).primary().onClick(callback).get());
+    }
+
     public EmptyState primary(Button button) {
         return primary(button.get());
     }
@@ -82,11 +85,19 @@ public class EmptyState extends ElementBuilder<HTMLDivElement, EmptyState>
         return this;
     }
 
+    public EmptyState secondary(String text, Callback callback) {
+        return secondary(Button.link(text).onClick(callback).get());
+    }
+
     public EmptyState secondary(Button button) {
+        return secondary(button.get());
+    }
+
+    public EmptyState secondary(HTMLElement element) {
         if (secondary == null) {
             add(secondary = div().css(component(emptyState, Constants.secondary)).get());
         }
-        secondary.appendChild(button.get());
+        secondary.appendChild(element);
         return this;
     }
 
@@ -101,7 +112,7 @@ public class EmptyState extends ElementBuilder<HTMLDivElement, EmptyState>
             implements HtmlContent<HTMLElement, Body> {
 
         private Body() {
-            super(div().css(component(card, Constants.body)).get());
+            super(div().css(component(emptyState, Constants.body)).get());
         }
 
         @Override

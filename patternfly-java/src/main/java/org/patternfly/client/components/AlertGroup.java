@@ -81,8 +81,10 @@ public class AlertGroup extends ElementBuilder<HTMLUListElement, AlertGroup>
         }
         if (this == toast && !alert.hasClose()) {
             alert.closable();
+            insertFirst(element, alert.get());
+        } else {
+            add(alert.get());
         }
-        insertFirst(element, alert.get());
         return this;
     }
 

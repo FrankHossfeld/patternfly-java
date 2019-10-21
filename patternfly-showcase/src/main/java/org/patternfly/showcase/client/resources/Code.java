@@ -150,6 +150,24 @@ public interface Code extends ClientBundle {
     @Source("code/dropdown-up.java")
     TextResource dropdownUp();
 
+    @Source("code/empty-state.java")
+    TextResource emptyState();
+
+    @Source("code/empty-state-small.java")
+    TextResource emptyStateSmall();
+
+    @Source("code/empty-state-large.java")
+    TextResource emptyStateLarge();
+
+    @Source("code/empty-state-primary.java")
+    TextResource emptyStatePrimary();
+
+    @Source("code/empty-state-spinner.java")
+    TextResource emptyStateSpinner();
+
+    @Source("code/empty-state-no-match.java")
+    TextResource emptyStateNoMatch();
+
     @Source("code/label.java")
     TextResource label();
 
