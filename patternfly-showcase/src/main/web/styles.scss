@@ -1,7 +1,7 @@
 .pf-c-page__main-section {
-  padding: var(--pf-global--spacer--xl) var(--pf-global--spacer--2xl) var(--pf-global--spacer--2xl);
+  padding: var(--pf-global--spacer--xl) var(--pf-global--spacer--2xl) var(--pf-global--spacer--2xl) !important;
 
-  .pf-m-light {
+  &.pf-m-light {
     background-color: var(--pf-global--BackgroundColor--200);
   }
 }
@@ -17,6 +17,7 @@
 
 .sc-demo__heading {
   border-bottom: var(--pf-global--BorderWidth--sm) solid #f8f8f8;
+  font-size: var(--pf-global--FontSize--xl);
   margin-top: var(--pf-global--spacer--lg);
   padding: var(--pf-global--spacer--md);
 }

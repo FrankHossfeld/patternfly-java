@@ -1,12 +1,5 @@
 package org.patternfly.showcase.client;
 
-import com.github.nalukit.nalu.client.component.AbstractShell;
-import com.github.nalukit.nalu.client.component.annotation.Shell;
-import com.github.nalukit.nalu.client.event.RouterStateEvent;
-import elemental2.dom.HTMLDivElement;
-import org.patternfly.showcase.client.resources.Nav;
-import org.patternfly.showcase.client.resources.Routes;
-
 import static com.github.nalukit.nalu.client.event.RouterStateEvent.RouterState.ROUTING_DONE;
 import static elemental2.dom.DomGlobal.document;
 import static org.jboss.gwt.elemento.core.Elements.failSafeRemoveFromParent;
@@ -18,6 +11,15 @@ import static org.patternfly.showcase.client.resources.Ids.ROOT_CONTAINER;
 import static org.patternfly.showcase.client.resources.Routes.HOME;
 import static org.patternfly.showcase.client.resources.Routes.hash;
 import static org.patternfly.showcase.client.resources.Routes.split;
+
+import org.patternfly.showcase.client.resources.Nav;
+import org.patternfly.showcase.client.resources.Routes;
+
+import com.github.nalukit.nalu.client.component.AbstractShell;
+import com.github.nalukit.nalu.client.component.annotation.Shell;
+import com.github.nalukit.nalu.client.event.RouterStateEvent;
+
+import elemental2.dom.HTMLDivElement;
 
 @Shell(Routes.SHELL)
 public class ShowcaseShell extends AbstractShell<ShowcaseContext> {

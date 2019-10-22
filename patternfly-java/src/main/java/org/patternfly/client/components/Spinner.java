@@ -1,13 +1,14 @@
 package org.patternfly.client.components;
 
-import elemental2.dom.HTMLElement;
+import static org.jboss.gwt.elemento.core.Elements.span;
+import static org.patternfly.client.resources.CSS.component;
+import static org.patternfly.client.resources.Constants.*;
+
 import org.jboss.gwt.elemento.core.builder.ElementBuilder;
 import org.jboss.gwt.elemento.core.builder.HtmlContent;
 import org.patternfly.client.resources.CSS.Size;
 
-import static org.jboss.gwt.elemento.core.Elements.span;
-import static org.patternfly.client.resources.CSS.component;
-import static org.patternfly.client.resources.Constants.*;
+import elemental2.dom.HTMLElement;
 
 public class Spinner extends ElementBuilder<HTMLElement, Spinner>
         implements HtmlContent<HTMLElement, Spinner> {

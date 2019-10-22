@@ -1,14 +1,15 @@
 package org.patternfly.client.components;
 
-import elemental2.dom.HTMLDivElement;
-import org.jboss.gwt.elemento.core.builder.ElementBuilder;
-import org.jboss.gwt.elemento.core.builder.HtmlContent;
-
 import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.patternfly.client.resources.CSS.Size.md;
 import static org.patternfly.client.resources.CSS.component;
 import static org.patternfly.client.resources.CSS.modifier;
 import static org.patternfly.client.resources.Constants.*;
+
+import org.jboss.gwt.elemento.core.builder.ElementBuilder;
+import org.jboss.gwt.elemento.core.builder.HtmlContent;
+
+import elemental2.dom.HTMLDivElement;
 
 /**
  * PatternFly card component.

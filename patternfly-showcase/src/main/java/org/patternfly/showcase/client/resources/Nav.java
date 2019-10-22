@@ -1,9 +1,9 @@
 package org.patternfly.showcase.client.resources;
 
-import static org.patternfly.showcase.client.resources.Routes.*;
-
 import org.patternfly.client.components.Navigation;
 import org.patternfly.client.components.NavigationItem;
+
+import static org.patternfly.showcase.client.resources.Routes.*;
 
 public interface Nav {
 
@@ -37,6 +37,8 @@ public interface Nav {
                     hash(COMPONENT.replace(":component", "dropdown"))))
             .add("Components", new NavigationItem("empty-state", "Empty state",
                     hash(COMPONENT.replace(":component", "empty-state"))))
+            .add("Components", new NavigationItem("expandable", "Expandable",
+                    hash(COMPONENT.replace(":component", "expandable"))))
             .add("Components", new NavigationItem("label", "Label",
                     hash(COMPONENT.replace(":component", "label"))))
             .add("Components", new NavigationItem("title", "Title",

@@ -16,7 +16,7 @@ module.exports = {
             template: path.resolve(__dirname, 'src/main/web/index.html')
         }),
         new MiniCssExtractPlugin({
-            filename: 'styles.css',
+            filename: 'styles.scss',
             chunkFilename: '[id].css'
         })
     ],

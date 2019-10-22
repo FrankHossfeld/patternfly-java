@@ -168,6 +168,9 @@ public interface Code extends ClientBundle {
     @Source("code/empty-state-no-match.java")
     TextResource emptyStateNoMatch();
 
+    @Source("code/expandable.java")
+    TextResource expandable();
+
     @Source("code/label.java")
     TextResource label();
 

@@ -34,6 +34,10 @@ public final class Components {
         return new ContextSelector<>(text);
     }
 
+    public static Expandable expandable() {
+        return new Expandable("Show more", "Show less");
+    }
+
     public static Form form() {
         return new Form();
     }

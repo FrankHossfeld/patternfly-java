@@ -1,8 +1,5 @@
 package org.patternfly.showcase.client.documentation;
 
-import org.patternfly.client.components.Dropdown;
-import org.patternfly.showcase.client.resources.Code;
-
 import static java.util.Arrays.asList;
 import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.jboss.gwt.elemento.core.Elements.img;
@@ -17,6 +14,9 @@ import static org.patternfly.client.components.Card.header;
 import static org.patternfly.client.components.Components.card;
 import static org.patternfly.client.resources.CSS.modifier;
 import static org.patternfly.client.resources.Constants.noFill;
+
+import org.patternfly.client.components.Dropdown;
+import org.patternfly.showcase.client.resources.Code;
 
 class CardDocumentation extends ComponentDocumentation {
 

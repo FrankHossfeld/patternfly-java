@@ -1,12 +1,5 @@
 package org.patternfly.client.components;
 
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
-import org.jboss.gwt.elemento.core.builder.ElementBuilder;
-import org.jboss.gwt.elemento.core.builder.HtmlContent;
-import org.patternfly.client.core.Callback;
-import org.patternfly.client.resources.Constants;
-
 import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.jboss.gwt.elemento.core.Elements.i;
 import static org.jboss.gwt.elemento.core.Elements.insertAfter;
@@ -17,6 +10,14 @@ import static org.patternfly.client.resources.CSS.Size.sm;
 import static org.patternfly.client.resources.CSS.component;
 import static org.patternfly.client.resources.CSS.fas;
 import static org.patternfly.client.resources.Constants.*;
+
+import org.jboss.gwt.elemento.core.builder.ElementBuilder;
+import org.jboss.gwt.elemento.core.builder.HtmlContent;
+import org.patternfly.client.core.Callback;
+import org.patternfly.client.resources.Constants;
+
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
 
 /**
  * PatternFly empty state component.

@@ -24,7 +24,7 @@ class CollapseExpandHandler {
     Consumer<Boolean> onToggle;
 
     void expand(HTMLElement root, HTMLElement button, HTMLElement menu) {
-        if (!root.classList.contains(modifier(expanded))) {
+        if (!expanded(root)) {
             closeHandler = bind(document, click, e -> {
                 boolean clickInside = root.contains((Node) e.target);
                 if (!clickInside) {
@@ -54,5 +54,9 @@ class CollapseExpandHandler {
                 onToggle.accept(false);
             }
         }
+    }
+
+    boolean expanded(HTMLElement root) {
+        return root.classList.contains(modifier(expanded));
     }
 }
