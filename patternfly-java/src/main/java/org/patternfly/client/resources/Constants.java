@@ -5,6 +5,7 @@ public interface Constants {
 
     String _1 = "-1";
     String action = "action";
+    String actions = "actions";
     String active = "active";
     String alert = "alert";
     String alertGroup = "alert-group";
@@ -78,6 +79,7 @@ public interface Constants {
     String menu = "menu";
     String menuitem = "menuitem";
     String nav = "nav";
+    String noFill = "no-fill";
     String none = "none";
     String novalidate = "novalidate";
     String optionsMenu = "options-menu";

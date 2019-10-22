@@ -1,7 +1,6 @@
 package org.patternfly.client.components;
 
 import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
 import org.jboss.gwt.elemento.core.builder.ElementBuilder;
 import org.jboss.gwt.elemento.core.builder.HtmlContent;
 
@@ -45,8 +44,8 @@ public class Card extends ElementBuilder<HTMLDivElement, Card>
         return new Head();
     }
 
-    public static class Head extends ElementBuilder<HTMLElement, Head>
-            implements HtmlContent<HTMLElement, Head> {
+    public static class Head extends ElementBuilder<HTMLDivElement, Head>
+            implements HtmlContent<HTMLDivElement, Head> {
 
         private Head() {
             super(div().css(component(card, head)).get());
@@ -56,14 +55,31 @@ public class Card extends ElementBuilder<HTMLDivElement, Card>
         public Head that() {
             return this;
         }
+
+        public static Actions actions() {
+            return new Actions();
+        }
+
+        public static class Actions extends ElementBuilder<HTMLDivElement, Actions>
+                implements HtmlContent<HTMLDivElement, Actions> {
+
+            private Actions() {
+                super(div().css(component(card, actions)).get());
+            }
+
+            @Override
+            public Actions that() {
+                return this;
+            }
+        }
     }
 
     public static Header header() {
         return new Header();
     }
 
-    public static class Header extends ElementBuilder<HTMLElement, Header>
-            implements HtmlContent<HTMLElement, Header> {
+    public static class Header extends ElementBuilder<HTMLDivElement, Header>
+            implements HtmlContent<HTMLDivElement, Header> {
 
         private Header() {
             super(div().css(component(card, header), component(title), md.modifier()).get());
@@ -79,8 +95,8 @@ public class Card extends ElementBuilder<HTMLDivElement, Card>
         return new Body();
     }
 
-    public static class Body extends ElementBuilder<HTMLElement, Body>
-            implements HtmlContent<HTMLElement, Body> {
+    public static class Body extends ElementBuilder<HTMLDivElement, Body>
+            implements HtmlContent<HTMLDivElement, Body> {
 
         private Body() {
             super(div().css(component(card, body)).get());
@@ -96,8 +112,8 @@ public class Card extends ElementBuilder<HTMLDivElement, Card>
         return new Footer();
     }
 
-    public static class Footer extends ElementBuilder<HTMLElement, Footer>
-            implements HtmlContent<HTMLElement, Footer> {
+    public static class Footer extends ElementBuilder<HTMLDivElement, Footer>
+            implements HtmlContent<HTMLDivElement, Footer> {
 
         private Footer() {
             super(div().css(component(card, footer)).get());
