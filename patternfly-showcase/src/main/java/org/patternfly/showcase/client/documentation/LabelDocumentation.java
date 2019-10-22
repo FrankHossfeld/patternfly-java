@@ -3,8 +3,8 @@ package org.patternfly.showcase.client.documentation;
 import static java.util.Collections.singletonList;
 import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.jboss.gwt.elemento.core.Elements.p;
+import static org.patternfly.client.components.Components.label;
 
-import org.patternfly.client.components.Label;
 import org.patternfly.showcase.client.resources.Code;
 
 class LabelDocumentation extends ComponentDocumentation {
@@ -16,9 +16,9 @@ class LabelDocumentation extends ComponentDocumentation {
                         .get(),
                 singletonList(new Demo("Simple label", Code.get().label().getText(),
                         () -> div()
-                                .add(new Label("Default Label"))
+                                .add(label("Default Label"))
                                 .add(" ")
-                                .add(new Label("Compact Label", true))
+                                .add(label("Compact Label", true))
                                 .get())));
     }
 }

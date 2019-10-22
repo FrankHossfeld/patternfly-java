@@ -19,7 +19,7 @@ import elemental2.dom.HTMLElement;
 public class PageSection extends ElementBuilder<HTMLElement, PageSection>
         implements HtmlContent<HTMLElement, PageSection> {
 
-    public PageSection() {
+    PageSection() {
         super(section().css(component(page, mainSection)).get());
     }
 

@@ -33,11 +33,11 @@ import elemental2.dom.HTMLDivElement;
 public class PageSidebar extends ElementBuilder<HTMLDivElement, PageSidebar>
         implements HtmlContent<HTMLDivElement, PageSidebar> {
 
-    public PageSidebar(Navigation navigation) {
+    PageSidebar(Navigation navigation) {
         this(navigation, DARK);
     }
 
-    public PageSidebar(Navigation navigation, Theme theme) {
+    PageSidebar(Navigation navigation, Theme theme) {
         super(div().css(component(page, sidebar), modifier(expanded)).get());
         add(div().css(component(page, sidebar, body))
                 .add(navigation))

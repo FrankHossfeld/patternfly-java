@@ -47,4 +47,24 @@ public interface CSS {
     static String pfIcon(String name) {
         return "pf-icon pf-icon-" + name;
     }
+
+    enum Size {
+        _4xl("4xl"),
+        _3xl("3xl"),
+        _2xl("2xl"),
+        xl("xl"),
+        lg("lg"),
+        md("md"),
+        sm("sm");
+
+        private final String modifier;
+
+        Size(String modifier) {
+            this.modifier = CSS.modifier(modifier);
+        }
+
+        public String modifier() {
+            return modifier;
+        }
+    }
 }

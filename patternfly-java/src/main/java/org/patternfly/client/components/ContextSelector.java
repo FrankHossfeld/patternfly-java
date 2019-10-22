@@ -53,7 +53,7 @@ public class ContextSelector<T> extends ElementBuilder<HTMLDivElement, ContextSe
     private final HTMLInputElement filter;
     private final HTMLElement ul;
 
-    public ContextSelector(String text) {
+    ContextSelector(String text) {
         super(div().css(component(contextSelector)).get());
         this.ceh = new CollapseExpandHandler();
         this.itemDisplay = new ItemDisplay<>();

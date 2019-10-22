@@ -1,5 +1,6 @@
 package org.patternfly.client.components;
 
+import org.patternfly.client.resources.CSS.Size;
 import org.patternfly.client.resources.Theme;
 
 /** Factory methods for simple components w/o own factory methods. */
@@ -41,6 +42,10 @@ public final class Components {
         return new Label(text);
     }
 
+    public static Label label(String text, boolean compact) {
+        return new Label(text, compact);
+    }
+
     public static PageSection pageSection() {
         return new PageSection();
     }
@@ -57,7 +62,15 @@ public final class Components {
         return new Pagination();
     }
 
-    public static Title title(int level, String text, Title.Size size) {
+    public static Spinner spinner() {
+        return new Spinner(null);
+    }
+
+    public static Spinner spinner(Size size) {
+        return new Spinner(size);
+    }
+
+    public static Title title(int level, String text, Size size) {
         return new Title(level, text, size);
     }
 

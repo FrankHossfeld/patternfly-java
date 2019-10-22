@@ -31,11 +31,11 @@ public class ChipGroup extends ElementBuilder<HTMLElement, ChipGroup>
     private boolean expanded;
     private Chip overflow;
 
-    public ChipGroup() {
+    ChipGroup() {
         this(-1);
     }
 
-    public ChipGroup(int max) {
+    ChipGroup(int max) {
         super(ul().css(component(chipGroup)).get());
 
         this.max = max > 1 ? max : -1; // assert max > 1

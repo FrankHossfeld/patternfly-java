@@ -1,16 +1,5 @@
 package org.patternfly.client.components;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import elemental2.dom.Element;
-import elemental2.dom.HTMLUListElement;
-import org.jboss.gwt.elemento.core.IsElement;
-import org.jboss.gwt.elemento.core.builder.ElementBuilder;
-import org.jboss.gwt.elemento.core.builder.HtmlContent;
-import org.patternfly.client.resources.Constants;
-import org.patternfly.client.resources.Dataset;
-
 import static elemental2.dom.DomGlobal.clearTimeout;
 import static elemental2.dom.DomGlobal.setTimeout;
 import static org.jboss.gwt.elemento.core.Elements.failSafeRemoveFromParent;
@@ -22,6 +11,18 @@ import static org.jboss.gwt.elemento.core.EventType.mouseover;
 import static org.patternfly.client.resources.CSS.component;
 import static org.patternfly.client.resources.CSS.modifier;
 import static org.patternfly.client.resources.Constants.alertGroup;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.jboss.gwt.elemento.core.IsElement;
+import org.jboss.gwt.elemento.core.builder.ElementBuilder;
+import org.jboss.gwt.elemento.core.builder.HtmlContent;
+import org.patternfly.client.resources.Constants;
+import org.patternfly.client.resources.Dataset;
+
+import elemental2.dom.Element;
+import elemental2.dom.HTMLUListElement;
 
 /**
  * PatternFly alert group component.

@@ -3,9 +3,9 @@ package org.patternfly.showcase.client.documentation;
 import static java.util.Collections.singletonList;
 import static org.jboss.gwt.elemento.core.Elements.div;
 import static org.jboss.gwt.elemento.core.Elements.p;
+import static org.patternfly.client.components.Components.title;
+import static org.patternfly.client.resources.CSS.Size.*;
 
-import org.patternfly.client.components.Title;
-import org.patternfly.client.components.Title.Size;
 import org.patternfly.showcase.client.resources.Code;
 
 class TitleDocumentation extends ComponentDocumentation {
@@ -18,12 +18,12 @@ class TitleDocumentation extends ComponentDocumentation {
                 singletonList(
                         new Demo("Title sizes", Code.get().title().getText(),
                                 () -> div()
-                                        .add(new Title(1, "4xl Title", Size.SIZE_4XL))
-                                        .add(new Title(2, "3xl Title", Size.SIZE_3XL))
-                                        .add(new Title(3, "2xl Title", Size.SIZE_2XL))
-                                        .add(new Title(4, "xl Title", Size.SIZE_XL))
-                                        .add(new Title(5, "lg Title", Size.SIZE_LG))
-                                        .add(new Title(6, "md Title", Size.SIZE_MD))
+                                        .add(title(1, "4xl Title", _4xl))
+                                        .add(title(2, "3xl Title", _3xl))
+                                        .add(title(3, "2xl Title", _2xl))
+                                        .add(title(4, "xl Title", _3xl))
+                                        .add(title(5, "lg Title", lg))
+                                        .add(title(6, "md Title", md))
                                         .get())));
     }
 }

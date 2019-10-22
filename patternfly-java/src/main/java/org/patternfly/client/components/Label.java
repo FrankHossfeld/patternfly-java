@@ -20,11 +20,11 @@ import elemental2.dom.HTMLElement;
 public class Label extends ElementBuilder<HTMLElement, Label>
         implements HtmlContent<HTMLElement, Label> {
 
-    public Label(String text) {
+    Label(String text) {
         this(text, false);
     }
 
-    public Label(String text, boolean compact) {
+    Label(String text, boolean compact) {
         super(span().css(component(label)).textContent(text).get());
         if (compact) {
             element.classList.add(modifier(Constants.compact));

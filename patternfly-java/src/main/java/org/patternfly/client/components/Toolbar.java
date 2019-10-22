@@ -22,7 +22,7 @@ import elemental2.dom.HTMLDivElement;
 public class Toolbar<T> extends ElementBuilder<HTMLDivElement, Toolbar<T>>
         implements HtmlContent<HTMLDivElement, Toolbar<T>>, Display<T> {
 
-    public Toolbar() {
+    Toolbar() {
         super(div().css(component(toolbar)).get());
     }
 

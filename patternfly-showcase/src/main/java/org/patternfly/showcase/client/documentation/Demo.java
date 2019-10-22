@@ -1,10 +1,9 @@
 package org.patternfly.showcase.client.documentation;
 
 import static org.jboss.gwt.elemento.core.Elements.*;
+import static org.patternfly.client.resources.CSS.Size.lg;
 import static org.patternfly.client.resources.CSS.component;
 import static org.patternfly.client.resources.CSS.fas;
-import static org.patternfly.client.resources.CSS.modifier;
-import static org.patternfly.client.resources.Constants.lg;
 import static org.patternfly.client.resources.Constants.title;
 
 import java.util.function.Supplier;
@@ -24,7 +23,7 @@ class Demo implements IsElement<HTMLElement> {
     Demo(String header, String code, Supplier<HTMLElement> demo) {
         demoSupplier = demo;
         root = section().css("sc-demo")
-                .add(h(3, header).css("sc-demo__heading", component(title), modifier(lg)))
+                .add(h(3, header).css("sc-demo__heading", component(title), lg.modifier()))
                 .add(this.demo = demo.get())
                 .add(div().css("sc-demo__toolbar")
                         .add(Button.icon(fas("code"), "Toggle code").onClick(this::toggleCode))

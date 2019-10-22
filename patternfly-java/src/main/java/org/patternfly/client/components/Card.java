@@ -1,15 +1,15 @@
 package org.patternfly.client.components;
 
-import static org.jboss.gwt.elemento.core.Elements.div;
-import static org.patternfly.client.resources.CSS.component;
-import static org.patternfly.client.resources.CSS.modifier;
-import static org.patternfly.client.resources.Constants.*;
-
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
 import org.jboss.gwt.elemento.core.builder.ElementBuilder;
 import org.jboss.gwt.elemento.core.builder.HtmlContent;
 
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
+import static org.jboss.gwt.elemento.core.Elements.div;
+import static org.patternfly.client.resources.CSS.Size.md;
+import static org.patternfly.client.resources.CSS.component;
+import static org.patternfly.client.resources.CSS.modifier;
+import static org.patternfly.client.resources.Constants.*;
 
 /**
  * PatternFly card component.
@@ -20,7 +20,7 @@ import elemental2.dom.HTMLElement;
 public class Card extends ElementBuilder<HTMLDivElement, Card>
         implements HtmlContent<HTMLDivElement, Card> {
 
-    public Card() {
+    Card() {
         super(div().css(component(card)).get());
     }
 
@@ -66,7 +66,7 @@ public class Card extends ElementBuilder<HTMLDivElement, Card>
             implements HtmlContent<HTMLElement, Header> {
 
         private Header() {
-            super(div().css(component(card, header), component(title), modifier(md)).get());
+            super(div().css(component(card, header), component(title), md.modifier()).get());
         }
 
         @Override

@@ -21,7 +21,7 @@ import elemental2.dom.HTMLFormElement;
 public class Form extends ElementBuilder<HTMLFormElement, Form>
         implements HtmlContent<HTMLFormElement, Form> {
 
-    public Form() {
+    Form() {
         super(form().css(component(form)).get());
     }
 

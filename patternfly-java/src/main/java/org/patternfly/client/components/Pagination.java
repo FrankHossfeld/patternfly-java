@@ -16,7 +16,7 @@ import elemental2.dom.HTMLDivElement;
 public class Pagination extends ElementBuilder<HTMLDivElement, Pagination>
         implements HtmlContent<HTMLDivElement, Pagination> {
 
-    public Pagination() {
+    Pagination() {
         super(div().get());
     }
 

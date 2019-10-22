@@ -73,7 +73,7 @@ public class MultiSelect<T> extends ElementBuilder<HTMLDivElement, MultiSelect<T
     private final HTMLElement text;
     private final HTMLElement menu;
 
-    public MultiSelect(String text, String icon, boolean typeahead) {
+    private MultiSelect(String text, String icon, boolean typeahead) {
         super(div().css(component(select)).get());
         this.typeahead = typeahead;
         this.ceh = new CollapseExpandHandler();

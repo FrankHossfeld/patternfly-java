@@ -1,1 +1,1 @@
-// NYI
+EmptyState loading = EmptyState.spinner();

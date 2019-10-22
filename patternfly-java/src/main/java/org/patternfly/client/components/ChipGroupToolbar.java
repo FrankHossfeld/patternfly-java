@@ -24,7 +24,7 @@ import elemental2.dom.HTMLElement;
 public class ChipGroupToolbar extends ElementBuilder<HTMLElement, ChipGroupToolbar>
         implements HtmlContent<HTMLElement, ChipGroupToolbar> {
 
-    public ChipGroupToolbar() {
+    ChipGroupToolbar() {
         super(ul().css(component(chipGroup), modifier(toolbar)).get());
     }
 

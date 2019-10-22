@@ -4,9 +4,6 @@ package org.patternfly.client.resources;
 public interface Constants {
 
     String _1 = "-1";
-    String _4xl = "4xl";
-    String _3xl = "3xl";
-    String _2xl = "2xl";
     String action = "action";
     String active = "active";
     String alert = "alert";
@@ -27,6 +24,7 @@ public interface Constants {
     String check = "check";
     String chip = "chip";
     String chipGroup = "chip-group";
+    String clipper = "clipper";
     String compact = "compact";
     String content = "content";
     String contextSelector = "context-selector";
@@ -70,14 +68,13 @@ public interface Constants {
     String itemRow = "item-row";
     String label = "label";
     String labelledBy = "labelledby";
-    String lg = "lg";
+    String leadBall = "lead-ball";
     String light = "light";
     String link = "link";
     String list = "list";
     String listbox = "listbox";
     String main = "main";
     String mainSection = "main-section";
-    String md = "md";
     String menu = "menu";
     String menuitem = "menuitem";
     String nav = "nav";
@@ -89,6 +86,7 @@ public interface Constants {
     String plain = "plain";
     String presentation = "presentation";
     String primary = "primary";
+    String progressbar = "progressbar";
     String read = "read";
     String readOnly = "read-only";
     String role = "role";
@@ -100,10 +98,12 @@ public interface Constants {
     String separator = "separator";
     String sidebar = "sidebar";
     String simple = "simple";
+    String spinner = "spinner";
     String splitButton = "split-button";
     String subnav = "subnav";
     String success = "success";
     String tabindex = "tabindex";
+    String tailBall = "tail-ball";
     String tertiary = "tertiary";
     String text = "text";
     String title = "title";
@@ -115,7 +115,7 @@ public interface Constants {
     String true_ = "true";
     String type = "type";
     String unread = "unread";
+    String valueText = "value-text";
     String warning = "warning";
     String wrapper = "wrapper";
-    String xl = "xl";
 }

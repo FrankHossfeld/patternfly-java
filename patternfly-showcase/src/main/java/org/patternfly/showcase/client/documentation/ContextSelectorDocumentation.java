@@ -9,7 +9,6 @@ import static org.patternfly.client.resources.CSS.util;
 
 import org.patternfly.client.components.Badge;
 import org.patternfly.client.components.Components;
-import org.patternfly.client.components.ContextSelector;
 import org.patternfly.showcase.client.resources.Code;
 
 class ContextSelectorDocumentation extends ComponentDocumentation {
@@ -22,7 +21,7 @@ class ContextSelectorDocumentation extends ComponentDocumentation {
                 asList(
                         new Demo("Simple context selector", Code.get().contextSelectorSimple().getText(),
                                 () -> div()
-                                        .add(new ContextSelector<String>("Stage")
+                                        .add(Components.<String> contextSelector("Stage")
                                                 .add(asList("Development", "Staging", "QA", "Production")))
                                         .get()),
                         new Demo("Typed context selector", Code.get().contextSelectorTyped().getText(),
@@ -40,7 +39,7 @@ class ContextSelectorDocumentation extends ComponentDocumentation {
                                         .get()),
                         new Demo("Context selector events", Code.get().contextSelectorEvent().getText(),
                                 () -> div()
-                                        .add(new ContextSelector<String>("Stage")
+                                        .add(Components.<String> contextSelector("Stage")
                                                 .onToggle(open -> toast().add(
                                                         info("Context selector " + (open ? "expanded" : "collapsed"))))
                                                 .onSelect(

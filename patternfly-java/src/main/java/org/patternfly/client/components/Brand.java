@@ -15,7 +15,7 @@ import elemental2.dom.HTMLImageElement;
  */
 public class Brand extends ElementBuilder<HTMLImageElement, Brand> {
 
-    public Brand(String src) {
+    Brand(String src) {
         super(img(src).css(brand).get());
     }
 
