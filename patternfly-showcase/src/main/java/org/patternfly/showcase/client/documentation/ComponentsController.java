@@ -36,6 +36,7 @@ public class ComponentsController
         components.put("empty-state", new EmptyStateDocumentation());
         components.put("expandable", new ExpandableDocumentation());
         components.put("label", new LabelDocumentation());
+        components.put("text", new TextDocumentation());
         components.put("title", new TitleDocumentation());
     }
 

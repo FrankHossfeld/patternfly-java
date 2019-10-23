@@ -174,6 +174,21 @@ public interface Code extends ClientBundle {
     @Source("code/label.java")
     TextResource label();
 
+    @Source("code/text_body.java")
+    TextResource text_body();
+
+    @Source("code/text_data_list.java")
+    TextResource text_data_list();
+
+    @Source("code/text_headings.java")
+    TextResource text_headings();
+
+    @Source("code/text_unordered_list.java")
+    TextResource text_unordered_list();
+
+    @Source("code/text_ordered_list.java")
+    TextResource text_ordered_list();
+
     @Source("code/title.java")
     TextResource title();
 }
